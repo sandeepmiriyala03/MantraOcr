@@ -865,16 +865,20 @@
         mantraTitleInput.focus();
     });
 
-    btnDownloadMantra.addEventListener('click', () => {
-        const allMantras = { ...defaultRitualsMantras, ...ritualsMantras };
-        const dataStr = JSON.stringify(allMantras, null, 2);
-        const blob = new Blob([dataStr], { type: 'text/plain' });
-        const a = document.createElement('a');
-        a.download = 'all_mantras.txt';
-        a.href = URL.createObjectURL(blob);
-        a.click();
-        URL.revokeObjectURL(a.href);
-    });
+// The updated download function with UTF-8 encoding
+        btnDownloadMantra.addEventListener('click', () => {
+            const allMantras = { ...defaultRitualsMantras, ...ritualsMantras };
+            const dataStr = JSON.stringify(allMantras, null, 2);
+            // Specify UTF-8 charset
+            const blob = new Blob([dataStr], { type: 'text/plain;charset=utf-8' });
+            const a = document.createElement('a');
+            a.download = 'all_mantras.txt';
+            a.href = URL.createObjectURL(blob);
+            a.click();
+            URL.revokeObjectURL(a.href);
+        });
+
+  
 </script>
 </body>
 </html>
