@@ -1,22 +1,22 @@
 :root {
     --primary-color: #5a67d8;
-    --primary-dark: #4c51bf;
-    --secondary-color: #e2e8f0;
-    --secondary-dark: #cbd5e1;
+    --primary-dark: #4c1f9bd;
+    --secondary-color: #e2e2f0;
+    --secondary-dark: #cbbdcd1;
     --background-color: #f0f4f8;
     --card-background: #ffffff;
     --text-color: #2d3748;
     --light-text-color: #718096;
-    --border-color: #e2e8f0;
-    --success-color: #48bb78;
+    --border-color: #e2e2f0;
+    --success-color: #48c34a;
     --error-color: #c0392b;
-    --info-color: #4299e1;
+    --info-color: #427ae1;
     --border-radius: 12px;
     --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    --box-shadow-hover: 0 8px 20px rgba(0, 0, 0, 0.12);
-    --pitch-high-color: #1f3674;
-    --pitch-low-color: #a08b5e;
-    --button-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --box-shadow-hover: 0 8px 20px rgba(0, 0, 0, 0.1);
+    --pitch-high-color: #2f367a;
+    --pitch-low-color: #a0815e;
+    --button-shadow: 0 5px 6px rgba(0, 0, 0, 0.06);
 }
 
 body {
@@ -67,24 +67,36 @@ h1, h2 {
     box-shadow: var(--button-shadow);
 }
 
-.status.info { background: #e6f4ff; color: #1c7ed6; }
-.status.success { background: #e9f5e9; color: #2f855a; }
-.status.error { background: #ffebeb; color: #c0392b; }
+.status.info {
+    background: #e6f0ff;
+    color: #3f90ff;
+}
 
-.button, .secondary-btn {
+.status.success {
+    background: #e0ffe4;
+    color: #2d9b3d;
+}
+
+.status.error {
+    background: #ffe1e1;
+    color: #cc2727;
+}
+
+.button,
+.secondary-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     font-family: 'Roboto', sans-serif;
     font-weight: 500;
-    padding: 0.75rem 1.5rem;
+    padding: 0.85rem 1.75rem;
     border-radius: var(--border-radius);
     cursor: pointer;
-    gap: 0.5rem;
+    gap: 0.75rem;
     box-shadow: var(--button-shadow);
-    min-height: 48px;
-    min-width: 120px;
-    transition: background-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+    min-height: 52px;
+    min-width: 130px;
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s;
     border: none;
     user-select: none;
     text-align: center;
@@ -92,35 +104,38 @@ h1, h2 {
 }
 
 .button {
-    background: var(--primary-color);
+    background-color: var(--primary-color);
     color: white;
 }
+
 .button:hover:not(:disabled) {
-    background: var(--primary-dark);
+    background-color: var(--primary-dark);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
     transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
 }
+
 .button:active:not(:disabled) {
     transform: translateY(0);
     box-shadow: var(--button-shadow);
 }
+
 .button:disabled {
-    opacity: 0.6;
+    background: #cbd3db;
     cursor: not-allowed;
-    pointer-events: none;
-    color: #94a3b8;
-    background: #cbd5e1;
+    color: #aab3bb;
     box-shadow: none;
 }
 
 .secondary-btn {
-    background: var(--secondary-color);
+    background-color: var(--secondary-color);
     color: var(--text-color);
 }
+
 .secondary-btn:hover:not(:disabled) {
-    background: var(--secondary-dark);
+    background-color: var(--secondary-dark);
 }
-.secondary-btn:focus, 
+
+.secondary-btn:focus,
 .button:focus {
     outline: 3px solid var(--primary-color);
     outline-offset: 3px;
@@ -130,14 +145,14 @@ h1, h2 {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
-    margin-top: 1rem;
+    gap: 1.25rem;
     flex-wrap: wrap;
+    margin-top: 1rem;
 }
 
-/* Space between buttons in flex container */
-.flex-container > .button, .flex-container > .secondary-btn {
-    margin: 0.5rem 0;
+.flex-container > .button,
+.flex-container > .secondary-btn {
+    margin: 0.75rem 0;
 }
 
 .file-input-wrapper {
@@ -159,80 +174,83 @@ img#preview {
     max-width: 100%;
     max-height: 300px;
     display: none;
-    margin: 1.5rem auto;
+    margin: 1.75rem auto;
     border-radius: var(--border-radius);
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.12);
     object-fit: contain;
 }
 
 label {
-    font-weight: 500;
-    margin-bottom: 0.5rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
     display: block;
     color: var(--text-color);
 }
 
-input[type="text"], textarea {
+input[type="text"],
+textarea {
     width: 100%;
-    padding: 1rem;
-    border: 1px solid var(--border-color);
+    padding: 1.15rem;
+    border: 1.5px solid var(--border-color);
     border-radius: var(--border-radius);
-    font-size: 1.25rem;
+    font-size: 1.3rem;
     font-family: 'Noto Sans Telugu', serif;
-    background: var(--background-color);
-    transition: border-color 0.2s ease;
+    background-color: var(--background-color);
+    transition: border-color 0.25s ease;
     resize: vertical;
-    min-height: 150px;
     box-sizing: border-box;
 }
 
 input[type="text"] {
-    min-height: unset;
-    height: 48px;
-    font-size: 1rem;
+    height: 50px;
+    font-size: 1.1rem;
 }
 
-input[type="text"]:focus, textarea:focus {
+input[type="text"]:focus,
+textarea:focus {
     outline: none;
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(90, 103, 216, 0.2);
+    box-shadow: 0 0 0 4px rgba(90, 103, 216, 0.25);
 }
 
 .pitch-buttons {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 1rem;
-    margin-top: 1rem;
+    gap: 1.25rem;
 }
 
-/* Pitch marks styling */
+.pitch-buttons button {
+    font-size: 1.05rem;
+}
+
 .pitch-marked-char {
     position: relative;
     display: inline-flex;
     flex-direction: column;
     align-items: center;
-    line-height: 1.5;
+    line-height: 1.6;
     font-family: 'Noto Sans Telugu', serif;
     text-align: center;
     cursor: pointer;
-    padding: 0.4em 0.2em;
-    transition: background-color 0.2s ease;
+    padding: 0.5rem 0.3rem;
+    transition: background-color 0.25s ease;
+    user-select: none;
 }
 
 .pitch-marked-char:hover {
     background-color: var(--secondary-color);
-    border-radius: 4px;
+    border-radius: 5px;
 }
 
 .pitch-marked-char.high::before {
     content: "|";
     position: absolute;
-    top: -0.7em;
+    top: -0.8em;
     left: 50%;
     transform: translateX(-50%);
     color: var(--pitch-high-color);
-    font-size: 0.8em;
-    margin-top: 0.2em;
+    font-size: 1rem;
+    font-weight: 600;
 }
 
 .pitch-marked-char.low::after {
@@ -242,28 +260,29 @@ input[type="text"]:focus, textarea:focus {
     left: 50%;
     transform: translateX(-50%);
     color: var(--pitch-low-color);
-    font-size: 0.8em;
+    font-size: 1rem;
+    font-weight: 600;
 }
 
 @media (max-width: 768px) {
     body {
-        padding: 1rem;
-    }
-    .section {
-        padding: 1.5rem;
+        padding: 1.5rem 1rem;
     }
     h1, h2 {
-        font-size: 1.5rem;
+        font-size: 1.6rem;
     }
-    .button, .secondary-btn {
+    .button,
+    .secondary-btn {
         width: 100%;
-        max-width: 100%;
-        font-size: 1.1rem;
-        padding: 1rem;
+        font-size: 1.2rem;
+        padding: 1.2rem;
     }
     .flex-container {
         flex-direction: column;
-        gap: 1rem;
+        gap: 1.5rem;
         align-items: stretch;
+    }
+    .pitch-buttons {
+        grid-template-columns: 1fr !important;
     }
 }
