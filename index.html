@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Telugu OCR & Pitch Marks</title>
+    <title>Telugu OCR & Mantra Manager</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -42,12 +42,19 @@
             align-items: center;
         }
 
-        h1, h2 {
+        h1 {
             font-family: 'Noto Sans Telugu', serif;
             color: var(--primary-dark);
             text-align: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
             letter-spacing: -0.5px;
+        }
+
+        h2 {
+            font-family: 'Noto Sans Telugu', serif;
+            color: var(--primary-dark);
+            text-align: left;
+            margin-bottom: 1.5rem;
         }
 
         .main-container {
@@ -224,24 +231,25 @@
         }
         
         .pitch-marked-char.high::before {
-            content: "▲";
+            content: "¯";
             position: absolute;
             top: -0.7em;
             left: 50%;
             transform: translateX(-50%);
             color: var(--pitch-high-color);
-            font-size: 0.8em;
-            margin-top: 0.2em;
+            font-size: 1.2em;
+            font-weight: bold;
         }
         
         .pitch-marked-char.low::after {
-            content: "▼";
+            content: "_";
             position: absolute;
             bottom: -0.5em;
             left: 50%;
             transform: translateX(-50%);
             color: var(--pitch-low-color);
-            font-size: 0.8em;
+            font-size: 1.2em;
+            font-weight: bold;
         }
 
         .spinner {
@@ -266,6 +274,37 @@
             flex-direction: column;
             gap: 1rem;
             margin-bottom: 1.5rem;
+        }
+        
+        .top-tabs-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .top-tab-button {
+            padding: 1rem 2rem;
+            border-radius: var(--border-radius);
+            background: var(--secondary-color);
+            color: var(--text-color);
+            font-weight: 500;
+            cursor: pointer;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            text-align: center;
+            min-width: 180px;
+        }
+
+        .top-tab-button:hover {
+            background: var(--secondary-dark);
+        }
+
+        .top-tab-button.active {
+            background: var(--primary-color);
+            color: white;
+            box-shadow: 0 0 0 3px rgba(90, 103, 216, 0.2);
         }
 
         .tab-button {
@@ -335,6 +374,52 @@
             line-height: 2.2;
             text-align: justify;
         }
+        
+        .hidden {
+            display: none;
+        }
+
+        .go-top-btn, .go-down-btn {
+            position: fixed;
+            right: 2rem;
+            bottom: 2rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: var(--box-shadow);
+            z-index: 1000;
+            transition: transform 0.2s ease;
+        }
+        
+        .go-top-btn:hover, .go-down-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .go-down-btn {
+            bottom: 7rem;
+        }
+
+        footer {
+            margin-top: 4rem;
+            text-align: center;
+            color: var(--light-text-color);
+            font-size: 0.9rem;
+        }
+
+        footer h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        footer p {
+            margin: 0;
+        }
 
         /* Mobile-first adjustments */
         @media (max-width: 768px) {
@@ -344,8 +429,12 @@
             .section {
                 padding: 1.5rem;
             }
-            h1, h2 {
+            h1 {
                 font-size: 1.5rem;
+            }
+            .top-tab-button {
+                width: 100%;
+                min-width: unset;
             }
             .button {
                 width: 100%;
@@ -360,10 +449,24 @@
 <body>
     <div class="main-container">
         <h1>Sanskrit / Telugu OCR & Mantra Manager 🙏</h1>
-        <div class="status info" id="status">Upload an image to begin</div>
+        <div class="status info" id="status">Upload an image to begin / ప్రారంభించడానికి ఒక చిత్రాన్ని అప్‌లోడ్ చేయండి.</div>
+
+        <div class="top-tabs-container">
+            <button class="top-tab-button active" id="tabOcr">OCR / కొత్త మంత్రం</button>
+            <button class="top-tab-button" id="tabViewMantra">Existing Mantras / ఉన్న మంత్రాలు</button>
+        </div>
         
         <div class="section" id="ocrSection">
-            <h2>1. Extract Mantra from Image</h2>
+            <h2>1. Extract Mantra from Image / చిత్రం నుండి మంత్రాన్ని సంగ్రహించండి</h2>
+            <div class="how-to-use" style="margin-bottom: 2rem; color: var(--light-text-color); font-size: 0.9rem;">
+                <h3>How to use / ఎలా వాడాలి</h3>
+                <ol>
+                    <li>Click 'Upload Image' and select a photo of a mantra.</li>
+                    <li>Click 'Start OCR' to extract the text.</li>
+                    <li>Click on the OCR text and then click 'High Pitch' or 'Low Pitch' to mark the syllables.</li>
+                    <li>Give the mantra a title and description, then click 'Save New Mantra'.</li>
+                </ol>
+            </div>
             <div class="flex-container">
                 <div class="file-input-wrapper">
                     <button class="button" id="uploadBtn">
@@ -380,47 +483,59 @@
             </div>
             <img id="preview" alt="Uploaded Image" />
             <div style="margin-top: 1.5rem; text-align: left;">
-                <label for="ocrText">OCR Output (Edit & Mark Pitches)</label>
+                <label for="ocrText">OCR Output (Edit & Mark Pitches) / OCR ఫలితం (సవరించండి & పిచ్‌లను గుర్తించండి)</label>
                 <textarea id="ocrText" placeholder="OCR result will appear here"></textarea>
                 <div class="pitch-buttons">
-                    <button class="button secondary-btn" id="btnPitchHigh">High Pitch (ఉదాత్తం) 🔼</button>
-                    <button class="button secondary-btn" id="btnPitchLow">Low Pitch (అనుదాత్తం) 🔽</button>
-                    <button class="button secondary-btn" id="btnClear">Clear All 🗑️</button>
+                    <button class="button secondary-btn" id="btnPitchHigh">High Pitch (ఉదాత్తం) ¯</button>
+                    <button class="button secondary-btn" id="btnPitchLow">Low Pitch (అనుదాత్తం) _</button>
+                    <button class="button secondary-btn" id="btnClear">Clear All / అన్నీ తొలగించండి 🗑️</button>
                 </div>
             </div>
             <div style="margin-top: 2rem;">
-                <label for="mantraTitle">Mantra Title:</label>
+                <label for="mantraTitle">Mantra Title: / మంత్రం పేరు:</label>
                 <input type="text" id="mantraTitle" placeholder="e.g., SriGayatriMantra">
             </div>
             <div style="margin-top: 1rem;">
-                <label for="mantraDescription">Description:</label>
+                <label for="mantraDescription">Description: / వివరణ:</label>
                 <textarea id="mantraDescription" style="min-height: 80px;" placeholder="Brief description of the mantra"></textarea>
             </div>
             <div class="flex-container">
-                <button class="button" id="btnSaveMantra">Save New Mantra ✨</button>
+                <button class="button" id="btnSaveMantra">Save New Mantra / కొత్త మంత్రాన్ని సేవ్ చేయండి ✨</button>
             </div>
         </div>
 
-        <div class="section" id="viewMantraSection">
-            <h2>2. View & Edit Mantras</h2>
-            <p style="color: var(--light-text-color);">Select a mantra to view its content or edit it with pitch marks.</p>
+        <div class="section hidden" id="viewMantraSection">
+            <h2>2. View & Edit Mantras / మంత్రాలను చూడండి & సవరించండి</h2>
+            <p style="color: var(--light-text-color);">Select a mantra to view its content or edit it with pitch marks. / ఒక మంత్రాన్ని దాని కంటెంట్‌ను చూడటానికి లేదా పిచ్ మార్క్‌లతో సవరించడానికి ఎంచుకోండి.</p>
             <div class="tab-container" id="tabContainer"></div>
             <div class="mantra-card" id="mantraDisplayCard">
                 <div id="mantraTitleDisplay"><h3></h3></div>
                 <div id="mantraDescriptionDisplay"><p></p></div>
                 <div id="mantraContentDisplay" class="pitch-display">
-                    Select a mantra tab to view its content.
+                    Select a mantra tab to view its content. / దాని కంటెంట్‌ను చూడటానికి ఒక మంత్రం ట్యాబ్‌ను ఎంచుకోండి.
                 </div>
                 <div class="flex-container">
                     <button class="button secondary-btn" id="btnEditMantra" disabled>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-edit-3"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-                        Edit Mantra
+                        Edit Mantra / మంత్రాన్ని సవరించండి
                     </button>
                 </div>
             </div>
         </div>
-
     </div>
+
+    <button class="go-top-btn hidden" id="goTopBtn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>
+    </button>
+    <button class="go-down-btn hidden" id="goDownBtn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-down"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+    </button>
+
+    <footer>
+        <h3>Pure Tech Stack</h3>
+        <p>HTML, CSS, JavaScript, and Tesseract.js (for OCR)</p>
+        <p>Copyright © 2024 Sandeep Miriyala. All Rights Reserved.</p>
+    </footer>
 
 <script>
     const ritualsMantras = {
@@ -496,6 +611,13 @@
     const mantraDescriptionDisplay = document.getElementById('mantraDescriptionDisplay');
     const mantraContentDisplay = document.getElementById('mantraContentDisplay');
     const btnEditMantra = document.getElementById('btnEditMantra');
+    const goTopBtn = document.getElementById('goTopBtn');
+    const goDownBtn = document.getElementById('goDownBtn');
+
+    const tabOcr = document.getElementById('tabOcr');
+    const tabViewMantra = document.getElementById('tabViewMantra');
+    const ocrSection = document.getElementById('ocrSection');
+    const viewMantraSection = document.getElementById('viewMantraSection');
 
     let currentFile = null;
     let pitchMarks = [];
@@ -507,10 +629,11 @@
     }
 
     async function initWorker() {
-        updateStatus("Initializing OCR engine...", 'info');
+        updateStatus("Initializing OCR engine... / OCR ఇంజిన్‌ను ప్రారంభిస్తోంది...", 'info');
         try {
+            // Updated langPath to the correct Tesseract data repository
             worker = await Tesseract.createWorker({
-                langPath: "https://cdn.jsdelivr.net/npm/tessdata@4.0.0",
+                langPath: "https://tessdata.projectnaptha.com/4.00/",
                 logger: m => {
                     if (m.status === "recognizing text") {
                         updateStatus(`Recognizing text: ${(m.progress * 100).toFixed(2)}%`, 'info');
@@ -520,11 +643,10 @@
             await worker.load();
             await worker.loadLanguage("tel");
             await worker.initialize("tel");
-            updateStatus("OCR engine ready. Upload an image to start.", 'success');
+            updateStatus("OCR engine ready. Upload an image to start. / OCR ఇంజిన్ సిద్ధంగా ఉంది. ప్రారంభించడానికి ఒక చిత్రాన్ని అప్‌లోడ్ చేయండి.", 'success');
         } catch (error) {
             console.error("OCR initialization error:", error);
-            updateStatus("Failed to initialize OCR engine. You can still use the pre-loaded mantras.", 'error');
-            // OCR failed, but we still want to load the initial mantras.
+            updateStatus("Failed to initialize OCR engine. You can still use the pre-loaded mantras. / OCR ఇంజిన్‌ను ప్రారంభించడం విఫలమైంది. మీరు ఇప్పటికీ ముందుగా లోడ్ చేయబడిన మంత్రాలను ఉపయోగించవచ్చు.", 'error');
         } finally {
             renderMantraTabs();
         }
@@ -536,7 +658,7 @@
         currentFile = imageInput.files[0];
         preview.src = URL.createObjectURL(currentFile);
         preview.style.display = 'block';
-        updateStatus("Image loaded. Click 'Start OCR' to process.", 'info');
+        updateStatus("Image loaded. Click 'Start OCR' to process. / చిత్రం లోడ్ చేయబడింది. ప్రాసెస్ చేయడానికి 'Start OCR' పై క్లిక్ చేయండి.", 'info');
         btnOcr.disabled = false;
         ocrTextarea.value = "";
         pitchMarks = [];
@@ -546,7 +668,7 @@
         if (!currentFile || !worker) return;
         btnOcr.disabled = true;
         ocrSpinner.style.display = 'inline-block';
-        updateStatus("Performing OCR...", 'info');
+        updateStatus("Performing OCR... / OCR నిర్వహిస్తోంది...", 'info');
 
         try {
             const { data } = await worker.recognize(currentFile, 'tel');
@@ -557,9 +679,9 @@
             const segments = Array.from(segmenter.segment(sanitizedText));
             pitchMarks = Array(segments.length).fill('none');
 
-            updateStatus("OCR complete. Select text and click a pitch button.", 'success');
+            updateStatus("OCR complete. Select text and click a pitch button. / OCR పూర్తయింది. వచనాన్ని ఎంచుకుని, పిచ్ బటన్‌పై క్లిక్ చేయండి.", 'success');
         } catch (error) {
-            updateStatus("An error occurred during OCR.", 'error');
+            updateStatus("An error occurred during OCR. / OCR సమయంలో లోపం సంభవించింది.", 'error');
             console.error("OCR Error:", error);
         } finally {
             btnOcr.disabled = false;
@@ -589,20 +711,20 @@
         const endIndex = ocrTextarea.selectionEnd;
 
         if (startIndex === endIndex) {
-            alert("Please select some text in the OCR Output box first.");
+            updateStatus("Please select some text in the OCR Output box first. / దయచేసి ముందుగా OCR అవుట్‌పుట్ బాక్స్‌లో కొంత వచనాన్ని ఎంచుకోండి.", 'error');
             return;
         }
         
         const selectedGraphemeIndices = getGraphemeIndices(fullText, startIndex, endIndex);
         if (selectedGraphemeIndices.length === 0) {
-            alert("Please select some text in the OCR Output box first.");
+            updateStatus("Please select some text in the OCR Output box first. / దయచేసి ముందుగా OCR అవుట్‌పుట్ బాక్స్‌లో కొంత వచనాన్ని ఎంచుకోండి.", 'error');
             return;
         }
 
         selectedGraphemeIndices.forEach(index => {
             pitchMarks[index] = pitchType;
         });
-        updateStatus(`Pitches marked. You can now save the mantra or edit the text.`, 'info');
+        updateStatus(`Pitches marked. You can now save the mantra or edit the text. / పిచ్‌లు గుర్తించబడ్డాయి. మీరు ఇప్పుడు మంత్రాన్ని సేవ్ చేయవచ్చు లేదా వచనాన్ని సవరించవచ్చు.`, 'info');
     }
 
     btnPitchHigh.addEventListener('click', () => preparePitches('high'));
@@ -616,8 +738,8 @@
         pitchMarks = [];
         mantraTitleInput.value = '';
         mantraDescriptionInput.value = '';
-        updateStatus('All OCR content cleared. Upload an image to begin.', 'info');
-        btnSaveMantra.textContent = 'Save New Mantra ✨';
+        updateStatus('All OCR content cleared. Upload an image to begin. / అన్ని OCR కంటెంట్ తొలగించబడింది. ప్రారంభించడానికి ఒక చిత్రాన్ని అప్‌లోడ్ చేయండి.', 'info');
+        btnSaveMantra.textContent = 'Save New Mantra / కొత్త మంత్రాన్ని సేవ్ చేయండి ✨';
         currentMantraKey = null;
     });
 
@@ -627,19 +749,19 @@
         const fullText = ocrTextarea.value;
         
         if (!title) {
-            alert('Please provide a unique title.');
+            updateStatus('Please provide a unique title. / దయచేసి ఒక ప్రత్యేకమైన పేరును అందించండి.', 'error');
             return;
         }
 
         const newKey = title.replace(/\s+/g, '');
 
         if (newKey !== currentMantraKey && ritualsMantras.hasOwnProperty(newKey)) {
-            alert(`The title "${title}" already exists. Please choose a unique title.`);
+            updateStatus(`The title "${title}" already exists. Please choose a unique title. / "${title}" అనే పేరు ఇప్పటికే ఉంది. దయచేసి ఒక ప్రత్యేకమైన పేరును ఎంచుకోండి.`, 'error');
             return;
         }
 
         if (fullText.trim().length === 0) {
-            alert('OCR output is empty. Please run OCR and mark text before saving.');
+            updateStatus('OCR output is empty. Please run OCR and mark text before saving. / OCR అవుట్‌పుట్ ఖాళీగా ఉంది. దయచేసి సేవ్ చేయడానికి ముందు OCR రన్ చేసి వచనాన్ని గుర్తించండి.', 'error');
             return;
         }
         
@@ -690,15 +812,16 @@
         console.log(JSON.stringify(ritualsMantras[newKey], null, 2));
         console.log("----------------------------");
 
-        updateStatus(`Mantra "${title}" has been saved. You can now view it in the tabs below.`, 'success');
+        updateStatus(`Mantra "${title}" has been saved. You can now view it in the tabs below. / "${title}" మంత్రం సేవ్ చేయబడింది. మీరు ఇప్పుడు దానిని కింద ట్యాబ్‌లలో చూడవచ్చు.`, 'success');
         renderMantraTabs();
         loadMantra(newKey);
         mantraTitleInput.value = "";
         mantraDescriptionInput.value = "";
-        btnSaveMantra.textContent = 'Save New Mantra ✨';
+        btnSaveMantra.textContent = 'Save New Mantra / కొత్త మంత్రాన్ని సేవ్ చేయండి ✨';
         
-        // Scroll to the new mantra in the view section
         document.getElementById('viewMantraSection').scrollIntoView({ behavior: 'smooth' });
+        goTopBtn.classList.remove('hidden');
+        goDownBtn.classList.add('hidden');
     });
 
     function renderMantraTabs() {
@@ -715,82 +838,65 @@
                 tabButton.appendChild(titleSpan);
 
                 const deleteBtn = document.createElement('button');
-                deleteBtn.textContent = 'X';
                 deleteBtn.className = 'delete-btn';
-                deleteBtn.setAttribute('title', 'Delete Mantra');
-                deleteBtn.addEventListener('click', (event) => {
-                    event.stopPropagation();
-                    if (confirm(`Are you sure you want to delete the mantra "${mantra.title}"?`)) {
-                        delete ritualsMantras[key];
-                        updateStatus(`Mantra "${mantra.title}" has been deleted.`, 'success');
-                        renderMantraTabs();
-                        if (currentMantraKey === key) {
-                            mantraContentDisplay.innerHTML = "Select a mantra tab to view its content.";
-                            mantraTitleDisplay.innerHTML = `<h3></h3>`;
-                            mantraDescriptionDisplay.innerHTML = `<p></p>`;
-                            btnEditMantra.disabled = true;
-                            currentMantraKey = null;
-                            btnSaveMantra.textContent = 'Save New Mantra ✨';
-                            mantraTitleInput.value = "";
-                            mantraDescriptionInput.value = "";
-                            ocrTextarea.value = "";
-                        }
+                deleteBtn.innerHTML = '&#x2715;'; // X symbol
+                deleteBtn.title = `Delete ${mantra.title}`;
+                deleteBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    delete ritualsMantras[key];
+                    if (currentMantraKey === key) {
+                        currentMantraKey = null;
+                        mantraTitleDisplay.innerHTML = '<h3></h3>';
+                        mantraDescriptionDisplay.innerHTML = '<p></p>';
+                        mantraContentDisplay.innerHTML = 'Select a mantra tab to view its content. / దాని కంటెంట్‌ను చూడటానికి ఒక మంత్రం ట్యాబ్‌ను ఎంచుకోండి.';
+                        btnEditMantra.disabled = true;
                     }
+                    renderMantraTabs();
+                    updateStatus(`Mantra "${mantra.title}" deleted. / "${mantra.title}" మంత్రం తొలగించబడింది.`, 'info');
                 });
                 tabButton.appendChild(deleteBtn);
-
-                tabButton.addEventListener('click', (event) => {
-                    document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
-                    event.currentTarget.classList.add('active');
-                    loadMantra(event.currentTarget.getAttribute('data-key'));
-                    btnEditMantra.disabled = false;
-                });
+                
+                tabButton.addEventListener('click', () => loadMantra(key));
                 tabContainer.appendChild(tabButton);
             }
         }
     }
 
-    function loadMantra(mantraKey) {
-        const ritual = ritualsMantras[mantraKey];
-        if (!ritual) {
-            updateStatus(`Mantra "${mantraKey}" not found.`, 'error');
-            return;
-        }
-        currentMantraKey = mantraKey;
+    function loadMantra(key) {
+        const mantra = ritualsMantras[key];
+        currentMantraKey = key;
+
+        // Reset active state for all tabs
+        document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+        // Set active state for the clicked tab
+        document.querySelector(`.tab-button[data-key="${key}"]`).classList.add('active');
+
+        mantraTitleDisplay.innerHTML = `<h3>${mantra.title}</h3>`;
+        mantraDescriptionDisplay.innerHTML = `<p>${mantra.description}</p>`;
         
-        const hasPitchMarks = ritual.instructions.some(instruction => 
-            Array.isArray(instruction.mantra) && instruction.mantra.some(line => line.some(syl => syl.pitch))
-        );
-        btnEditMantra.disabled = !hasPitchMarks;
-        
-        mantraTitleDisplay.innerHTML = `<h3>${ritual.title}</h3>`;
-        mantraDescriptionDisplay.innerHTML = `<p>${ritual.description}</p>`;
-        
-        let outputHtml = '';
-        ritual.instructions.forEach(instruction => {
+        let displayContent = '';
+        mantra.instructions.forEach(instruction => {
             if (typeof instruction.mantra === 'string') {
-                outputHtml += `<p style="font-family: 'Noto Sans Telugu', serif; font-size: 1.25rem;">${instruction.mantra}</p>`;
+                displayContent += `<p>${instruction.mantra}</p>`;
             } else if (Array.isArray(instruction.mantra)) {
                 instruction.mantra.forEach(line => {
-                    let lineHtml = '';
                     line.forEach(syllable => {
-                        let pitchClass = '';
-                        if (syllable.pitch) {
-                            pitchClass = ` ${syllable.pitch}`;
-                        }
-                        lineHtml += `<span class="pitch-marked-char${pitchClass}">${syllable.char}</span>`;
+                        const pitchClass = syllable.pitch === 'high' ? 'high' : (syllable.pitch === 'low' ? 'low' : '');
+                        displayContent += `<span class="pitch-marked-char ${pitchClass}">${syllable.char}</span>`;
                     });
-                    outputHtml += `<p style="margin: 0; padding: 0;">${lineHtml}</p>`;
+                    displayContent += '<br>';
                 });
             }
         });
-        mantraContentDisplay.innerHTML = outputHtml;
-        updateStatus(`"${ritual.title}" mantra loaded successfully.`, 'success');
+
+        mantraContentDisplay.innerHTML = displayContent;
+        btnEditMantra.disabled = false;
+        updateStatus(`"${mantra.title}" mantra loaded successfully.`, 'success');
     }
 
     btnEditMantra.addEventListener('click', () => {
         if (!currentMantraKey) {
-            alert("Please select a mantra to edit first.");
+            updateStatus("Please select a mantra to edit first.", 'error');
             return;
         }
 
@@ -818,11 +924,63 @@
         ocrTextarea.value = fullText.trim();
         pitchMarks = newPitchMarks;
         
-        updateStatus(`Editing "${mantraToEdit.title}". Make changes and click 'Save Mantra' to update.`, 'info');
-        btnSaveMantra.textContent = 'Save Mantra';
+        updateStatus(`Editing "${mantraToEdit.title}". Make changes and click 'Save New Mantra' to update.`, 'info');
+        btnSaveMantra.textContent = 'Save Edited Mantra / సవరించిన మంత్రాన్ని సేవ్ చేయండి';
         document.getElementById('ocrSection').scrollIntoView({ behavior: 'smooth' });
         mantraTitleInput.focus();
+        
+        document.getElementById('viewMantraSection').classList.add('hidden');
+        document.getElementById('ocrSection').classList.remove('hidden');
+        tabOcr.classList.add('active');
+        tabViewMantra.classList.remove('active');
     });
+
+    tabOcr.addEventListener('click', () => {
+        ocrSection.classList.remove('hidden');
+        viewMantraSection.classList.add('hidden');
+        tabOcr.classList.add('active');
+        tabViewMantra.classList.remove('active');
+        updateStatus('Upload an image to begin. / ప్రారంభించడానికి ఒక చిత్రాన్ని అప్‌లోడ్ చేయండి.', 'info');
+        goDownBtn.classList.remove('hidden');
+        goTopBtn.classList.add('hidden');
+    });
+
+    tabViewMantra.addEventListener('click', () => {
+        ocrSection.classList.add('hidden');
+        viewMantraSection.classList.remove('hidden');
+        tabOcr.classList.remove('active');
+        tabViewMantra.classList.add('active');
+        updateStatus('Select a saved mantra to view. / చూడటానికి సేవ్ చేయబడిన మంత్రాన్ని ఎంచుకోండి.', 'info');
+        goTopBtn.classList.remove('hidden');
+        goDownBtn.classList.remove('hidden');
+    });
+
+    goTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    goDownBtn.addEventListener('click', () => {
+        document.getElementById('viewMantraSection').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 200) {
+            goTopBtn.classList.remove('hidden');
+        } else {
+            goTopBtn.classList.add('hidden');
+        }
+        
+        if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 200) {
+            goDownBtn.classList.add('hidden');
+        } else {
+            goDownBtn.classList.remove('hidden');
+        }
+    });
+
+    // Initial render of tabs
+    renderMantraTabs();
+    goDownBtn.classList.remove('hidden');
+
 </script>
 </body>
 </html>
