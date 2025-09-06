@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mantra OCR </title>
+    <title>Telugu OCR & Pitch Marks</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5.0.0/dist/tesseract.min.js"></script>
+    <script src="https://unpkg.com/tesseract.js@4.1.0/dist/tesseract.min.js"></script>
     <style>
         :root {
             --primary-color: #5a67d8;
@@ -224,7 +224,7 @@
         }
         
         .pitch-marked-char.high::before {
-            content: "|";
+            content: "▲";
             position: absolute;
             top: -0.7em;
             left: 50%;
@@ -235,7 +235,7 @@
         }
         
         .pitch-marked-char.low::after {
-            content: "-";
+            content: "▼";
             position: absolute;
             bottom: -0.5em;
             left: 50%;
@@ -359,67 +359,62 @@
 </head>
 <body>
     <div class="main-container">
-        <h1>అక్షర సాధన</h1>
-        <div class="status info" id="status">మొదలు పెట్టడానికి ఒక ఫోటోను అప్‌లోడ్ చేయండి</div>
+        <h1>Sanskrit / Telugu OCR & Mantra Manager 🙏</h1>
+        <div class="status info" id="status">Upload an image to begin</div>
         
         <div class="section" id="ocrSection">
-            <h2>1. చిత్రం నుండి</h2>
+            <h2>1. Extract Mantra from Image</h2>
             <div class="flex-container">
                 <div class="file-input-wrapper">
                     <button class="button" id="uploadBtn">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-upload"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
-                      చిత్రాన్ని అప్‌లోడ్ చేయండి.
+                        Upload Image
                         <input type="file" id="imageInput" class="file-input" accept="image/*" />
                     </button>
                 </div>
                 <button class="button" id="btnOcr" disabled>
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-scan-text"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><path d="M7 12h10"/><path d="M7 18h7"/><path d="M10 6h4"/></svg>
-                   OCRను ప్రారంభించండి
+                    Start OCR
                     <span id="ocrSpinner" class="spinner"></span>
                 </button>
             </div>
             <img id="preview" alt="Uploaded Image" />
             <div style="margin-top: 1.5rem; text-align: left;">
-                <label for="ocrText">OCR ఫలితం (సవరించండి & పిచ్‌లను గుర్తించండి)</label>
+                <label for="ocrText">OCR Output (Edit & Mark Pitches)</label>
                 <textarea id="ocrText" placeholder="OCR result will appear here"></textarea>
                 <div class="pitch-buttons">
                     <button class="button secondary-btn" id="btnPitchHigh">High Pitch (ఉదాత్తం) 🔼</button>
                     <button class="button secondary-btn" id="btnPitchLow">Low Pitch (అనుదాత్తం) 🔽</button>
-                    <button class="button secondary-btn" id="btnClear">అన్నీ క్లియర్ చేయండి 🗑️</button>
+                    <button class="button secondary-btn" id="btnClear">Clear All 🗑️</button>
                 </div>
             </div>
             <div style="margin-top: 2rem;">
-                <label for="mantraTitle">మంత్రం శీర్షిక:</label>
+                <label for="mantraTitle">Mantra Title:</label>
                 <input type="text" id="mantraTitle" placeholder="e.g., SriGayatriMantra">
             </div>
             <div style="margin-top: 1rem;">
-                <label for="mantraDescription">వివరణ :</label>
-                <textarea id="mantraDescription" style="min-height: 80px;"
-                 placeholder="మంత్రం యొక్క సంక్షిప్త వివరణ"></textarea>
+                <label for="mantraDescription">Description:</label>
+                <textarea id="mantraDescription" style="min-height: 80px;" placeholder="Brief description of the mantra"></textarea>
             </div>
             <div class="flex-container">
-                <button class="button" id="btnSaveMantra">కొత్త మంత్రాన్ని సేవ్ చేయండి  ✨</button>
+                <button class="button" id="btnSaveMantra">Save New Mantra ✨</button>
             </div>
         </div>
 
         <div class="section" id="viewMantraSection">
-            <h2>2. మంత్రాలను వీక్షించండి & సవరించండి</h2>
-            <p style="color: var(--light-text-color);">మంత్రం కంటెంట్‌ను వీక్షించడానికి లేదా పిచ్‌లను గుర్తించి సవరించడానికి ఒక మంత్రాన్ని ఎంచుకోండి.</p>
+            <h2>2. View & Edit Mantras</h2>
+            <p style="color: var(--light-text-color);">Select a mantra to view its content or edit it with pitch marks.</p>
             <div class="tab-container" id="tabContainer"></div>
             <div class="mantra-card" id="mantraDisplayCard">
                 <div id="mantraTitleDisplay"><h3></h3></div>
                 <div id="mantraDescriptionDisplay"><p></p></div>
                 <div id="mantraContentDisplay" class="pitch-display">
-              దాని కంటెంట్‌ను చూడటానికి ఒక మంత్రం ట్యాబ్‌ను ఎంచుకోండి 
+                    Select a mantra tab to view its content.
                 </div>
                 <div class="flex-container">
                     <button class="button secondary-btn" id="btnEditMantra" disabled>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-edit-3"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-                     మంత్రాన్ని సవరించండి
-                    </button>
-                    <button class="button" id="btnDownloadMantra">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-                       JSONను డౌన్‌లోడ్ చేయండి 
+                        Edit Mantra
                     </button>
                 </div>
             </div>
@@ -428,7 +423,7 @@
     </div>
 
 <script>
-    let ritualsMantras = JSON.parse(localStorage.getItem('ritualsMantras')) || {
+    const ritualsMantras = {
         sriGaneshayaNamah: {
             title: "యాజ్ఞవల్క్య ప్రార్థన",
             description: "యాజ్ఞవల్క్య",
@@ -483,6 +478,7 @@
         }
     };
 
+    let worker;
     const statusElement = document.getElementById('status');
     const imageInput = document.getElementById('imageInput');
     const preview = document.getElementById('preview');
@@ -500,9 +496,7 @@
     const mantraDescriptionDisplay = document.getElementById('mantraDescriptionDisplay');
     const mantraContentDisplay = document.getElementById('mantraContentDisplay');
     const btnEditMantra = document.getElementById('btnEditMantra');
-    const btnDownloadMantra = document.getElementById('btnDownloadMantra');
 
-    let worker;
     let currentFile = null;
     let pitchMarks = [];
     let currentMantraKey = null;
@@ -527,10 +521,12 @@
             await worker.loadLanguage("tel");
             await worker.initialize("tel");
             updateStatus("OCR engine ready. Upload an image to start.", 'success');
-            renderMantraTabs();
         } catch (error) {
             console.error("OCR initialization error:", error);
-            updateStatus("Failed to initialize OCR engine.", 'error');
+            updateStatus("Failed to initialize OCR engine. You can still use the pre-loaded mantras.", 'error');
+            // OCR failed, but we still want to load the initial mantras.
+        } finally {
+            renderMantraTabs();
         }
     }
     initWorker();
@@ -689,13 +685,10 @@
 
         ritualsMantras[newKey] = newMantra;
         currentMantraKey = newKey;
-        
-        // Save to local storage
-        localStorage.setItem('ritualsMantras', JSON.stringify(ritualsMantras));
 
-      /*   console.log(`--- New Mantra "${title}" ---`);
+        console.log(`--- New Mantra "${title}" ---`);
         console.log(JSON.stringify(ritualsMantras[newKey], null, 2));
-        console.log("----------------------------"); */
+        console.log("----------------------------");
 
         updateStatus(`Mantra "${title}" has been saved. You can now view it in the tabs below.`, 'success');
         renderMantraTabs();
@@ -703,6 +696,9 @@
         mantraTitleInput.value = "";
         mantraDescriptionInput.value = "";
         btnSaveMantra.textContent = 'Save New Mantra ✨';
+        
+        // Scroll to the new mantra in the view section
+        document.getElementById('viewMantraSection').scrollIntoView({ behavior: 'smooth' });
     });
 
     function renderMantraTabs() {
@@ -726,7 +722,6 @@
                     event.stopPropagation();
                     if (confirm(`Are you sure you want to delete the mantra "${mantra.title}"?`)) {
                         delete ritualsMantras[key];
-                        localStorage.setItem('ritualsMantras', JSON.stringify(ritualsMantras));
                         updateStatus(`Mantra "${mantra.title}" has been deleted.`, 'success');
                         renderMantraTabs();
                         if (currentMantraKey === key) {
@@ -828,23 +823,6 @@
         document.getElementById('ocrSection').scrollIntoView({ behavior: 'smooth' });
         mantraTitleInput.focus();
     });
-
-    // New code for downloading JSON
-    btnDownloadMantra.addEventListener('click', () => {
-        const jsonData = JSON.stringify(ritualsMantras, null, 2);
-        const blob = new Blob([jsonData], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-    
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'ritualsMantras.json';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-        updateStatus('Mantra data downloaded successfully.', 'success');
-    });
-
 </script>
 </body>
 </html>
