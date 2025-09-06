@@ -71,38 +71,45 @@ h1, h2 {
 .status.success { background: #e9f5e9; color: #2f855a; }
 .status.error { background: #ffebeb; color: #c0392b; }
 
-.button {
+.button, .secondary-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     font-family: 'Roboto', sans-serif;
     font-weight: 500;
     padding: 0.75rem 1.5rem;
-    background: var(--primary-color);
-    color: white;
-    border: none;
     border-radius: var(--border-radius);
     cursor: pointer;
-    transition: all 0.2s ease;
     gap: 0.5rem;
     box-shadow: var(--button-shadow);
+    min-height: 48px;
+    min-width: 120px;
+    transition: background-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+    border: none;
+    user-select: none;
+    text-align: center;
+    white-space: nowrap;
 }
 
+.button {
+    background: var(--primary-color);
+    color: white;
+}
 .button:hover:not(:disabled) {
     background: var(--primary-dark);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
 }
-
 .button:active:not(:disabled) {
     transform: translateY(0);
     box-shadow: var(--button-shadow);
 }
-
 .button:disabled {
-    background: #cbd5e1;
+    opacity: 0.6;
     cursor: not-allowed;
+    pointer-events: none;
     color: #94a3b8;
+    background: #cbd5e1;
     box-shadow: none;
 }
 
@@ -110,14 +117,13 @@ h1, h2 {
     background: var(--secondary-color);
     color: var(--text-color);
 }
-
 .secondary-btn:hover:not(:disabled) {
     background: var(--secondary-dark);
 }
-
-.secondary-btn:focus {
-    outline: 2px solid var(--primary-color);
-    outline-offset: 2px;
+.secondary-btn:focus, 
+.button:focus {
+    outline: 3px solid var(--primary-color);
+    outline-offset: 3px;
 }
 
 .flex-container {
@@ -127,6 +133,11 @@ h1, h2 {
     gap: 1rem;
     margin-top: 1rem;
     flex-wrap: wrap;
+}
+
+/* Space between buttons in flex container */
+.flex-container > .button, .flex-container > .secondary-btn {
+    margin: 0.5rem 0;
 }
 
 .file-input-wrapper {
@@ -172,6 +183,7 @@ input[type="text"], textarea {
     transition: border-color 0.2s ease;
     resize: vertical;
     min-height: 150px;
+    box-sizing: border-box;
 }
 
 input[type="text"] {
@@ -233,8 +245,6 @@ input[type="text"]:focus, textarea:focus {
     font-size: 0.8em;
 }
 
-/* You can add spinner and additional styles as per your full CSS */
-
 @media (max-width: 768px) {
     body {
         padding: 1rem;
@@ -245,11 +255,15 @@ input[type="text"]:focus, textarea:focus {
     h1, h2 {
         font-size: 1.5rem;
     }
-    .button {
+    .button, .secondary-btn {
         width: 100%;
+        max-width: 100%;
+        font-size: 1.1rem;
+        padding: 1rem;
     }
     .flex-container {
         flex-direction: column;
-        gap: 1.5rem;
+        gap: 1rem;
+        align-items: stretch;
     }
 }
