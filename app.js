@@ -107,7 +107,6 @@ document.addEventListener('DOMContentLoaded', () => {
       updateStatus("Failed to initialize OCR engine.", "error");
     }
   }
-
   initWorker();
 
   imageInput.addEventListener('change', () => {
@@ -148,11 +147,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const segments = Array.from(new Intl.Segmenter('te', { granularity: 'grapheme' }).segment(text));
     let indices = [];
     let charIdx = 0;
-    segments.forEach((seg, i) => {
-      if(seg.segment === '\n') charIdx += 1; // count newlines too
-      if(charIdx >= start && charIdx < end) indices.push(i);
-      charIdx += seg.segment.length;
-    });
+    for(let i=0; i<segments.length; i++) {
+      const seg = segments[i].segment;
+      const segmentEnd = charIdx + seg.length;
+      if(segmentEnd > start && charIdx < end) {
+        indices.push(i);
+      }
+      charIdx = segmentEnd;
+    }
     return indices;
   }
 
@@ -191,7 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
   btnSaveMantra.addEventListener('click', () => {
     const title = mantraTitleInput.value.trim();
     if(!title) return alert("Please enter title");
-    const desc = mantraDescriptionInput.value.trim();
+    const description = mantraDescriptionInput.value.trim();
     const text = ocrTextarea.value.trim();
     if(!text) return alert("No text to save");
 
@@ -203,25 +205,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const segments = Array.from(new Intl.Segmenter('te', { granularity: 'grapheme' }).segment(text));
     let instructions = [];
-    let line = [];
-    segments.forEach((seg, idx) => {
-      if(seg.segment === '\n') {
-        if(line.length) {
-          instructions.push(line);
-          line = [];
+    let currentLine = [];
+    segments.forEach((seg) => {
+      const char = seg.segment;
+      if(char === '\n') {
+        if(currentLine.length) {
+          instructions.push(currentLine);
+          currentLine = [];
         }
       } else {
-        let syl = { char: seg.segment };
-        if(pitchMarks[idx] && pitchMarks[idx] !== 'none') syl.pitch = pitchMarks[idx];
-        line.push(syl);
+        let syl = { char };
+        const index = instructions.length * currentLine.length; // NOTE: can be improved
+        if(pitchMarks[index] && pitchMarks[index] !== 'none') syl.pitch = pitchMarks[index];
+        currentLine.push(syl);
       }
     });
-    if(line.length) instructions.push(line);
+    if(currentLine.length) {
+      instructions.push(currentLine);
+    }
 
-    const mantraObj = { title, description: desc, instructions: [{ mantra: instructions }] };
+    const newMantra = { title, description, instructions: [{ mantra: instructions }] };
 
-    if(currentMantraKey && currentMantraKey !== key) delete ritualsMantras[currentMantraKey];
-    ritualsMantras[key] = mantraObj;
+    if(currentMantraKey && currentMantraKey !== key) {
+      delete ritualsMantras[currentMantraKey];
+    }
+
+    ritualsMantras[key] = newMantra;
     currentMantraKey = key;
     localStorage.setItem('ritualsMantras', JSON.stringify(ritualsMantras));
 
@@ -235,8 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function renderMantraTabs() {
     tabContainer.innerHTML = '';
-    Object.keys(ritualsMantras).forEach(key => {
-      const mantra = ritualsMantras[key];
+    Object.entries(ritualsMantras).forEach(([key, mantra]) => {
       const btn = document.createElement('button');
       btn.className = 'tab-button';
       btn.setAttribute('data-key', key);
@@ -256,15 +264,15 @@ document.addEventListener('DOMContentLoaded', () => {
           renderMantraTabs();
           if(currentMantraKey === key) {
             currentMantraKey = null;
+            mantraTitleDisplay.textContent = '';
+            mantraDescriptionDisplay.textContent = '';
+            mantraContentDisplay.textContent = 'Select a mantra';
+            btnEditMantra.disabled = true;
+            btnSaveMantra.textContent = 'Save New';
             mantraTitleInput.value = '';
             mantraDescriptionInput.value = '';
             ocrTextarea.value = '';
             pitchMarks = [];
-            mantraTitleDisplay.innerHTML = '';
-            mantraDescriptionDisplay.innerHTML = '';
-            mantraContentDisplay.innerHTML = "Select a mantra";
-            btnEditMantra.disabled = true;
-            btnSaveMantra.textContent = "Save New";
           }
         }
       };
@@ -282,64 +290,69 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function loadMantra(key) {
     const mantra = ritualsMantras[key];
-    if(!mantra) return updateStatus("Mantra not found", "error");
-
+    if(!mantra) {
+      updateStatus('Mantra not found', 'error');
+      return;
+    }
     currentMantraKey = key;
 
     let html = '';
-    if(mantra.instructions) {
-      mantra.instructions.forEach(instr => {
-        if(typeof instr.mantra === 'string') {
-          html += `<p>${instr.mantra}</p>`;
-        } else if(Array.isArray(instr.mantra)) {
-          instr.mantra.forEach(line => {
-            html += '<p>';
-            line.forEach(syl => {
-              let cls = syl.pitch ? syl.pitch : '';
-              html += `<span class="pitch-marked-char ${cls}">${syl.char}</span>`;
-            });
-            html += '</p>';
+    (Array.isArray(mantra.instructions) ? mantra.instructions : []).forEach(instr => {
+      if(typeof instr.mantra === 'string') {
+        html += `<p>${instr.mantra}</p>`;
+      } else if(Array.isArray(instr.mantra)) {
+        instr.mantra.forEach(line => {
+          html += '<p>';
+          line.forEach(syl => {
+            let pitchClass = syl.pitch ? ` ${syl.pitch}` : '';
+            html += `<span class="pitch-marked-char${pitchClass}">${syl.char}</span>`;
           });
-        }
-      });
-    }
-
+          html += '</p>';
+        });
+      }
+    });
     mantraTitleDisplay.textContent = mantra.title;
     mantraDescriptionDisplay.textContent = mantra.description || '';
     mantraContentDisplay.innerHTML = html;
-    btnEditMantra.disabled = mantra.instructions.every(instr => !instr.mantra.some(line => line.some(s => s.pitch)));
-    updateStatus(`Loaded mantra "${mantra.title}"`, "success");
+
+    const hasPitchMarks = (mantra.instructions || []).some(instr =>
+      Array.isArray(instr.mantra) && instr.mantra.some(line => line.some(syl => syl.pitch))
+    );
+    btnEditMantra.disabled = !hasPitchMarks;
+
+    updateStatus(`Loaded mantra "${mantra.title}"`, 'success');
   }
 
   btnEditMantra.addEventListener('click', () => {
-    if(!currentMantraKey) return alert("Select mantra first");
-
+    if(!currentMantraKey) {
+      alert('Please select a mantra first.');
+      return;
+    }
     const mantra = ritualsMantras[currentMantraKey];
     mantraTitleInput.value = mantra.title;
     mantraDescriptionInput.value = mantra.description;
 
-    let text = '';
-    let newPitches = [];
+    let fullText = '';
+    let newPitchMarks = [];
 
-    mantra.instructions.forEach(instr => {
+    (mantra.instructions || []).forEach(instr => {
       if(typeof instr.mantra === 'string') {
-        text += instr.mantra;
+        fullText += instr.mantra;
       } else if(Array.isArray(instr.mantra)) {
         instr.mantra.forEach(line => {
           line.forEach(syl => {
-            text += syl.char;
-            newPitches.push(syl.pitch || 'none');
+            fullText += syl.char;
+            newPitchMarks.push(syl.pitch || 'none');
           });
-          text += '\n';
+          fullText += '\n';
         });
       }
     });
+    ocrTextarea.value = fullText.trim();
+    pitchMarks = newPitchMarks;
 
-    ocrTextarea.value = text.trim();
-    pitchMarks = newPitches;
-
-    updateStatus(`Editing "${mantra.title}"`);
-    btnSaveMantra.textContent = 'Save Changes';
+    updateStatus(`Editing "${mantra.title}".`);
+    btnSaveMantra.textContent = 'Save Mantra';
     mantraTitleInput.focus();
   });
 
