@@ -661,3 +661,12 @@ textarea:focus {
   background-color: #0056b3;
 }
 
+.hidden {
+  display: none;
+}
+
+@media (min-width: 768px) { /* Adjust this breakpoint as needed */
+  .hidden {
+    display: flex !important; /* Overrides the 'hidden' class for larger screens */
+  }
+}
