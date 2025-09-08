@@ -624,3 +624,40 @@ textarea:focus {
         justify-content: space-between;
     }
 }
+.footer-container {
+  position: relative;
+  padding: 1rem;
+  background-color: #f8f8f8;
+  font-family: sans-serif;
+}
+
+/* Make footer text align left or center */
+.footer-container footer p {
+  margin: 0;
+  padding-right: 140px; /* to avoid overlap with right button */
+  text-align: center;
+  font-size: 1rem;
+}
+
+/* Go to Top button styles, always right aligned */
+.go-top-btn {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #007bff;
+  color: white;
+  font-size: 0.875rem;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  text-decoration: none;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.go-top-btn:hover {
+  background-color: #0056b3;
+}
+
