@@ -9,7 +9,8 @@ This is a web-based application designed to help users digitize, manage, and pra
 ### **Features**
 
 * **Image to Text (OCR):** Uses Tesseract.js to convert images containing Sanskrit or Telugu script into editable text.
-* **Pitch Marking:** Allows users to mark syllables as high-pitched (**ఉదాత్తం**) or low-pitched (**అనుదాత్తం**) using traditional Vedic notations (a vertical line above and a horizontal line below).
+* **Pitch Marking:** Allows users to mark syllables as high-pitched (**స్వరితం
+**) or low-pitched (**అనుదాత్తం**) using traditional Vedic notations (a vertical line above and a horizontal line below).
 * **Local Storage:** All mantras and their associated pitch marks are saved directly to your browser's local storage, ensuring your data persists between sessions.
 * **Mantra Management:** Users can save new mantras, view existing ones, and edit or delete them.
 * **JSON Export:** The application includes a "Download JSON" button to export your complete mantra collection to a `ritualsMantras.json` file.
