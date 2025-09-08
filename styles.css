@@ -62,7 +62,7 @@ h2 {
     text-align: center;
     margin-bottom: 1.5rem;
     letter-spacing: -0.5px;
-    font-size: clamp(1.4rem, 4vw, 2rem); /* fluid scaling */
+    font-size: clamp(1.4rem, 4vw, 2rem);
 }
 
 .section {
@@ -215,7 +215,7 @@ textarea {
     transition: border-color 0.25s ease;
     resize: vertical;
     box-sizing: border-box;
-    min-height: 48px; /* better touch target */
+    min-height: 48px;
 }
 
 input[type="text"]:focus,
@@ -288,6 +288,7 @@ textarea:focus {
     justify-content: space-between;
     align-items: center;
     padding: 1rem 0;
+    position: relative; /* For absolute nav on mobile */
 }
 
 .logo a {
@@ -301,6 +302,7 @@ textarea:focus {
     display: flex;
     gap: 2rem;
     align-items: center;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
 }
 
 .nav-link {
@@ -309,6 +311,7 @@ textarea:focus {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    color: var(--text-color);
 }
 
 .nav-link:hover {
@@ -335,6 +338,7 @@ textarea:focus {
 /* Dropdown */
 .dropdown {
     position: relative;
+    cursor: pointer;
 }
 
 .dropdown-content {
@@ -360,7 +364,7 @@ textarea:focus {
 }
 
 .dropdown-content a {
-    color: black;
+    color: var(--text-color);
     padding: 12px 16px;
     text-decoration: none;
     display: block;
@@ -475,71 +479,13 @@ textarea:focus {
 .hamburger-icon {
     cursor: pointer;
     display: none;
+    background: transparent;
+    border: none;
+    padding: 0.25rem;
+    line-height: 0;
 }
 
-/* Extra Small (Phones) */
-@media (max-width: 480px) {
-    body {
-        padding: 1rem;
-    }
-    .section {
-        padding: 1.5rem;
-        margin-bottom: 1.5rem;
-    }
-    .status {
-        font-size: 0.9rem;
-        padding: 0.6rem 1rem;
-    }
-    .logo a {
-        font-size: 1.3rem;
-    }
-    .chatbot-toggle-button {
-        width: 50px;
-        height: 50px;
-    }
-    .chatbot-container {
-        bottom: 4.5rem;
-        right: 1rem;
-    }
-    /* Fullscreen chatbot on mobile */
-    .chatbot-widget {
-        width: 100vw;
-        height: 100vh;
-        border-radius: 0;
-        bottom: 0;
-        right: 0;
-        position: fixed;
-    }
-    .footer-fixed {
-        padding: 0.75rem 0;
-        font-size: 0.9rem;
-    }
-}
-
-/* Tablets */
-@media (min-width: 481px) and (max-width: 991px) {
-    .section {
-        padding: 2.5rem;
-    }
-    .flex-container {
-        gap: 1.5rem;
-    }
-    .pitch-buttons {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    }
-}
-
-/* Desktops */
-@media (min-width: 992px) {
-    .container {
-        padding: 0 2rem;
-    }
-    .flex-container {
-        justify-content: space-between;
-    }
-}
-
-/* General Small Screens */
+/* Small screens (mobile) */
 @media (max-width: 768px) {
     body {
         padding: 1.5rem 1rem;
@@ -576,9 +522,17 @@ textarea:focus {
         padding: 1rem 0;
         box-shadow: var(--box-shadow);
         border-top: 1px solid var(--border-color);
+        z-index: 200;
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: max-height 0.3s ease, opacity 0.3s ease;
     }
     .nav-links.active {
         display: flex;
+        max-height: 500px; /* sufficient height for menu */
+        opacity: 1;
+        overflow: visible;
     }
     .nav-links a,
     .nav-links .dropdown {
@@ -592,8 +546,81 @@ textarea:focus {
         box-shadow: none;
         border-radius: 0;
         transform: none;
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: max-height 0.3s ease, opacity 0.3s ease;
     }
+    .dropdown.open .dropdown-content {
+        max-height: 1000px;
+        opacity: 1;
+        overflow: visible;
+    }
+    /* Disable hover dropdown on mobile */
     .dropdown:hover .dropdown-content {
+        display: none;
         transform: none;
+        opacity: 0;
+    }
+}
+
+/* Extra Small (Phones) */
+@media (max-width: 480px) {
+    body {
+        padding: 1rem;
+    }
+    .section {
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    .status {
+        font-size: 0.9rem;
+        padding: 0.6rem 1rem;
+    }
+    .logo a {
+        font-size: 1.3rem;
+    }
+    .chatbot-toggle-button {
+        width: 50px;
+        height: 50px;
+    }
+    .chatbot-container {
+        bottom: 4.5rem;
+        right: 1rem;
+    }
+    .chatbot-widget {
+        width: 100vw;
+        height: 100vh;
+        border-radius: 0;
+        bottom: 0;
+        right: 0;
+        position: fixed;
+    }
+    .footer-fixed {
+        padding: 0.75rem 0;
+        font-size: 0.9rem;
+    }
+}
+
+/* Tablets */
+@media (min-width: 481px) and (max-width: 991px) {
+    .section {
+        padding: 2.5rem;
+    }
+    .flex-container {
+        gap: 1.5rem;
+    }
+    .pitch-buttons {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+}
+
+/* Desktops */
+@media (min-width: 992px) {
+    .container {
+        padding: 0 2rem;
+    }
+    .flex-container {
+        justify-content: space-between;
     }
 }
