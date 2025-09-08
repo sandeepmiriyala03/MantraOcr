@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="te">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,14 +9,16 @@
     <title> శుక్లయజుర్వేదం</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;700&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
     <script src="https://unpkg.com/tesseract.js@4.1.0/dist/tesseract.min.js"></script>
 
-     
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="styles.css">
-    
+
     <style>
         /* CSS for Responsive Design and Styling */
         :root {
@@ -40,6 +43,7 @@
             --pitch-dirgha-color: #27ae60;
             --button-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
+
         body {
             font-family: 'Roboto', sans-serif;
             background: var(--background-color);
@@ -51,17 +55,22 @@
             flex-direction: column;
             align-items: center;
         }
-        h1, h2, h3 {
+
+        h1,
+        h2,
+        h3 {
             font-family: 'Noto Sans Telugu', serif;
             color: var(--primary-dark);
             text-align: center;
             margin-bottom: 1.5rem;
             letter-spacing: -0.5px;
         }
+
         .main-container {
             max-width: 960px;
             width: 100%;
         }
+
         .section {
             background: var(--card-background);
             padding: 2rem;
@@ -70,9 +79,11 @@
             margin-bottom: 2rem;
             transition: box-shadow 0.3s ease;
         }
+
         .section:hover {
             box-shadow: var(--box-shadow-hover);
         }
+
         .status {
             font-weight: 500;
             padding: 0.75rem 1.5rem;
@@ -82,9 +93,22 @@
             transition: all 0.3s ease;
             box-shadow: var(--button-shadow);
         }
-        .status.info { background: #e6f4ff; color: #1c7ed6; }
-        .status.success { background: #e9f5e9; color: #2f855a; }
-        .status.error { background: #ffebeb; color: #c0392b; }
+
+        .status.info {
+            background: #e6f4ff;
+            color: #1c7ed6;
+        }
+
+        .status.success {
+            background: #e9f5e9;
+            color: #2f855a;
+        }
+
+        .status.error {
+            background: #ffebeb;
+            color: #c0392b;
+        }
+
         .button {
             display: inline-flex;
             align-items: center;
@@ -101,28 +125,34 @@
             gap: 0.5rem;
             box-shadow: var(--button-shadow);
         }
+
         .button:hover:not(:disabled) {
             background: var(--primary-dark);
             transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
+
         .button:active:not(:disabled) {
             transform: translateY(0);
             box-shadow: var(--button-shadow);
         }
+
         .button:disabled {
             background: #cbd5e1;
             cursor: not-allowed;
             color: #94a3b8;
             box-shadow: none;
         }
+
         .secondary-btn {
             background: var(--secondary-color);
             color: var(--text-color);
         }
+
         .secondary-btn:hover:not(:disabled) {
             background: var(--secondary-dark);
         }
+
         .flex-container {
             display: flex;
             justify-content: center;
@@ -131,10 +161,12 @@
             margin-top: 1rem;
             flex-wrap: wrap;
         }
+
         .file-input-wrapper {
             position: relative;
             display: inline-block;
         }
+
         .file-input {
             position: absolute;
             left: 0;
@@ -144,6 +176,7 @@
             opacity: 0;
             cursor: pointer;
         }
+
         img#preview {
             max-width: 100%;
             max-height: 300px;
@@ -153,13 +186,16 @@
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
             object-fit: contain;
         }
+
         label {
             font-weight: 500;
             margin-bottom: 0.5rem;
             display: block;
             color: var(--text-color);
         }
-        input[type="text"], textarea {
+
+        input[type="text"],
+        textarea {
             width: 100%;
             padding: 1rem;
             border: 1px solid var(--border-color);
@@ -171,22 +207,27 @@
             resize: vertical;
             min-height: 150px;
         }
+
         input[type="text"] {
             min-height: unset;
             height: 48px;
             font-size: 1rem;
         }
-        input[type="text"]:focus, textarea:focus {
+
+        input[type="text"]:focus,
+        textarea:focus {
             outline: none;
             border-color: var(--primary-color);
             box-shadow: 0 0 0 3px rgba(90, 103, 216, 0.2);
         }
+
         .pitch-buttons {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 1rem;
             margin-top: 1rem;
         }
+
         .pitch-marked-char {
             position: relative;
             display: inline-flex;
@@ -199,10 +240,12 @@
             padding: 0.4em 0.2em;
             transition: background-color 0.2s ease;
         }
+
         .pitch-marked-char:hover {
             background-color: var(--secondary-color);
             border-radius: 4px;
         }
+
         .pitch-marked-char.high::before {
             content: "▲";
             position: absolute;
@@ -213,6 +256,7 @@
             font-size: 0.8em;
             margin-top: 0.2em;
         }
+
         .pitch-marked-char.low::after {
             content: "▼";
             position: absolute;
@@ -222,6 +266,7 @@
             color: var(--pitch-low-color);
             font-size: 0.8em;
         }
+
         /* .pitch-marked-char.svarita::before {
             content: "⌒";
             position: absolute;
@@ -252,10 +297,17 @@
             display: none;
             vertical-align: middle;
         }
+
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
+
         .tab-container {
             display: flex;
             flex-wrap: nowrap;
@@ -266,9 +318,11 @@
             scrollbar-width: none;
             padding-bottom: 10px;
         }
+
         .tab-container::-webkit-scrollbar {
             display: none;
         }
+
         .tab-button {
             flex-shrink: 0;
             display: flex;
@@ -286,21 +340,25 @@
             text-align: left;
             white-space: nowrap;
         }
+
         .tab-button:hover:not(.active) {
             transform: translateY(-2px);
             background: var(--secondary-dark);
         }
+
         .tab-button.active {
             background: var(--primary-color);
             color: white;
             border: 1px solid var(--primary-color);
             box-shadow: 0 0 0 3px rgba(90, 103, 216, 0.2);
         }
+
         .tab-button-content {
             display: flex;
             align-items: center;
             width: 100%;
         }
+
         .tab-button .control-btn {
             background: none;
             border: none;
@@ -312,25 +370,31 @@
             transition: color 0.2s ease, transform 0.2s ease;
             margin-left: 0.75rem;
         }
+
         .tab-button.active .control-btn {
             color: white;
         }
+
         .tab-button .control-btn:hover {
             color: var(--primary-dark);
             transform: scale(1.1);
         }
+
         .tab-button.active .control-btn:hover {
             color: #fff;
         }
+
         .tab-button .control-btn.delete-btn:hover {
             color: var(--error-color);
         }
+
         .mantra-card {
             background: var(--background-color);
             padding: 2rem;
             border-radius: var(--border-radius);
             border: 1px solid var(--border-color);
         }
+
         .mantra-card h3 {
             margin-top: 0;
             color: var(--primary-dark);
@@ -338,9 +402,11 @@
             padding-bottom: 0.5rem;
             margin-bottom: 1rem;
         }
+
         .mantra-card p {
             color: var(--light-text-color);
         }
+
         .mantra-card .pitch-display {
             font-size: 1.25rem;
             white-space: pre-wrap;
@@ -348,6 +414,7 @@
             line-height: 2.2;
             text-align: justify;
         }
+
         .help-content {
             display: none;
             margin-top: 1.5rem;
@@ -358,42 +425,54 @@
             border-radius: var(--border-radius);
             background-color: var(--secondary-color);
         }
+
         .help-content h3 {
             text-align: left;
             color: var(--primary-color);
             margin-top: 0;
             font-size: 1.2rem;
         }
+
         .help-content ol {
             padding-left: 1.5rem;
             line-height: 1.8;
             font-size: 1rem;
         }
+
         .help-content li {
             margin-bottom: 0.5rem;
         }
+
         @media (max-width: 768px) {
             body {
                 padding: 1rem;
             }
+
             .section {
                 padding: 1.5rem;
             }
-            h1, h2 {
+
+            h1,
+            h2 {
                 font-size: 1.5rem;
             }
+
             .button {
                 width: 100%;
             }
+
             .flex-container {
                 flex-direction: column;
                 gap: 1.5rem;
             }
+
             .tab-button {
                 width: auto;
             }
         }
-        #bookSelect, #sectionSelect {
+
+        #bookSelect,
+        #sectionSelect {
             width: 100%;
             padding: 0.75rem;
             border-radius: var(--border-radius);
@@ -404,192 +483,245 @@
         }
     </style>
 </head>
+
 <body>
-<header class="header-fixed" role="banner">
-  <div class="container header-content">
-    <div class="logo">
-      <a href="index.html" aria-label="అక్షరధార హోమ్">అక్షరధార</a>
-    </div>
-    <nav id="nav-links" class="nav-links" aria-label="ప్రధాన నావిగేషన్">
-      <a href="index.html" class="nav-link text-lg font-medium">
-        <i class="fas fa-home"></i> హోమ్
-      </a>
-      <a href="aksharadhara.html" class="nav-link text-lg font-medium">
-        <i class="fas fa-file-alt"></i> అక్షరధార
-      </a>
-         <a href="శుక్లయజుర్వేదం.html" class="nav-link text-lg font-medium"> <i class="fas fa-feather-alt"></i>శుక్ల యజుర్వేదం</a>
-            <a href="shruti-sankalanam.html" role="menuitem"> <i class="fas fa-feather-alt"></i>కృష్ణ యజుర్వేదం</a>
-         <a href="Telugu.html" class="nav-link text-lg font-medium"><i class="fas fa-feather-alt"></i> తెలుగు కవిత్వం</a>
-    </nav>
-    <button id="hamburger-icon" class="hamburger-icon" aria-label="మెనూ తెరవండి" aria-controls="nav-links" aria-expanded="false" aria-haspopup="true" type="button">
-      <svg class="w-8 h-8 text-[#1f3674]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-      </svg>
-    </button>
-  </div>
-</header>
+    <header class="header-fixed" role="banner">
+        <div class="container header-content">
+            <div class="logo">
+                <a href="index.html" aria-label="అక్షరధార హోమ్">అక్షరధార</a>
+            </div>
+            <nav id="nav-links" class="nav-links" aria-label="ప్రధాన నావిగేషన్">
+                <a href="index.html" class="nav-link text-lg font-medium">
+                    <i class="fas fa-home"></i> హోమ్
+                </a>
+                <a href="aksharadhara.html" class="nav-link text-lg font-medium">
+                    <i class="fas fa-file-alt"></i> అక్షరధార
+                </a>
+                <a href="శుక్లయజుర్వేదం.html" class="nav-link text-lg font-medium"> <i
+                        class="fas fa-feather-alt"></i>శుక్ల యజుర్వేదం</a>
+                <a href="shruti-sankalanam.html" role="menuitem"> <i class="fas fa-feather-alt"></i>కృష్ణ యజుర్వేదం</a>
+                <a href="Telugu.html" class="nav-link text-lg font-medium"><i class="fas fa-feather-alt"></i> తెలుగు
+                    కవిత్వం</a>
+            </nav>
+            <button id="hamburger-icon" class="hamburger-icon" aria-label="మెనూ తెరవండి" aria-controls="nav-links"
+                aria-expanded="false" aria-haspopup="true" type="button">
+                <svg class="w-8 h-8 text-[#1f3674]" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7">
+                    </path>
+                </svg>
+            </button>
+        </div>
+    </header>
 
     <div class="main-container">
-      <main class="content-area p-4 md:p-8" id="main-content" role="main">
-      <div class="container text-center py-8 md:py-16">
-      <h1 class="text-3xl md:text-5xl font-extrabold text-[#1f3674] mb-4"> తెలుగు కవిత్వం</h1>
-  <p class="text-lg md:text-xl text-[#4a5568] font-semibold">మీ ఆధ్యాత్మిక గ్రంథాలను సులభంగా డిజిటలైజ్ చేయడానికి మరియు నిర్వహించడానికి ఒక శక్తివంతమైన సాధనం.</p>
-        
- 
-        <div class="status info" id="status">ప్రారంభించడానికి కొత్త పుస్తకాన్ని సృష్టించండి లేదా అప్‌లోడ్ చేయండి.</div>
-    <div class="section" id="helperSection">
-    <h2 style="cursor:pointer;" id="helperToggleBtn">శ్రుతి సంకలనం: ఎలా ఉపయోగించాలి? 📖 <span id="helperArrow">▼</span></h2>
-    <div id="helperContent" class="help-content">
-        <p>శ్రుతి సంకలనం అనేది మీ ఆధ్యాత్మిక గ్రంథాలను డిజిటలైజ్ చేయడానికి మరియు వాటికి స్వరాలను (పిచ్ మార్కులను) జోడించడానికి ఉపయోగపడే ఒక సాధనం. దీన్ని ఉపయోగించడం చాలా సులభం, కేవలం ఈ 5 దశలను అనుసరించండి:</p>
-        <ol>
-            <li><b>పుస్తకం మరియు భాగాన్ని సృష్టించండి:</b> మీరు డిజిటలైజ్ చేయాలనుకుంటున్న గ్రంథానికి ఒక పేరు పెట్టండి (ఉదా: "గ్రంథం"). ఆ తర్వాత, అందులో ఒక భాగాన్ని సృష్టించండి (ఉదా: "పూర్వ పీఠిక").</li>
-            <li><b>చిత్రాన్ని అప్‌లోడ్ చేసి, టెక్స్ట్ పొందండి:</b> మంత్రం ఉన్న ఒక చిత్రాన్ని మీ ఫోన్ లేదా కంప్యూటర్ నుండి అప్‌లోడ్ చేయండి. 'OCR ప్రారంభించండి' బటన్‌ను నొక్కండి. ఇది చిత్రం నుండి అక్షరాలను గుర్తించి, వాటిని మీకు టెక్స్ట్ రూపంలో ఇస్తుంది.</li>
-            <li><b>పిచ్ మార్కులను జత చేయండి:</b> OCR ద్వారా వచ్చిన టెక్స్ట్‌లో, ఏ అక్షరాలకు పిచ్ మార్కులు కావాలో వాటిని ఎంచుకోండి. ఆ తర్వాత, మీరు స్వరితం
-, అనుదాత్తం, స్వరితం, లేదా దీర్ఘ స్వరితం వంటి సరైన పిచ్‌ను ఎంచుకోండి.</li>
-            <li><b>మంత్రాన్ని సేవ్ చేయండి:</b> మీ మంత్రానికి ఒక పేరు మరియు వివరణ ఇచ్చి, 'కొత్త మంత్రాన్ని సేవ్ చేయండి' బటన్‌పై క్లిక్ చేయండి.</li>
-            <li><b>మంత్రాలను చూసి, డౌన్‌లోడ్ చేసుకోండి:</b> మీరు సేవ్ చేసిన మంత్రాలను ఎప్పుడైనా చూసుకోవచ్చు. అన్నీ పూర్తయ్యాక, 'పుస్తకాన్ని డౌన్‌లోడ్ చేయండి' బటన్‌పై క్లిక్ చేసి, మొత్తం పుస్తకాన్ని HTML ఫైల్‌గా సేవ్ చేసుకోవచ్చు.</li>
-        </ol>
-    </div>
-</div>
+        <main class="content-area p-4 md:p-8" id="main-content" role="main">
+            <div class="container text-center py-8 md:py-16">
+                <h1 class="text-3xl md:text-5xl font-extrabold text-[#1f3674] mb-4"> తెలుగు కవిత్వం</h1>
+                <p class="text-lg md:text-xl text-[#4a5568] font-semibold">మీ ఆధ్యాత్మిక గ్రంథాలను సులభంగా డిజిటలైజ్
+                    చేయడానికి మరియు నిర్వహించడానికి ఒక శక్తివంతమైన సాధనం.</p>
 
 
-        <div class="section" id="bookCreationSection">
-            <h2>1. పుస్తకాన్ని సృష్టించండి</h2>
-            <label for="newBookTitle">పుస్తకం పేరు (Book Title):</label>
-            <input type="text" id="newBookTitle" placeholder="ఉదా: పాఠ్యము">
-            <div class="flex-container">
-                <button class="button" id="createNewBookBtn">కొత్త పుస్తకాన్ని సృష్టించండి</button>
-            </div>
-            <div style="margin-top: 1.5rem; text-align: center;">లేదా</div>
-            <label for="bookSelect" style="margin-top: 1.5rem;">ఇప్పటికే ఉన్న పుస్తకాన్ని ఎంచుకోండి:</label>
-            <select id="bookSelect"></select>
-            <div class="flex-container">
-                <button class="button secondary-btn" id="deleteBookBtn">పుస్తకాన్ని తొలగించండి</button>
-            </div>
-        </div>
-
-        <div class="section" id="sectionCreationSection" style="display: none;">
-            <h2>2. భాగాన్ని జోడించండి</h2>
-            <label for="newSectionTitle">భాగాం పేరు (Section Title):</label>
-            <input type="text" id="newSectionTitle" placeholder="ఉదా: పూర్వ పీఠిక">
-            <div class="flex-container">
-                <button class="button" id="addNewSectionBtn">కొత్త భాగాన్ని జోడించండి</button>
-            </div>
-            <div style="margin-top: 1.5rem; text-align: center;">లేదా</div>
-            <label for="sectionSelect" style="margin-top: 1.5rem;">భాగాన్ని ఎంచుకోండి:</label>
-            <select id="sectionSelect"></select>
-            <div class="flex-container">
-                <button class="button secondary-btn" id="deleteSectionBtn">భాగాన్ని తొలగించండి</button>
-            </div>
-        </div>
-        
-        <div class="section" id="ocrSection" style="display: none;">
-            <h2>3. చిత్రాన్నిండి పాఠ్యము వెలికితీయండి</h2>
-            <div class="flex-container">
-                <div class="file-input-wrapper">
-                    <button class="button" id="uploadBtn">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-upload"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
-                        చిత్రాన్ని అప్‌లోడ్ చేయండి
-                        <input type="file" id="imageInput" class="file-input" accept="image/*" />
-                    </button>
+                <div class="status info" id="status">ప్రారంభించడానికి కొత్త పుస్తకాన్ని సృష్టించండి లేదా అప్‌లోడ్
+                    చేయండి.</div>
+                <div class="section" id="helperSection">
+                    <h2 style="cursor:pointer;" id="helperToggleBtn">శ్రుతి సంకలనం: ఎలా ఉపయోగించాలి? 📖 <span
+                            id="helperArrow">▼</span></h2>
+                    <div id="helperContent" class="help-content">
+                        <p>శ్రుతి సంకలనం అనేది మీ ఆధ్యాత్మిక గ్రంథాలను డిజిటలైజ్ చేయడానికి మరియు వాటికి స్వరాలను (పిచ్
+                            మార్కులను) జోడించడానికి ఉపయోగపడే ఒక సాధనం. దీన్ని ఉపయోగించడం చాలా సులభం, కేవలం ఈ 5 దశలను
+                            అనుసరించండి:</p>
+                        <ol>
+                            <li><b>పుస్తకం మరియు భాగాన్ని సృష్టించండి:</b> మీరు డిజిటలైజ్ చేయాలనుకుంటున్న గ్రంథానికి ఒక
+                                పేరు పెట్టండి (ఉదా: "గ్రంథం"). ఆ తర్వాత, అందులో ఒక భాగాన్ని సృష్టించండి (ఉదా: "పూర్వ
+                                పీఠిక").</li>
+                            <li><b>చిత్రాన్ని అప్‌లోడ్ చేసి, టెక్స్ట్ పొందండి:</b> మంత్రం ఉన్న ఒక చిత్రాన్ని మీ ఫోన్
+                                లేదా కంప్యూటర్ నుండి అప్‌లోడ్ చేయండి. 'OCR ప్రారంభించండి' బటన్‌ను నొక్కండి. ఇది చిత్రం
+                                నుండి అక్షరాలను గుర్తించి, వాటిని మీకు టెక్స్ట్ రూపంలో ఇస్తుంది.</li>
+                            <li><b>పిచ్ మార్కులను జత చేయండి:</b> OCR ద్వారా వచ్చిన టెక్స్ట్‌లో, ఏ అక్షరాలకు పిచ్
+                                మార్కులు కావాలో వాటిని ఎంచుకోండి. ఆ తర్వాత, మీరు స్వరితం
+                                , అనుదాత్తం, స్వరితం, లేదా దీర్ఘ స్వరితం వంటి సరైన పిచ్‌ను ఎంచుకోండి.</li>
+                            <li><b>మంత్రాన్ని సేవ్ చేయండి:</b> మీ మంత్రానికి ఒక పేరు మరియు వివరణ ఇచ్చి, 'కొత్త
+                                మంత్రాన్ని సేవ్ చేయండి' బటన్‌పై క్లిక్ చేయండి.</li>
+                            <li><b>మంత్రాలను చూసి, డౌన్‌లోడ్ చేసుకోండి:</b> మీరు సేవ్ చేసిన మంత్రాలను ఎప్పుడైనా
+                                చూసుకోవచ్చు. అన్నీ పూర్తయ్యాక, 'పుస్తకాన్ని డౌన్‌లోడ్ చేయండి' బటన్‌పై క్లిక్ చేసి,
+                                మొత్తం పుస్తకాన్ని HTML ఫైల్‌గా సేవ్ చేసుకోవచ్చు.</li>
+                        </ol>
+                    </div>
                 </div>
-                <button class="button" id="btnOcr" disabled>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-scan-text"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><path d="M7 12h10"/><path d="M7 18h7"/><path d="M10 6h4"/></svg>
-                    OCR ప్రారంభించండి
-                    <span id="ocrSpinner" class="spinner"></span>
-                </button>
-            </div>
-            <img id="preview" alt="Uploaded Image" />
-            <div style="margin-top: 1.5rem; text-align: left;">
-                <label for="ocrText">OCR అవుట్‌పుట్ సవరించండి </label>
-                <textarea id="ocrText" placeholder="OCR ఫలితం ఇక్కడ కనిపిస్తుంది"></textarea>
-             <!--    <div class="pitch-buttons">
+
+
+                <div class="section" id="bookCreationSection">
+                    <h2>1. పుస్తకాన్ని సృష్టించండి</h2>
+                    <label for="newBookTitle">పుస్తకం పేరు (Book Title):</label>
+                    <input type="text" id="newBookTitle" placeholder="ఉదా: పాఠ్యము">
+                    <div class="flex-container">
+                        <button class="button" id="createNewBookBtn">కొత్త పుస్తకాన్ని సృష్టించండి</button>
+                    </div>
+                    <div style="margin-top: 1.5rem; text-align: center;">లేదా</div>
+                    <label for="bookSelect" style="margin-top: 1.5rem;">ఇప్పటికే ఉన్న పుస్తకాన్ని ఎంచుకోండి:</label>
+                    <select id="bookSelect"></select>
+                    <div class="flex-container">
+                        <button class="button secondary-btn" id="deleteBookBtn">పుస్తకాన్ని తొలగించండి</button>
+                    </div>
+                </div>
+
+                <div class="section" id="sectionCreationSection" style="display: none;">
+                    <h2>2. భాగాన్ని జోడించండి</h2>
+                    <label for="newSectionTitle">భాగాం పేరు (Section Title):</label>
+                    <input type="text" id="newSectionTitle" placeholder="ఉదా: పూర్వ పీఠిక">
+                    <div class="flex-container">
+                        <button class="button" id="addNewSectionBtn">కొత్త భాగాన్ని జోడించండి</button>
+                    </div>
+                    <div style="margin-top: 1.5rem; text-align: center;">లేదా</div>
+                    <label for="sectionSelect" style="margin-top: 1.5rem;">భాగాన్ని ఎంచుకోండి:</label>
+                    <select id="sectionSelect"></select>
+                    <div class="flex-container">
+                        <button class="button secondary-btn" id="deleteSectionBtn">భాగాన్ని తొలగించండి</button>
+                    </div>
+                </div>
+
+                <div class="section" id="ocrSection" style="display: none;">
+                    <h2>3. చిత్రాన్నిండి పాఠ్యము వెలికితీయండి</h2>
+                    <div class="flex-container">
+                        <div class="file-input-wrapper">
+                            <button class="button" id="uploadBtn">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="lucide lucide-upload">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                    <polyline points="17 8 12 3 7 8" />
+                                    <line x1="12" x2="12" y1="3" y2="15" />
+                                </svg>
+                                చిత్రాన్ని అప్‌లోడ్ చేయండి
+                                <input type="file" id="imageInput" class="file-input" accept="image/*" />
+                            </button>
+                        </div>
+                        <button class="button" id="btnOcr" disabled>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-scan-text">
+                                <path d="M3 7V5a2 2 0 0 1 2-2h2" />
+                                <path d="M17 3h2a2 2 0 0 1 2 2v2" />
+                                <path d="M21 17v2a2 2 0 0 1-2 2h-2" />
+                                <path d="M7 21H5a2 2 0 0 1-2-2v-2" />
+                                <path d="M7 12h10" />
+                                <path d="M7 18h7" />
+                                <path d="M10 6h4" />
+                            </svg>
+                            OCR ప్రారంభించండి
+                            <span id="ocrSpinner" class="spinner"></span>
+                        </button>
+                    </div>
+                    <img id="preview" alt="Uploaded Image" />
+                    <div style="margin-top: 1.5rem; text-align: left;">
+                        <label for="ocrText">OCR అవుట్‌పుట్ సవరించండి </label>
+                        <textarea id="ocrText" placeholder="OCR ఫలితం ఇక్కడ కనిపిస్తుంది"></textarea>
+                        <!--    <div class="pitch-buttons">
                     <button class="button secondary-btn" id="btnPitchHigh">స్వరితం
  (High) 🔼</button>
                     <button class="button secondary-btn" id="btnPitchLow">అనుదాత్తం (Low) 🔽</button>
                <!--      <button class="button secondary-btn" id="btnPitchSvarita">స్వరితం (Svarita) ⌒</button>
                     <button class="button secondary-btn" id="btnPitchDirgha">దీర్ఘ స్వరితం (Dirgha) 〰</button> -->
-                    <button class="button secondary-btn" id="btnClear">అన్నీ తొలగించండి 🗑️</button>
-                </div> -->
-            </div>
-            <div style="margin-top: 2rem;">
-                <label for="mantraTitle">పాఠ్యము పేరు:</label>
-                <input type="text" id="mantraTitle" placeholder="ఉదా: పాఠ్యము">
-            </div>
-            <div style="margin-top: 1rem;">
-                <label for="mantraDescription">వివరణ:</label>
-                <textarea id="mantraDescription" style="min-height: 80px;" placeholder="పాఠ్యము యొక్క సంక్షిప్త వివరణ"></textarea>
-            </div>
-            <div class="flex-container">
-                <button class="button" id="btnSaveMantra">కొత్త పాఠ్యము సేవ్ చేయండి ✨</button>
-            </div>
-        </div>
-        
-        <div class="section" id="viewMantraSection" style="display: none;">
-            <h2>4. మంత్రాలను చూడండి & సవరించండి</h2>
-            <p style="color: var(--light-text-color);">ఒక భాగాన్ని ఎంచుకుని, దానిలోని మంత్రాన్ని చూడండి లేదా సవరించండి.</p>
-            <div class="tab-container" id="mantraTabContainer"></div>
-            <div class="mantra-card" id="mantraDisplayCard">
-                <div id="mantraTitleDisplay"><h3></h3></div>
-                <div id="mantraDescriptionDisplay"><p></p></div>
-                <div id="mantraContentDisplay" class="pitch-display">
-                    పాఠ్యము యొక్క భాగాన్ని ఎంచుకోండి.
+                        <button class="button secondary-btn" id="btnClear">అన్నీ తొలగించండి 🗑️</button>
+                    </div> -->
+                </div>
+                <div style="margin-top: 2rem;">
+                    <label for="mantraTitle">పాఠ్యము పేరు:</label>
+                    <input type="text" id="mantraTitle" placeholder="ఉదా: పాఠ్యము">
+                </div>
+                <div style="margin-top: 1rem;">
+                    <label for="mantraDescription">వివరణ:</label>
+                    <textarea id="mantraDescription" style="min-height: 80px;"
+                        placeholder="పాఠ్యము యొక్క సంక్షిప్త వివరణ"></textarea>
                 </div>
                 <div class="flex-container">
-                    <button class="button secondary-btn" id="btnEditMantra" disabled>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-edit-3"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-                        మంత్రాన్ని సవరించండి
-                    </button>
-                    <button class="button secondary-btn" id="btnDownloadMantra">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-                        పుస్తకాన్ని డౌన్‌లోడ్ చేయండి
-                    </button>
+                    <button class="button" id="btnSaveMantra">కొత్త పాఠ్యము సేవ్ చేయండి ✨</button>
                 </div>
             </div>
-        </div>
-  
-    </main>
+
+            <div class="section" id="viewMantraSection" style="display: none;">
+                <h2>4. మంత్రాలను చూడండి & సవరించండి</h2>
+                <p style="color: var(--light-text-color);">ఒక భాగాన్ని ఎంచుకుని, దానిలోని మంత్రాన్ని చూడండి లేదా
+                    సవరించండి.</p>
+                <div class="tab-container" id="mantraTabContainer"></div>
+                <div class="mantra-card" id="mantraDisplayCard">
+                    <div id="mantraTitleDisplay">
+                        <h3></h3>
+                    </div>
+                    <div id="mantraDescriptionDisplay">
+                        <p></p>
+                    </div>
+                    <div id="mantraContentDisplay" class="pitch-display">
+                        పాఠ్యము యొక్క భాగాన్ని ఎంచుకోండి.
+                    </div>
+                    <div class="flex-container">
+                        <button class="button secondary-btn" id="btnEditMantra" disabled>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-edit-3">
+                                <path d="M12 20h9" />
+                                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+                            </svg>
+                            మంత్రాన్ని సవరించండి
+                        </button>
+                        <button class="button secondary-btn" id="btnDownloadMantra">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-download">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                <polyline points="7 10 12 15 17 10" />
+                                <line x1="12" x2="12" y1="15" y2="3" />
+                            </svg>
+                            పుస్తకాన్ని డౌన్‌లోడ్ చేయండి
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </main>
 
     </div>
 
-    
-  <div class="footer-container">
 
-  <footer class="footer-fixed" role="contentinfo">
-      <p class="text-sm md:text-base">© <span id="currentYear"></span> అక్షరధార | సర్వ హక్కులు రిజర్వ్ చేయబడ్డాయి. | <span id="currentDateTime"></span></p>
-  </footer>
-</div>
+    <div class="footer-container">
 
-    
+        <footer class="footer-fixed" role="contentinfo">
+            <p class="text-sm md:text-base">© <span id="currentYear"></span> అక్షరధార | సర్వ హక్కులు రిజర్వ్ చేయబడ్డాయి.
+                | <span id="currentDateTime"></span></p>
+        </footer>
+    </div>
+
+
     <script>
-      document.addEventListener('DOMContentLoaded', function () {
-  const hamburger = document.getElementById('hamburger-icon');
-  const navLinks = document.getElementById('nav-links');
-  
-  // Toggle mobile menu open/close
-  hamburger.addEventListener('click', function () {
-    const expanded = hamburger.getAttribute('aria-expanded') === 'true';
-    hamburger.setAttribute('aria-expanded', !expanded);
-    navLinks.classList.toggle('active');
-  });
+        document.addEventListener('DOMContentLoaded', function () {
+            const hamburger = document.getElementById('hamburger-icon');
+            const navLinks = document.getElementById('nav-links');
 
-  // Find all dropdown containers and their toggle anchors
-  const dropdownContainers = document.querySelectorAll('.dropdown');
+            // Toggle mobile menu open/close
+            hamburger.addEventListener('click', function () {
+                const expanded = hamburger.getAttribute('aria-expanded') === 'true';
+                hamburger.setAttribute('aria-expanded', !expanded);
+                navLinks.classList.toggle('active');
+            });
 
-  dropdownContainers.forEach(dropdown => {
-    const toggleLink = dropdown.querySelector('a.nav-link');
+            // Find all dropdown containers and their toggle anchors
+            const dropdownContainers = document.querySelectorAll('.dropdown');
 
-    toggleLink.addEventListener('click', function (e) {
-      // On small screens only toggle submenu on click
-      if (window.innerWidth <= 768) {
-        e.preventDefault();
-        const expanded = dropdown.getAttribute('aria-expanded') === 'true';
-        dropdown.setAttribute('aria-expanded', !expanded);
-        dropdown.classList.toggle('open');
-      }
-    });
-  });
-});
+            dropdownContainers.forEach(dropdown => {
+                const toggleLink = dropdown.querySelector('a.nav-link');
+
+                toggleLink.addEventListener('click', function (e) {
+                    // On small screens only toggle submenu on click
+                    if (window.innerWidth <= 768) {
+                        e.preventDefault();
+                        const expanded = dropdown.getAttribute('aria-expanded') === 'true';
+                        dropdown.setAttribute('aria-expanded', !expanded);
+                        dropdown.classList.toggle('open');
+                    }
+                });
+            });
+        });
 
 
         let allBooks = {};
@@ -729,7 +861,7 @@
                         });
                         mantraTabContainer.appendChild(tabButton);
                     });
-                    
+
                     if (currentMantraKey && mantras[currentMantraKey]) {
                         loadMantra(currentMantraKey);
                     } else {
@@ -742,7 +874,7 @@
                     mantraContentDisplay.innerHTML = '';
                 }
             } else {
-                 mantraTitleDisplay.innerHTML = '<h3>పాఠ్యము లేదు</h3>';
+                mantraTitleDisplay.innerHTML = '<h3>పాఠ్యము లేదు</h3>';
                 mantraDescriptionDisplay.innerHTML = '<p>ఈ భాగంలో పాఠ్యము లేదు. కొత్త పాఠ్యము జోడించండి.</p>';
                 mantraContentDisplay.innerHTML = '';
             }
@@ -773,7 +905,7 @@
                 alert("దయచేసి OCR అవుట్‌పుట్ బాక్స్‌లో కొంత వచనాన్ని ఎంచుకోండి.");
                 return;
             }
-            
+
             const selectedGraphemeIndices = getGraphemeIndices(fullText, startIndex, endIndex);
             selectedGraphemeIndices.forEach(index => {
                 pitchMarks[index] = pitchType;
@@ -789,7 +921,7 @@
             currentMantraKey = key;
             mantraTitleDisplay.innerHTML = `<h3>${mantra.title}</h3>`;
             mantraDescriptionDisplay.innerHTML = `<p>${mantra.description}</p>`;
-            
+
             let htmlContent = '';
             mantra.instructions.forEach(instruction => {
                 instruction.mantra.forEach(line => {
@@ -818,7 +950,7 @@
 
             const book = allBooks[currentBookKey];
             const creationDate = new Date().toLocaleString('te-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'long', timeStyle: 'short' });
-            
+
             let htmlContent = `
                 <!DOCTYPE html>
                 <html lang="te">
@@ -881,7 +1013,7 @@
                 </footer>
                 </body></html>
             `;
-            
+
             const blob = new Blob([htmlContent], { type: 'text/html' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -967,7 +1099,7 @@
             renderMantraTabs();
             updateStatus(`'${allBooks[currentBookKey].sections[currentSectionKey].title}' భాగం ఎంపిక చేయబడింది. మంత్రాన్ని జోడించడానికి సిద్ధంగా ఉంది.`, 'info');
         });
-        
+
         deleteSectionBtn.addEventListener('click', () => {
             if (!currentBookKey || !currentSectionKey) {
                 alert("తొలగించడానికి దయచేసి ఒక భాగాన్ని ఎంచుకోండి.");
@@ -1017,10 +1149,10 @@
             }
         });
 
-    /*     btnPitchHigh.addEventListener('click', () => preparePitches('high'));
-        btnPitchLow.addEventListener('click', () => preparePitches('low')); */
-  /*       btnPitchSvarita.addEventListener('click', () => preparePitches('svarita'));
-        btnPitchDirgha.addEventListener('click', () => preparePitches('dirgha-svarita')); */
+        /*     btnPitchHigh.addEventListener('click', () => preparePitches('high'));
+            btnPitchLow.addEventListener('click', () => preparePitches('low')); */
+        /*       btnPitchSvarita.addEventListener('click', () => preparePitches('svarita'));
+              btnPitchDirgha.addEventListener('click', () => preparePitches('dirgha-svarita')); */
         btnClear.addEventListener('click', () => {
             ocrTextarea.value = '';
             imageInput.value = '';
@@ -1042,7 +1174,7 @@
             const title = mantraTitleInput.value.trim();
             const description = mantraDescriptionInput.value.trim();
             const fullText = ocrTextarea.value;
-            
+
             if (!title) {
                 alert('దయచేసి ఒక ప్రత్యేకమైన పేరు ఇవ్వండి.');
                 return;
@@ -1056,7 +1188,7 @@
                 alert('OCR అవుట్‌పుట్ ఖాళీగా ఉంది. దయచేసి OCR చేసి, ఆపై సేవ్ చేయండి.');
                 return;
             }
-            
+
             const segmenter = new Intl.Segmenter('te', { granularity: 'grapheme' });
             const segments = Array.from(segmenter.segment(fullText));
             let mantraInstructions = [];
@@ -1080,16 +1212,16 @@
             if (currentLine.length > 0) {
                 mantraInstructions.push({ mantra: [currentLine] });
             }
-            
+
             const newMantra = {
                 title: title,
                 description: description,
                 instructions: mantraInstructions
             };
-            
+
             const keyToUse = currentMantraKey || newKey;
             allBooks[currentBookKey].sections[currentSectionKey].mantras[keyToUse] = newMantra;
-            
+
             saveBookData();
             renderMantraTabs();
             loadMantra(keyToUse);
@@ -1101,7 +1233,7 @@
             updateStatus(`'${title}' పాఠ్యము విజయవంతంగా సేవ్ చేయబడింది.`, 'success');
             btnSaveMantra.textContent = 'కొత్త మంత్రాన్ని సేవ్ చేయండి ✨';
         });
-        
+
         btnEditMantra.addEventListener('click', () => {
             if (!currentMantraKey) {
                 alert("సవరించడానికి దయచేసి ఒక మంత్రాన్ని ఎంచుకోండి.");
@@ -1110,10 +1242,10 @@
             const mantra = allBooks[currentBookKey].sections[currentSectionKey].mantras[currentMantraKey];
             mantraTitleInput.value = mantra.title;
             mantraDescriptionInput.value = mantra.description;
-            
+
             let fullText = '';
             let tempPitchMarks = [];
-            
+
             mantra.instructions.forEach(instruction => {
                 instruction.mantra.forEach(line => {
                     line.forEach(syllable => {
@@ -1124,14 +1256,14 @@
                     tempPitchMarks.push('none'); // Add a marker for the newline
                 });
             });
-            
+
             // Remove trailing newline and its pitch marker
             fullText = fullText.trim();
             tempPitchMarks = tempPitchMarks.slice(0, tempPitchMarks.length - 1);
-            
+
             ocrTextarea.value = fullText;
             pitchMarks = tempPitchMarks;
-            
+
             updateStatus("మంత్రాన్ని సవరించడానికి సిద్ధంగా ఉంది.", 'info');
             btnSaveMantra.textContent = 'మంత్రాన్ని అప్‌డేట్ చేయండి ✏️';
         });
@@ -1150,4 +1282,5 @@
         renderMantraTabs();
     </script>
 </body>
+
 </html>

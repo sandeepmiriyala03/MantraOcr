@@ -1,243 +1,261 @@
 <!DOCTYPE html>
 <html lang="te">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>హోమ్ | అక్షరధార &amp; శ్రుతి సంకలనం</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;700&amp;family=Inter:wght@400;500;700&amp;display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;700&amp;family=Inter:wght@400;500;700&amp;display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="styles.css">
-    
-    <script >
- document.addEventListener('DOMContentLoaded', function () {
-  const hamburger = document.getElementById('hamburger-icon');
-  const navLinks = document.getElementById('nav-links');
-  
-  // Toggle mobile menu open/close
-  hamburger.addEventListener('click', function () {
-    const expanded = hamburger.getAttribute('aria-expanded') === 'true';
-    hamburger.setAttribute('aria-expanded', !expanded);
-    navLinks.classList.toggle('active');
-  });
 
-  // Find all dropdown containers and their toggle anchors
-  const dropdownContainers = document.querySelectorAll('.dropdown');
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const hamburger = document.getElementById('hamburger-icon');
+            const navLinks = document.getElementById('nav-links');
 
-  dropdownContainers.forEach(dropdown => {
-    const toggleLink = dropdown.querySelector('a.nav-link');
+            // Toggle mobile menu open/close
+            hamburger.addEventListener('click', function () {
+                const expanded = hamburger.getAttribute('aria-expanded') === 'true';
+                hamburger.setAttribute('aria-expanded', !expanded);
+                navLinks.classList.toggle('active');
+            });
 
-    toggleLink.addEventListener('click', function (e) {
-      // On small screens only toggle submenu on click
-      if (window.innerWidth <= 768) {
-        e.preventDefault();
-        const expanded = dropdown.getAttribute('aria-expanded') === 'true';
-        dropdown.setAttribute('aria-expanded', !expanded);
-        dropdown.classList.toggle('open');
-      }
-    });
-  });
-});
+            // Find all dropdown containers and their toggle anchors
+            const dropdownContainers = document.querySelectorAll('.dropdown');
+
+            dropdownContainers.forEach(dropdown => {
+                const toggleLink = dropdown.querySelector('a.nav-link');
+
+                toggleLink.addEventListener('click', function (e) {
+                    // On small screens only toggle submenu on click
+                    if (window.innerWidth <= 768) {
+                        e.preventDefault();
+                        const expanded = dropdown.getAttribute('aria-expanded') === 'true';
+                        dropdown.setAttribute('aria-expanded', !expanded);
+                        dropdown.classList.toggle('open');
+                    }
+                });
+            });
+        });
 
 
 
         // Function to load and inject HTML from a separate file
-function loadHTML(url, elementId) {
-    fetch(url)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Failed to load ${url}: ${response.statusText}`);
+        function loadHTML(url, elementId) {
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Failed to load ${url}: ${response.statusText}`);
+                    }
+                    return response.text();
+                })
+                .then(html => {
+                    const placeholder = document.getElementById(elementId);
+                    if (placeholder) {
+                        placeholder.innerHTML = html;
+                    }
+                })
+                .then(() => {
+                    // Once the footer is loaded, initialize your site's scripts
+                    if (elementId === 'footer-placeholder') {
+                        initializeSiteScripts();
+                    }
+                })
+                .catch(error => console.error('Error loading HTML:', error));
+        }
+
+
+
+        // All of your original JavaScript logic goes inside this function
+        function initializeSiteScripts() {
+            // Set current year and date/time
+            const now = new Date();
+            const year = now.getFullYear();
+            const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+            const timeOptions = { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true };
+            const formattedDate = now.toLocaleDateString('te-IN', dateOptions);
+            const formattedTime = now.toLocaleTimeString('te-IN', timeOptions);
+
+            const currentYearEl = document.getElementById('currentYear');
+            if (currentYearEl) currentYearEl.innerText = year;
+            const currentDateTimeEl = document.getElementById('currentDateTime');
+            if (currentDateTimeEl) currentDateTimeEl.innerText = `${formattedDate} ${formattedTime}`;
+
+            // Chatbot UI and Logic
+            const chatbotToggle = document.getElementById('chatbot-toggle-button');
+            const chatbotWidget = document.getElementById('chatbot-widget');
+            const chatbotClose = document.getElementById('chatbot-close-button');
+            const chatbotMessages = document.getElementById('chatbot-messages');
+            const chatbotInput = document.getElementById('chatbot-input-field');
+
+            // Mobile menu logic
+            const hamburgerIcon = document.getElementById('hamburger-icon');
+            const navLinks = document.getElementById('nav-links');
+
+            if (hamburgerIcon && navLinks) {
+                hamburgerIcon.addEventListener('click', () => {
+                    const isExpanded = hamburgerIcon.getAttribute('aria-expanded') === 'true';
+                    navLinks.classList.toggle('active');
+                    hamburgerIcon.setAttribute('aria-expanded', !isExpanded);
+                });
             }
-            return response.text();
-        })
-        .then(html => {
-            const placeholder = document.getElementById(elementId);
-            if (placeholder) {
-                placeholder.innerHTML = html;
-            }
-        })
-        .then(() => {
-            // Once the footer is loaded, initialize your site's scripts
-            if (elementId === 'footer-placeholder') {
-                initializeSiteScripts();
-            }
-        })
-        .catch(error => console.error('Error loading HTML:', error));
-}
 
-
-
-// All of your original JavaScript logic goes inside this function
-function initializeSiteScripts() {
-    // Set current year and date/time
-    const now = new Date();
-    const year = now.getFullYear();
-    const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
-    const timeOptions = { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true };
-    const formattedDate = now.toLocaleDateString('te-IN', dateOptions);
-    const formattedTime = now.toLocaleTimeString('te-IN', timeOptions);
-
-    const currentYearEl = document.getElementById('currentYear');
-    if (currentYearEl) currentYearEl.innerText = year;
-    const currentDateTimeEl = document.getElementById('currentDateTime');
-    if (currentDateTimeEl) currentDateTimeEl.innerText = `${formattedDate} ${formattedTime}`;
-
-    // Chatbot UI and Logic
-    const chatbotToggle = document.getElementById('chatbot-toggle-button');
-    const chatbotWidget = document.getElementById('chatbot-widget');
-    const chatbotClose = document.getElementById('chatbot-close-button');
-    const chatbotMessages = document.getElementById('chatbot-messages');
-    const chatbotInput = document.getElementById('chatbot-input-field');
-
-    // Mobile menu logic
-    const hamburgerIcon = document.getElementById('hamburger-icon');
-    const navLinks = document.getElementById('nav-links');
-
-    if (hamburgerIcon && navLinks) {
-        hamburgerIcon.addEventListener('click', () => {
-            const isExpanded = hamburgerIcon.getAttribute('aria-expanded') === 'true';
-            navLinks.classList.toggle('active');
-            hamburgerIcon.setAttribute('aria-expanded', !isExpanded);
-        });
-    }
-
-    if (chatbotToggle && chatbotWidget && chatbotClose && chatbotMessages && chatbotInput) {
-        // Initial chatbot greeting with hyperlinks and icons
-        const initialGreeting = `నమస్కారం! నేను సహాయక్, మీ AI సహాయకుడు. ఈ క్రింది విషయాలలో మీకు సహాయం చేయగలను:
+            if (chatbotToggle && chatbotWidget && chatbotClose && chatbotMessages && chatbotInput) {
+                // Initial chatbot greeting with hyperlinks and icons
+                const initialGreeting = `నమస్కారం! నేను సహాయక్, మీ AI సహాయకుడు. ఈ క్రింది విషయాలలో మీకు సహాయం చేయగలను:
         <ul class="list-disc list-inside mt-2 space-y-2">
             <li><a href="#" class="text-blue-600 underline flex items-center gap-2" onclick="handleLinkClick('అక్షరధార')"><i class="fas fa-file-alt"></i> అక్షరధార గురించి తెలుసుకోవడం</a></li>
             <li><a href="#" class="text-blue-600 underline flex items-center gap-2" onclick="handleLinkClick('శ్రుతి సంకలనం')"><i class="fas fa-volume-up"></i> శ్రుతి సంకలనం గురించి తెలుసుకోవడం</a></li>
             <li><a href="#" class="text-blue-600 underline flex items-center gap-2" onclick="handleLinkClick('వేదాలు')"><i class="fas fa-book-open"></i> వేదాల గురించి తెలుసుకోవడం</a></li>
         </ul>
         `;
-        
-        displayMessage(initialGreeting, 'bot');
 
-        // Note: The handleLinkClick and getBotResponse functions must be global or attached to the window object to be called from the injected HTML.
-        window.handleLinkClick = function(topic) {
-            const botResponse = getBotResponse(topic);
-            displayMessage(botResponse, 'bot');
-        };
+                displayMessage(initialGreeting, 'bot');
 
-        chatbotToggle.addEventListener('click', () => {
-            const isExpanded = chatbotToggle.getAttribute('aria-expanded') === 'true';
-            chatbotWidget.style.display = 'flex';
-            chatbotToggle.style.display = 'none';
-            chatbotToggle.setAttribute('aria-expanded', !isExpanded);
-        });
-
-        chatbotClose.addEventListener('click', () => {
-            const isExpanded = chatbotToggle.getAttribute('aria-expanded') === 'true';
-            chatbotWidget.style.display = 'none';
-            chatbotToggle.style.display = 'flex';
-            chatbotToggle.setAttribute('aria-expanded', !isExpanded);
-        });
-
-        chatbotInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter' && chatbotInput.value.trim() !== '') {
-                const userMessage = chatbotInput.value;
-                displayMessage(userMessage, 'user');
-                chatbotInput.value = '';
-                const botResponse = getBotResponse(userMessage);
-                setTimeout(() => {
+                // Note: The handleLinkClick and getBotResponse functions must be global or attached to the window object to be called from the injected HTML.
+                window.handleLinkClick = function (topic) {
+                    const botResponse = getBotResponse(topic);
                     displayMessage(botResponse, 'bot');
-                }, 500);
-            }
-        });
+                };
 
-        function displayMessage(message, sender) {
-            const messageElement = document.createElement('div');
-            messageElement.classList.add('chat-message');
-            if (sender === 'user') {
-                messageElement.classList.add('user-message');
-            } else {
-                messageElement.classList.add('bot-message');
-            }
-            messageElement.innerHTML = message;
-            chatbotMessages.appendChild(messageElement);
-            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
-        }
+                chatbotToggle.addEventListener('click', () => {
+                    const isExpanded = chatbotToggle.getAttribute('aria-expanded') === 'true';
+                    chatbotWidget.style.display = 'flex';
+                    chatbotToggle.style.display = 'none';
+                    chatbotToggle.setAttribute('aria-expanded', !isExpanded);
+                });
 
-        function getBotResponse(userQuery) {
-            const lowerCaseQuery = userQuery.toLowerCase();
-            if (lowerCaseQuery.includes('అక్షరధార')) {
-                return 'అక్షరధార అనేది తెలుగు అక్షరాలను సులభంగా టైప్ చేయడానికి మరియు ఫార్మాట్ చేయడానికి ఉపయోగపడే ఒక సాధనం.';
-            } else if (lowerCaseQuery.includes('శ్రుతి సంకలనం')) {
-                return 'శ్రుతి సంకలనం అనేది చిత్రాల నుండి మంత్రాలను వెలికితీయడానికి మరియు వాటికి శృతి చిహ్నాలను జోడించడానికి ఉపయోగపడే శక్తివంతమైన సాధనం.';
-            } else if (lowerCaseQuery.includes('వేదాలు')) {
-                return 'వేదాల విభాగంలో శుక్ల యజుర్వేదం మరియు కృష్ణ యజుర్వేదం ఉన్నాయి.';
-            } else if (lowerCaseQuery.includes('ధన్యవాదాలు')) {
-                return 'మీకు సహాయం చేయగలిగినందుకు సంతోషం!';
-            } else {
-                return 'క్షమించండి, మీ ప్రశ్నను నేను అర్థం చేసుకోలేకపోయాను. నేను మీకు సహాయం చేయగలిగే విషయాలను తెలుసుకోవడానికి, "సహాయం" అని టైప్ చేయండి.';
+                chatbotClose.addEventListener('click', () => {
+                    const isExpanded = chatbotToggle.getAttribute('aria-expanded') === 'true';
+                    chatbotWidget.style.display = 'none';
+                    chatbotToggle.style.display = 'flex';
+                    chatbotToggle.setAttribute('aria-expanded', !isExpanded);
+                });
+
+                chatbotInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter' && chatbotInput.value.trim() !== '') {
+                        const userMessage = chatbotInput.value;
+                        displayMessage(userMessage, 'user');
+                        chatbotInput.value = '';
+                        const botResponse = getBotResponse(userMessage);
+                        setTimeout(() => {
+                            displayMessage(botResponse, 'bot');
+                        }, 500);
+                    }
+                });
+
+                function displayMessage(message, sender) {
+                    const messageElement = document.createElement('div');
+                    messageElement.classList.add('chat-message');
+                    if (sender === 'user') {
+                        messageElement.classList.add('user-message');
+                    } else {
+                        messageElement.classList.add('bot-message');
+                    }
+                    messageElement.innerHTML = message;
+                    chatbotMessages.appendChild(messageElement);
+                    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+                }
+
+                function getBotResponse(userQuery) {
+                    const lowerCaseQuery = userQuery.toLowerCase();
+                    if (lowerCaseQuery.includes('అక్షరధార')) {
+                        return 'అక్షరధార అనేది తెలుగు అక్షరాలను సులభంగా టైప్ చేయడానికి మరియు ఫార్మాట్ చేయడానికి ఉపయోగపడే ఒక సాధనం.';
+                    } else if (lowerCaseQuery.includes('శ్రుతి సంకలనం')) {
+                        return 'శ్రుతి సంకలనం అనేది చిత్రాల నుండి మంత్రాలను వెలికితీయడానికి మరియు వాటికి శృతి చిహ్నాలను జోడించడానికి ఉపయోగపడే శక్తివంతమైన సాధనం.';
+                    } else if (lowerCaseQuery.includes('వేదాలు')) {
+                        return 'వేదాల విభాగంలో శుక్ల యజుర్వేదం మరియు కృష్ణ యజుర్వేదం ఉన్నాయి.';
+                    } else if (lowerCaseQuery.includes('ధన్యవాదాలు')) {
+                        return 'మీకు సహాయం చేయగలిగినందుకు సంతోషం!';
+                    } else {
+                        return 'క్షమించండి, మీ ప్రశ్నను నేను అర్థం చేసుకోలేకపోయాను. నేను మీకు సహాయం చేయగలిగే విషయాలను తెలుసుకోవడానికి, "సహాయం" అని టైప్ చేయండి.';
+                    }
+                }
             }
         }
-    }
-}
     </script>
 </head>
+
 <body>
     <header class="header-fixed" role="banner">
-  <div class="container header-content">
-    <div class="logo">
-      <a href="index.html" aria-label="అక్షరధార హోమ్">అక్షరధార</a>
-    </div>
-    <nav id="nav-links" class="nav-links" aria-label="ప్రధాన నావిగేషన్">
-      <a href="index.html" class="nav-link text-lg font-medium">
-        <i class="fas fa-home"></i> హోమ్
-      </a>
-      <a href="aksharadhara.html" class="nav-link text-lg font-medium">
-        <i class="fas fa-file-alt"></i> అక్షరధార
-      </a>
-         <a href="శుక్లయజుర్వేదం.html" class="nav-link text-lg font-medium"> <i class="fas fa-feather-alt"></i>శుక్ల యజుర్వేదం</a>
-            <a href="shruti-sankalanam.html" role="menuitem"> <i class="fas fa-feather-alt"></i>కృష్ణ యజుర్వేదం</a>
-         <a href="Telugu.html" class="nav-link text-lg font-medium"><i class="fas fa-feather-alt"></i> తెలుగు కవిత్వం</a>
-    </nav>
-    <button id="hamburger-icon" class="hamburger-icon" aria-label="మెనూ తెరవండి" aria-controls="nav-links" aria-expanded="false" aria-haspopup="true" type="button">
-      <svg class="w-8 h-8 text-[#1f3674]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-      </svg>
-    </button>
-  </div>
-</header>
+        <div class="container header-content">
+            <div class="logo">
+                <a href="index.html" aria-label="అక్షరధార హోమ్">అక్షరధార</a>
+            </div>
+            <nav id="nav-links" class="nav-links" aria-label="ప్రధాన నావిగేషన్">
+                <a href="index.html" class="nav-link text-lg font-medium">
+                    <i class="fas fa-home"></i> హోమ్
+                </a>
+                <a href="aksharadhara.html" class="nav-link text-lg font-medium">
+                    <i class="fas fa-file-alt"></i> అక్షరధార
+                </a>
+                <a href="శుక్లయజుర్వేదం.html" class="nav-link text-lg font-medium"> <i
+                        class="fas fa-feather-alt"></i>శుక్ల యజుర్వేదం</a>
+                <a href="shruti-sankalanam.html" role="menuitem"> <i class="fas fa-feather-alt"></i>కృష్ణ యజుర్వేదం</a>
+                <a href="Telugu.html" class="nav-link text-lg font-medium"><i class="fas fa-feather-alt"></i> తెలుగు
+                    కవిత్వం</a>
+            </nav>
+            <button id="hamburger-icon" class="hamburger-icon" aria-label="మెనూ తెరవండి" aria-controls="nav-links"
+                aria-expanded="false" aria-haspopup="true" type="button">
+                <svg class="w-8 h-8 text-[#1f3674]" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7">
+                    </path>
+                </svg>
+            </button>
+        </div>
+    </header>
 
 
     <div class="main-container">
-      <main class="content-area p-4 md:p-8" id="main-content" role="main">
-      <div class="container text-center py-8 md:py-16">
-        
+        <main class="content-area p-4 md:p-8" id="main-content" role="main">
+            <div class="container text-center py-8 md:py-16">
 
- <h1 class="text-3xl md:text-5xl font-extrabold text-[#1f3674] mb-4"> అక్షరధార</h1>
 
-<p class="text-lg md:text-xl text-[#4a5568] font-semibold">మీ ఆధ్యాత్మిక గ్రంథాలను సులభంగా డిజిటలైజ్ చేయడానికి మరియు నిర్వహించడానికి ఒక శక్తివంతమైన సాధనం.</p>
-            <div id="helperContent" class="help-content">
-<p>శ్రుతి సంకలనం అనేది మీ ఆధ్యాత్మిక గ్రంథాలను డిజిటలైజ్ చేయడానికి మరియు వాటికి స్వరాలను (పిచ్ మార్కులను) జోడించడానికి ఉపయోగపడే ఒక సాధనం. దీన్ని ఉపయోగించడం చాలా సులభం, కేవలం ఈ 5 దశలను అనుసరించండి:</p>
+                <h1 class="text-3xl md:text-5xl font-extrabold text-[#1f3674] mb-4"> అక్షరధార</h1>
 
-<p><b>1. పుస్తకం మరియు భాగాన్ని సృష్టించండి:</b> మీరు డిజిటలైజ్ చేయాలనుకుంటున్న గ్రంథానికి ఒక పేరు పెట్టండి (ఉదా: "గ్రంథం"). ఆ తర్వాత, అందులో ఒక భాగాన్ని సృష్టించండి (ఉదా: "పూర్వ పీఠిక").</p>
+                <p class="text-lg md:text-xl text-[#4a5568] font-semibold">మీ ఆధ్యాత్మిక గ్రంథాలను సులభంగా డిజిటలైజ్
+                    చేయడానికి మరియు నిర్వహించడానికి ఒక శక్తివంతమైన సాధనం.</p>
+                <div id="helperContent" class="help-content">
+                    <p>శ్రుతి సంకలనం అనేది మీ ఆధ్యాత్మిక గ్రంథాలను డిజిటలైజ్ చేయడానికి మరియు వాటికి స్వరాలను (పిచ్
+                        మార్కులను) జోడించడానికి ఉపయోగపడే ఒక సాధనం. దీన్ని ఉపయోగించడం చాలా సులభం, కేవలం ఈ 5 దశలను
+                        అనుసరించండి:</p>
 
-<p><b>2. చిత్రాన్ని అప్‌లోడ్ చేసి, టెక్స్ట్ పొందండి:</b> మంత్రం ఉన్న ఒక చిత్రాన్ని మీ ఫోన్ లేదా కంప్యూటర్ నుండి అప్‌లోడ్ చేయండి. 'OCR ప్రారంభించండి' బటన్‌ను నొక్కండి. ఇది చిత్రం నుండి అక్షరాలను గుర్తించి, వాటిని మీకు టెక్స్ట్ రూపంలో ఇస్తుంది.</p>
+                    <p><b>1. పుస్తకం మరియు భాగాన్ని సృష్టించండి:</b> మీరు డిజిటలైజ్ చేయాలనుకుంటున్న గ్రంథానికి ఒక పేరు
+                        పెట్టండి (ఉదా: "గ్రంథం"). ఆ తర్వాత, అందులో ఒక భాగాన్ని సృష్టించండి (ఉదా: "పూర్వ పీఠిక").</p>
 
-<p><b>3. పిచ్ మార్కులను జత చేయండి:</b> OCR ద్వారా వచ్చిన టెక్స్ట్‌లో, ఏ అక్షరాలకు పిచ్ మార్కులు కావాలో వాటిని ఎంచుకోండి. ఆ తర్వాత, మీరు స్వరితం, అనుదాత్తం, స్వరితం, లేదా దీర్ఘ స్వరితం వంటి సరైన పిచ్‌ను ఎంచుకోండి.</p>
+                    <p><b>2. చిత్రాన్ని అప్‌లోడ్ చేసి, టెక్స్ట్ పొందండి:</b> మంత్రం ఉన్న ఒక చిత్రాన్ని మీ ఫోన్ లేదా
+                        కంప్యూటర్ నుండి అప్‌లోడ్ చేయండి. 'OCR ప్రారంభించండి' బటన్‌ను నొక్కండి. ఇది చిత్రం నుండి
+                        అక్షరాలను గుర్తించి, వాటిని మీకు టెక్స్ట్ రూపంలో ఇస్తుంది.</p>
 
-<p><b>4. మంత్రాన్ని సేవ్ చేయండి:</b> మీ మంత్రానికి ఒక పేరు మరియు వివరణ ఇచ్చి, 'కొత్త మంత్రాన్ని సేవ్ చేయండి' బటన్‌పై క్లిక్ చేయండి.</p>
+                    <p><b>3. పిచ్ మార్కులను జత చేయండి:</b> OCR ద్వారా వచ్చిన టెక్స్ట్‌లో, ఏ అక్షరాలకు పిచ్ మార్కులు
+                        కావాలో వాటిని ఎంచుకోండి. ఆ తర్వాత, మీరు స్వరితం, అనుదాత్తం, స్వరితం, లేదా దీర్ఘ స్వరితం వంటి
+                        సరైన పిచ్‌ను ఎంచుకోండి.</p>
 
-<p><b>5. మంత్రాలను చూసి, డౌన్‌లోడ్ చేసుకోండి:</b> మీరు సేవ్ చేసిన మంత్రాలను ఎప్పుడైనా చూసుకోవచ్చు. అన్నీ పూర్తయ్యాక, 'పుస్తకాన్ని డౌన్‌లోడ్ చేయండి' బటన్‌పై క్లిక్ చేసి, మొత్తం పుస్తకాన్ని HTML ఫైల్‌గా సేవ్ చేసుకోవచ్చు.</p>
+                    <p><b>4. మంత్రాన్ని సేవ్ చేయండి:</b> మీ మంత్రానికి ఒక పేరు మరియు వివరణ ఇచ్చి, 'కొత్త మంత్రాన్ని సేవ్
+                        చేయండి' బటన్‌పై క్లిక్ చేయండి.</p>
+
+                    <p><b>5. మంత్రాలను చూసి, డౌన్‌లోడ్ చేసుకోండి:</b> మీరు సేవ్ చేసిన మంత్రాలను ఎప్పుడైనా చూసుకోవచ్చు.
+                        అన్నీ పూర్తయ్యాక, 'పుస్తకాన్ని డౌన్‌లోడ్ చేయండి' బటన్‌పై క్లిక్ చేసి, మొత్తం పుస్తకాన్ని HTML
+                        ఫైల్‌గా సేవ్ చేసుకోవచ్చు.</p>
+
+                </div>
 
             </div>
+            <div class="footer-container">
 
-    </div>
-<div class="footer-container">
+                <footer class="footer-fixed" role="contentinfo">
+                    <p class="text-sm md:text-base">
+                        © <span id="currentYear"></span> అక్షరధార | యుక్తిసాల AI ప్రయోగశాల ద్వారా రూపొందించబడింది</p>
+                </footer>
+            </div>
 
-  <footer class="footer-fixed" role="contentinfo">
-      <p class="text-sm md:text-base">
-      © <span id="currentYear"></span> అక్షరధార | యుక్తిసాల AI ప్రయోగశాల ద్వారా రూపొందించబడింది</p>
-  </footer>
-</div>
-
-
-
-   
 </body>
+
 </html>
