@@ -149,7 +149,7 @@ function initializeSiteScripts() {
     </script>
 </head>
 <body>
-    <header class="header-fixed" role="banner">
+    
         <div class="container header-content">
             <div class="logo">
                 <a href="index.html" aria-label="అక్షరధార హోమ్">అక్షరధార</a>
@@ -173,43 +173,30 @@ function initializeSiteScripts() {
                 </svg>
             </button>
         </div>
-    </header>
-
-    <main class="content-area p-4 md:p-8" id="main-content" role="main">
-        <main class="content-area p-4 md:p-8" id="main-content" role="main">
-    <div class="container text-center py-8 md:py-16">
-        <h1 class="text-3xl md:text-5xl font-extrabold text-[#1f3674] mb-4">అక్షరధార &amp; శ్రుతి సంకలనం</h1>
-        <p class="text-lg md:text-xl text-[#4a5568] font-semibold">మీ ఆధ్యాత్మిక గ్రంథాలను సులభంగా డిజిటలైజ్ చేయడానికి మరియు నిర్వహించడానికి ఒక శక్తివంతమైన సాధనం.</p>
+  <header class="header-fixed" role="banner">
+    <div class="container header-content">
+        <div class="logo">
+            <a href="index.html" aria-label="అక్షరధార హోమ్">అక్షరధార</a>
+        </div>
+        <nav id="nav-links" class="nav-links" aria-label="ప్రధాన నావిగేషన్">
+            <a href="index.html" class="nav-link text-lg font-medium"><i class="fas fa-home"></i> హోమ్</a>
+            <a href="aksharadhara.html" class="nav-link text-lg font-medium"><i class="fas fa-file-alt"></i> అక్షరధార</a>
+            <div class="dropdown">
+                <a href="#" class="nav-link text-lg font-medium" id="vedas-menu" aria-haspopup="true" aria-expanded="false"><i class="fas fa-book-open"></i> వేదాలు</a>
+                <div class="dropdown-content" role="menu" aria-labelledby="vedas-menu">
+                    <a href="శుక్లయజుర్వేదం.html" role="menuitem">శుక్ల యజుర్వేదం</a>
+                    <a href="shruti-sankalanam.html" role="menuitem">కృష్ణ యజుర్వేదం</a>
+                </div>
+            </div>
+            <a href="Telugu.html" class="nav-link text-lg font-medium"><i class="fas fa-feather-alt"></i> తెలుగు కవిత్వం</a>
+        </nav>
+        <button id="hamburger-icon" class="hamburger-icon" aria-label="మెనూ తెరవండి" aria-controls="nav-links" aria-expanded="false">
+            <svg class="w-8 h-8 text-[#1f3674]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+            </svg>
+        </button>
     </div>
-
-    <div class="main-container">
-
-        <div class="section">
-            <div class="flex items-center gap-6">
-                <span class="text-5xl">✍️</span>
-                <h2 class="text-3xl">అక్షరధార</h2>
-           
-            
-            <p class="text-section">
-                అక్షరధార అనేది డిజిటల్ కీబోర్డ్ లేకుండానే తెలుగు అక్షరాలను సులభంగా టైప్ చేయడానికి మరియు ఫార్మాట్ చేయడానికి మీకు సహాయపడే ఒక అద్భుతమైన సాధనం. ఇది మీకు ప్రత్యేకమైన అక్షరాలను, సంఖ్యలను మరియు చిహ్నాలను సులభంగా చేర్చడానికి వీలు కల్పిస్తుంది.
-            </p>
-                <h2 class="text-3xl">శ్రుతి సంకలనం</h2>
-          
-            <p class="text-section">
-                శ్రుతి సంకలనం అనేది మీ మంత్రాలను చిత్రాల నుండి వెలికితీయడానికి మరియు వాటికి శృతి చిహ్నాలను జోడించడానికి ఒక శక్తివంతమైన సాధనం.
-                <br><br>
-                <b>వేదాలకు మద్దతు:</b>
-                <br>
-                <ul>
-                    <li><b>శుక్ల యజుర్వేదం:</b> ఈ వేదానికి సంబంధించిన గ్రంథాలను డిజిటలైజ్ చేయడానికి, కేవలం **ఉదాత్తం** మరియు **అనుదాత్తం** స్వర చిహ్నాలను ఉపయోగించవచ్చు.</li>
-                    <li><b>కృష్ణ యజుర్వేదం:</b> ఈ వేదానికి, మీరు **ఉదాత్తం**, **అనుదాత్తం**, **స్వరితం**, మరియు **దీర్ఘ స్వరితం** వంటి అన్ని ముఖ్యమైన స్వర చిహ్నాలను ఉపయోగించగలరు.</li>
-                </ul>
-            </p>
-              </div>
-          
-    </div>
-    </div>
-    </main>
+</header>
     
 
     <!-- <div class="chatbot-container" role="dialog" aria-label="AI సహాయకుడు చాట్‌బాట్">
