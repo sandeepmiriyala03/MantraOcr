@@ -685,15 +685,32 @@ async function generateEpubFromHtml(htmlContent, bookTitle) {
 
   const oebps = zip.folder("OEBPS");
 
-  // XHTML content with UI for search, theme toggle, font size adjustment
+  // AI/ML/NLP Intro chapter HTML content in Telugu with interactive word count demo
+  const aiIntroHtml = `
+<section>
+  <h1>ఎపై, యెమెల్, మరియు ఎన్‌ఎల్‌పి అంటే ఏమిటి?</h1>
+  <p>మనం రోజూ ఉపయోగించే స్మార్ట్ ఫోన్లు, తెలుగు మాటలను అర్థం చేసుకునే కంప్యూటర్లు వంటి వాటికి ఇది అవసరం. 
+  ఎఐ అంటే <b>కృత్రిమ మేధస్సు</b> — కంప్యూటర్‌కి మనల్ని పోలి ఆలోచించే సామర్ధ్యం.</p>
+  <p>యెమెల్ అనగా <b>యంత్ర అభ్యాసం</b> — కంప్యూటర్‌ తాను చేసిన తప్పుల నుంచి నేర్చుకుంటుంది.</p>
+  <p>ఎన్‌ఎల్‌పి అనగా <b>ప్రాకృతిక భాషా ప్రాసెసింగ్</b> — కంప్యూటర్ మన భాషను అర్థం చేసుకుని స్పందించటం.</p>
+  <p>ఈ పుస్తకం ద్వారా మీరు ఇవి ఎలా పనిచేస్తాయో మీ భాషలోనే సులభంగా నేర్చుకోగలరని ఆశిస్తున్నాం.</p>
+
+  <h2>సాదారణ ఎఐ/యెమెల్ ఉదాహరణ</h2>
+  <p>కిందటి బటన్ను నొక్కి, మీ ఇష్టమైన పదం పుస్తకంలో ఎన్ని సార్లు వచ్చుందో చూడండి:</p>
+  <input type="text" id="wordInput" placeholder="పదం టైపు చేయండి" aria-label="పదం ఎంటర్ చేయండి" />
+  <button onclick="countWord()">పదం లెక్కించు</button>
+  <p id="result"></p>
+</section>
+`;
+
+  // Full XHTML with both AI intro and main content, plus user-friendly controls
   const chapterXhtml = `<?xml version="1.0" encoding="utf-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="te">
 <head>
   <title>${bookTitle}</title>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
   <style>
-    /* Root colors and fonts */
     :root {
       --bg-light: #ffffff;
       --text-light: #222222;
@@ -701,11 +718,10 @@ async function generateEpubFromHtml(htmlContent, bookTitle) {
       --bg-dark: #121212;
       --text-dark: #e0e0e0;
       --link-dark: #4aa3df;
-      --highlight-color: #fffa8b;
       --font-telugu: 'Noto Sans Telugu', serif;
       --font-size: 18px;
+      --highlight-color: #fffa8b;
     }
-    /* Base body styling */
     body {
       font-family: var(--font-telugu);
       background-color: var(--bg-light);
@@ -715,11 +731,11 @@ async function generateEpubFromHtml(htmlContent, bookTitle) {
       font-size: var(--font-size);
       transition: background-color 0.3s ease, color 0.3s ease;
     }
-    /* Headings */
     h1, h2, h3 {
       color: var(--link-light);
+      margin-top: 1.2em;
+      margin-bottom: 0.6em;
     }
-    /* Links */
     a {
       color: var(--link-light);
       text-decoration: none;
@@ -727,7 +743,6 @@ async function generateEpubFromHtml(htmlContent, bookTitle) {
     a:hover {
       text-decoration: underline;
     }
-    /* Dark mode styles */
     body.dark-mode {
       background-color: var(--bg-dark);
       color: var(--text-dark);
@@ -738,173 +753,134 @@ async function generateEpubFromHtml(htmlContent, bookTitle) {
     body.dark-mode a {
       color: var(--link-dark);
     }
-    /* Search and control bar styles */
     #header {
       display: flex;
       flex-wrap: wrap;
-      justify-content: space-between;
+      justify-content: flex-start;
       align-items: center;
       margin-bottom: 1em;
       border-bottom: 1px solid #ccc;
       padding-bottom: 0.5em;
+      gap: 0.5em;
     }
-    #searchInput {
-      flex: 1 1 60%;
-      font-size: 1em;
-      padding: 0.3em 0.5em;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      min-width: 150px;
-      margin-right: 0.5em;
-    }
-    #themeToggleBtn, #fontIncreaseBtn, #fontDecreaseBtn {
+    button {
       background-color: transparent;
-      border: 1px solid var(--link-light);
+      border: 1.8px solid var(--link-light);
       color: var(--link-light);
       cursor: pointer;
-      padding: 0.4em 0.8em;
-      border-radius: 4px;
-      font-size: 0.9em;
-      margin-left: 0.4em;
+      padding: 0.6em 1em;
+      border-radius: 8px;
+      font-size: 1em;
       transition: background-color 0.3s, color 0.3s;
+      min-width: 50px;
+      user-select: none;
     }
-    #themeToggleBtn:hover, #fontIncreaseBtn:hover, #fontDecreaseBtn:hover {
+    button:hover {
       background-color: var(--link-light);
       color: white;
     }
-    /* Dark mode button colors */
-    body.dark-mode #themeToggleBtn,
-    body.dark-mode #fontIncreaseBtn,
-    body.dark-mode #fontDecreaseBtn {
+    body.dark-mode button {
       border-color: var(--link-dark);
       color: var(--link-dark);
     }
-    body.dark-mode #themeToggleBtn:hover,
-    body.dark-mode #fontIncreaseBtn:hover,
-    body.dark-mode #fontDecreaseBtn:hover {
+    body.dark-mode button:hover {
       background-color: var(--link-dark);
       color: var(--bg-dark);
     }
-    /* Search highlight */
-    mark {
-      background-color: var(--highlight-color);
-      color: black;
-      padding: 0 0.2em;
-    }
-    /* Footer */
     footer.page-footer {
-      font-size: 0.8em;
+      font-size: 0.75em;
       color: #666;
       text-align: right;
       margin-top: 2em;
       border-top: 1px solid #ccc;
       padding-top: 0.5em;
     }
+    mark {
+      background-color: var(--highlight-color);
+      color: black;
+      padding: 0 0.25em;
+      border-radius: 3px;
+    }
+    @media (max-width: 480px) {
+      #header {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+      button {
+        flex: 1 1 40%;
+        min-width: auto;
+        padding: 0.8em 0;
+        font-size: 1.1em;
+      }
+      button:not(:last-child) {
+        margin-right: 0.5em;
+        margin-bottom: 0.5em;
+      }
+    }
   </style>
 </head>
 <body>
-  <!-- Header with search input, theme toggle, and font size controls -->
-  <div id="header" role="search">
-    <input id="searchInput" type="search" placeholder="పఠనం కోసం శోధించండి..." aria-label="Search text" />
+  <div id="header" aria-label="పుస్తక నియంత్రణలు">
     <button id="fontIncreaseBtn" aria-label="అక్షరరాసి పెంచు">A+</button>
     <button id="fontDecreaseBtn" aria-label="అక్షరరాసి తగ్గించు">A-</button>
     <button id="themeToggleBtn" aria-pressed="false" aria-label="అంధకార/వెలుగునమూనా మార్చు">🌙 మోడ్ మార్చు</button>
   </div>
 
-  <!-- Content area where the book's HTML content goes -->
   <article id="content">
+    ${aiIntroHtml}
     ${htmlContent}
   </article>
 
-  <!-- Footer with book information -->
   <footer class="page-footer">
     అక్షరధార సాఫ్ట్‌వేర్ &mdash; ${bookTitle}
   </footer>
 
   <script>
-    // Theme toggle button logic
+    // Theme toggle
     const toggleBtn = document.getElementById('themeToggleBtn');
     toggleBtn.addEventListener('click', () => {
-      const body = document.body;
-      body.classList.toggle('dark-mode');
-      const isDark = body.classList.contains('dark-mode');
+      document.body.classList.toggle('dark-mode');
+      const isDark = document.body.classList.contains('dark-mode');
       toggleBtn.textContent = isDark ? '☀️ మోడ్ మార్చు' : '🌙 మోడ్ మార్చు';
       toggleBtn.setAttribute('aria-pressed', isDark);
     });
 
-    // Font size control logic
-    const content = document.getElementById('content');
+    // Font size controls
     const root = document.documentElement;
     const fontIncreaseBtn = document.getElementById('fontIncreaseBtn');
     const fontDecreaseBtn = document.getElementById('fontDecreaseBtn');
 
-    // Increase font size by 2px up to max 30px
     fontIncreaseBtn.addEventListener('click', () => {
       let currentSize = parseInt(getComputedStyle(root).getPropertyValue('--font-size'));
-      if (currentSize < 30) {
-        root.style.setProperty('--font-size', (currentSize + 2) + 'px');
-      }
+      if(currentSize < 30) root.style.setProperty('--font-size', (currentSize + 2) + 'px');
     });
-    // Decrease font size by 2px down to min 12px
+
     fontDecreaseBtn.addEventListener('click', () => {
       let currentSize = parseInt(getComputedStyle(root).getPropertyValue('--font-size'));
-      if (currentSize > 12) {
-        root.style.setProperty('--font-size', (currentSize - 2) + 'px');
-      }
+      if(currentSize > 12) root.style.setProperty('--font-size', (currentSize - 2) + 'px');
     });
 
-    // Search input and highlight logic
-    const searchInput = document.getElementById('searchInput');
-    searchInput.addEventListener('input', () => {
-      clearHighlights();
-      const term = searchInput.value.trim();
-      if (term.length > 0) {
-        highlightText(document.getElementById('content'), term);
+    // Interactive word count demo function
+    function countWord() {
+      const word = document.getElementById('wordInput').value.trim();
+      if(!word) {
+        alert('దయచేసి పదం ఎంటర్ చేయండి');
+        return;
       }
-    });
-
-    // Remove all previous highlights (<mark>)
-    function clearHighlights() {
-      const marks = document.querySelectorAll('mark');
-      marks.forEach(mark => {
-        const parent = mark.parentNode;
-        parent.replaceChild(document.createTextNode(mark.textContent), mark);
-        parent.normalize();
-      });
+      const text = document.getElementById('content').innerText.toLowerCase();
+      const regex = new RegExp(word.toLowerCase(), 'g');
+      const count = (text.match(regex) || []).length;
+      document.getElementById('result').innerText = \`పుస్తకంలో "\${word}" పదం \${count} సార్లు ఉంది.\`;
     }
-
-    // Recursive highlight function for text nodes
-    function highlightText(element, term) {
-      const regex = new RegExp(term, 'gi');
-      element.childNodes.forEach(node => {
-        if (node.nodeType === 3) { // Text node
-          const match = node.textContent.match(regex);
-          if (match) {
-            const fragment = document.createDocumentFragment();
-            let lastIndex = 0;
-            node.textContent.replace(regex, (m, index) => {
-              fragment.appendChild(document.createTextNode(node.textContent.substring(lastIndex, index)));
-              const mark = document.createElement('mark');
-              mark.textContent = m;
-              fragment.appendChild(mark);
-              lastIndex = index + m.length;
-            });
-            fragment.appendChild(document.createTextNode(node.textContent.substring(lastIndex)));
-            node.parentNode.replaceChild(fragment, node);
-          }
-        } else if (node.nodeType === 1) {
-          highlightText(node, term);
-        }
-      });
-    }
+    // Make function accessible globally inside EPUB
+    window.countWord = countWord;
   </script>
 </body>
-</html>`;
+</html>
+`;
 
-  // Save chapter1.html in EPUB
   oebps.file("chapter1.html", chapterXhtml);
 
-  // OPF Package with metadata, manifest, spine
   const contentOpf = `<?xml version="1.0" encoding="UTF-8"?>
 <package xmlns="http://www.idpf.org/2007/opf" unique-identifier="BookID" version="2.0">
   <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
@@ -925,7 +901,6 @@ async function generateEpubFromHtml(htmlContent, bookTitle) {
 
   oebps.file("content.opf", contentOpf);
 
-  // TOC file for EPUB navigation
   const tocNcx = `<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE ncx PUBLIC "-//NISO//DTD ncx 2005-1//EN"
   "http://www.daisy.org/z3986/2005/ncx-2005-1.dtd">
@@ -945,10 +920,10 @@ async function generateEpubFromHtml(htmlContent, bookTitle) {
 
   oebps.file("toc.ncx", tocNcx);
 
-  // Generate EPUB as blob with correct MIME type
+  // Generate EPUB Blob
   const epubBlob = await zip.generateAsync({ type: "blob", mimeType: "application/epub+zip" });
 
-  // Trigger file download using FileSaver.js
+  // Trigger download (requires FileSaver.js)
   saveAs(epubBlob, `${bookTitle.replace(/\s+/g, "_")}.epub`);
 }
 
