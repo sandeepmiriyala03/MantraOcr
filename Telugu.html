@@ -22,7 +22,7 @@
     <!-- FileSaver.js without integrity attribute -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 
-<script defer src="Aksharadhara.js"></script>
+    <script defer src="Aksharadhara.js"></script>
     <link rel="stylesheet" href="styles.css">
 
     <style>
@@ -493,8 +493,13 @@
 <body>
     <header class="header-fixed" role="banner">
         <div class="container header-content">
+            <div class="logo-container">
+                <img src="అక్షరధార.png" alt="Aksharadhara Logo" class="logo-img" />
+            </div>
+
             <div class="logo">
                 <a href="index.html" aria-label="అక్షరధార హోమ్">అక్షరధార</a>
+
             </div>
             <nav id="nav-links" class="nav-links" aria-label="ప్రధాన నావిగేషన్">
                 <a href="index.html" class="nav-link text-lg font-medium">
@@ -623,67 +628,63 @@
                     <div style="margin-top: 1.5rem; text-align: left;">
                         <label for="ocrText">OCR అవుట్‌పుట్ సవరించండి </label>
                         <textarea id="ocrText" placeholder="OCR ఫలితం ఇక్కడ కనిపిస్తుంది"></textarea>
-                        <!--    <div class="pitch-buttons">
-                    <button class="button secondary-btn" id="btnPitchHigh">స్వరితం
- (High) 🔼</button>
-                    <button class="button secondary-btn" id="btnPitchLow">అనుదాత్తం (Low) 🔽</button>
-               <!--      <button class="button secondary-btn" id="btnPitchSvarita">స్వరితం (Svarita) ⌒</button>
-                    <button class="button secondary-btn" id="btnPitchDirgha">దీర్ఘ స్వరితం (Dirgha) 〰</button> -->
-                        <button class="button secondary-btn" id="btnClear">అన్నీ తొలగించండి 🗑️</button>
-                    </div> -->
-                </div>
-                <div style="margin-top: 2rem;">
-                    <label for="mantraTitle">పాఠ్యము పేరు:</label>
-                    <input type="text" id="mantraTitle" placeholder="ఉదా: పాఠ్యము">
-                </div>
-                <div style="margin-top: 1rem;">
-                    <label for="mantraDescription">వివరణ:</label>
-                    <textarea id="mantraDescription" style="min-height: 80px;"
-                        placeholder="పాఠ్యము యొక్క సంక్షిప్త వివరణ"></textarea>
-                </div>
-                <div class="flex-container">
-                    <button class="button" id="btnSaveMantra">కొత్త పాఠ్యము సేవ్ చేయండి ✨</button>
-                </div>
-            </div>
+                        <div class="pitch-buttons">
 
-            <div class="section" id="viewMantraSection" style="display: none;">
-                <h2>4. మంత్రాలను చూడండి & సవరించండి</h2>
-                <p style="color: var(--light-text-color);">ఒక భాగాన్ని ఎంచుకుని, దానిలోని మంత్రాన్ని చూడండి లేదా
-                    సవరించండి.</p>
-                <div class="tab-container" id="mantraTabContainer"></div>
-                <div class="mantra-card" id="mantraDisplayCard">
-                    <div id="mantraTitleDisplay">
-                        <h3></h3>
+                            <button class="button secondary-btn" id="btnClear">అన్నీ తొలగించండి 🗑️</button>
+                        </div>
                     </div>
-                    <div id="mantraDescriptionDisplay">
-                        <p></p>
+                    <div style="margin-top: 2rem;">
+                        <label for="mantraTitle">పాఠ్యము పేరు:</label>
+                        <input type="text" id="mantraTitle" placeholder="ఉదా: పాఠ్యము">
                     </div>
-                    <div id="mantraContentDisplay" class="pitch-display">
-                        పాఠ్యము యొక్క భాగాన్ని ఎంచుకోండి.
+                    <div style="margin-top: 1rem;">
+                        <label for="mantraDescription">వివరణ:</label>
+                        <textarea id="mantraDescription" style="min-height: 80px;"
+                            placeholder="పాఠ్యము యొక్క సంక్షిప్త వివరణ"></textarea>
                     </div>
                     <div class="flex-container">
-                        <button class="button secondary-btn" id="btnEditMantra" disabled>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="lucide lucide-edit-3">
-                                <path d="M12 20h9" />
-                                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
-                            </svg>
-                            మంత్రాన్ని సవరించండి
-                        </button>
-                        <button class="button secondary-btn" id="btnDownloadMantra">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="lucide lucide-download">
-                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                                <polyline points="7 10 12 15 17 10" />
-                                <line x1="12" x2="12" y1="15" y2="3" />
-                            </svg>
-                            పుస్తకాన్ని డౌన్‌లోడ్ చేయండి
-                        </button>
+                        <button class="button" id="btnSaveMantra">కొత్త పాఠ్యము సేవ్ చేయండి ✨</button>
                     </div>
                 </div>
-            </div>
+
+                <div class="section" id="viewMantraSection" style="display: none;">
+                    <h2>4. మంత్రాలను చూడండి & సవరించండి</h2>
+                    <p style="color: var(--light-text-color);">ఒక భాగాన్ని ఎంచుకుని, దానిలోని మంత్రాన్ని చూడండి లేదా
+                        సవరించండి.</p>
+                    <div class="tab-container" id="mantraTabContainer"></div>
+                    <div class="mantra-card" id="mantraDisplayCard">
+                        <div id="mantraTitleDisplay">
+                            <h3></h3>
+                        </div>
+                        <div id="mantraDescriptionDisplay">
+                            <p></p>
+                        </div>
+                        <div id="mantraContentDisplay" class="pitch-display">
+                            పాఠ్యము యొక్క భాగాన్ని ఎంచుకోండి.
+                        </div>
+                        <div class="flex-container">
+                            <button class="button secondary-btn" id="btnEditMantra" disabled>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="lucide lucide-edit-3">
+                                    <path d="M12 20h9" />
+                                    <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+                                </svg>
+                                మంత్రాన్ని సవరించండి
+                            </button>
+                            <button class="button secondary-btn" id="btnDownloadMantra">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="lucide lucide-download">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                    <polyline points="7 10 12 15 17 10" />
+                                    <line x1="12" x2="12" y1="15" y2="3" />
+                                </svg>
+                                పుస్తకాన్ని డౌన్‌లోడ్ చేయండి
+                            </button>
+                        </div>
+                    </div>
+                </div>
 
         </main>
 

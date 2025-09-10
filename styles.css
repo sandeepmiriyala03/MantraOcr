@@ -307,13 +307,22 @@ textarea:focus {
 }
 
 /* Logo */
+
 .logo a {
     font-family: 'Noto Sans Telugu', serif;
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--primary-dark);
     text-decoration: none;
+    display: block; /* ensures the logo text is on its own line */
+    margin-bottom: 0.5rem; /* adds space below the text */
 }
+.logo-img {
+    width: 72px;         /* Adjust for retina/sharp display */
+    height: auto;
+    margin-bottom: 0.4rem;
+}
+
 
 /* Navigation */
 .nav-links {
