@@ -458,9 +458,7 @@ textarea:focus {
     right: 1rem;
   }
   /* Show hamburger icon on mobile */
-  .hamburger-icon {
-    display: block;
-  }
+ 
   /* Hide nav links by default on mobile */
   .nav-links {
     position: absolute;
@@ -627,4 +625,34 @@ textarea:focus {
   .hidden {
     display: flex !important;
   }
+}
+.nav-links {
+  display: none;
+  background: lightgray;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  flex-direction: column;
+  padding: 1rem 0;
+}
+
+
+.nav-links {
+  display: none;
+  background: lightgray;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  flex-direction: column;
+  padding: 1rem 0;
+}
+
+.nav-links.active {
+  display: flex;
+}
+.hamburger-icon {
+  display: block !important;
+  cursor: pointer;
 }

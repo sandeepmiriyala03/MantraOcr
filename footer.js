@@ -34,8 +34,6 @@ function createFooter() {
   p.append("© ");
   p.appendChild(copyright);
   p.append(" అక్షరధార | సర్వ హక్కులు రిజర్వ్ చేయబడ్డాయి. | ");
-  p.appendChild(currentDateTime);
-
   footer.appendChild(p);
   footerContainer.appendChild(footer);
 

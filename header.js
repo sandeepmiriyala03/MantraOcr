@@ -85,13 +85,33 @@ function createHeader() {
 document.body.prepend(createHeader());
 
 // Add hamburger toggle behavior for mobile nav menu
-hamburger.addEventListener("click", () => {
-  const expanded = hamburger.getAttribute("aria-expanded") === "true";
-  console.log("Hamburger clicked, expanded?", expanded);
-  hamburger.setAttribute("aria-expanded", !expanded);
-  navLinks.classList.toggle("active");
-  console.log("nav-links classList:", navLinks.classList);
+document.body.prepend(createHeader());
+
+document.addEventListener("DOMContentLoaded", () => {
+  const hamburger = document.getElementById("hamburger-icon");
+  const navLinks = document.getElementById("nav-links");
+
+  hamburger.addEventListener("click", () => {
+    const expanded = hamburger.getAttribute("aria-expanded") === "true";
+    console.log("Hamburger clicked, expanded?", expanded);
+    hamburger.setAttribute("aria-expanded", !expanded);
+    navLinks.classList.toggle("active");
+    console.log("nav-links classList:", navLinks.classList);
+  });
+
+  // Optional: close menu on clicking outside
+  document.addEventListener("click", (e) => {
+    if (
+      !navLinks.contains(e.target) &&
+      !hamburger.contains(e.target) &&
+      navLinks.classList.contains("active")
+    ) {
+      navLinks.classList.remove("active");
+      hamburger.setAttribute("aria-expanded", "false");
+    }
+  });
 });
+
 
 
   // Optional: close menu on clicking outside
