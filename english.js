@@ -104,8 +104,8 @@ async function initWorker() {
                 }
             }
         });
-        await worker.loadLanguage("tel");
-        await worker.initialize("tel");
+        await worker.loadLanguage("eng");
+        await worker.initialize("eng");
         updateStatus("OCR engine ready. Create or select a book.", 'success');
     } catch (error) {
         console.error("OCR initialization error:", error);
