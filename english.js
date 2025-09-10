@@ -1,31 +1,3 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const hamburger = document.getElementById('hamburger-icon');
-    const navLinks = document.getElementById('nav-links');
-
-    // Toggle mobile menu open/close
-    hamburger.addEventListener('click', function () {
-        const expanded = hamburger.getAttribute('aria-expanded') === 'true';
-        hamburger.setAttribute('aria-expanded', !expanded);
-        navLinks.classList.toggle('active');
-    });
-
-    // Find all dropdown containers and their toggle anchors
-    const dropdownContainers = document.querySelectorAll('.dropdown');
-
-    dropdownContainers.forEach(dropdown => {
-        const toggleLink = dropdown.querySelector('a.nav-link');
-
-        toggleLink.addEventListener('click', function (e) {
-            // On small screens only toggle submenu on click
-            if (window.innerWidth <= 768) {
-                e.preventDefault();
-                const expanded = dropdown.getAttribute('aria-expanded') === 'true';
-                dropdown.setAttribute('aria-expanded', !expanded);
-                dropdown.classList.toggle('open');
-            }
-        });
-    });
-});
 
 let allBooks = {};
 let currentBookKey = null;
