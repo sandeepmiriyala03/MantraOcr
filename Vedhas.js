@@ -667,10 +667,30 @@ async function downloadBook() {
     </footer>
     </body></html>
     `;
+            const filename = `${book.title}.html`;
+            //await generateEpubFromHtml(filename, htmlContent);
 
     // Generate EPUB file from the htmlContent string
-    await generateEpubFromHtml(htmlContent, book.title);
+   // await generateEpubFromHtml(htmlContent, book.title);
 }
+
+
+function downloadHtmlFile(filename, content) {
+    const blob = new Blob([content], { type: 'text/html;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);  // For Firefox compatibility
+    a.click();
+
+    setTimeout(() => {
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }, 0);
+}
+
 
 async function generateEpubFromHtml(htmlContent, bookTitle) {
   const zip = new JSZip();
@@ -932,5 +952,41 @@ async function generateEpubFromHtml(htmlContent, bookTitle) {
   // Trigger download (requires FileSaver.js)
   saveAs(epubBlob, `${bookTitle.replace(/\s+/g, "_")}.epub`);
 }
+
+async function downloadPdfFromHtml(htmlContent, filename) {
+  // Create a temporary container element for htmlContent
+  const container = document.createElement('div');
+  container.style.position = 'fixed';
+  container.style.left = '-9999px';  // Offscreen
+  container.style.width = '800px';    // PDF page width approx
+  container.innerHTML = htmlContent;
+  document.body.appendChild(container);
+
+  // Use html2canvas to render container
+  const canvas = await html2canvas(container, { scale: 2 });
+
+  // Remove temporary container from the DOM
+  document.body.removeChild(container);
+
+  // Create jsPDF instance (A4 size)
+  const { jsPDF } = window.jspdf;
+  const pdf = new jsPDF({
+    orientation: 'portrait',
+    unit: 'pt',
+    format: 'a4'
+  });
+
+  // Calculate width and height to maintain aspect ratio
+  const imgData = canvas.toDataURL('image/png');
+  const pdfWidth = pdf.internal.pageSize.getWidth();
+  const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+  // Add image to PDF
+  pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+
+  // Save/trigger download
+  pdf.save(filename);
+}
+
 
 
