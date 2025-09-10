@@ -1,4 +1,4 @@
-// JavaScript to dynamically create a responsive header with mobile toggle
+// Function to create header dynamically
 function createHeader() {
   const header = document.createElement("header");
   header.className = "header-fixed";
@@ -7,7 +7,7 @@ function createHeader() {
   const container = document.createElement("div");
   container.className = "container header-content";
 
-  // Logo container with image
+  // Logo container
   const logoContainer = document.createElement("div");
   logoContainer.className = "logo-container";
   const logoImg = document.createElement("img");
@@ -27,13 +27,12 @@ function createHeader() {
   logoDiv.appendChild(logoLink);
   container.appendChild(logoDiv);
 
-  // Nav links container
+  // Nav links
   const nav = document.createElement("nav");
   nav.id = "nav-links";
   nav.className = "nav-links";
   nav.setAttribute("aria-label", "ప్రధాన నావిగేషన్");
 
-  // Navigation items with icons
   const navItems = [
     { href: "index.html", iconClass: "fas fa-home", text: "హోమ్", classes: "nav-link text-lg font-medium" },
     { href: "aksharadhara.html", iconClass: "fas fa-book-open", text: "అక్షరధార", classes: "nav-link text-lg font-medium" },
@@ -43,7 +42,6 @@ function createHeader() {
     { href: "english.html", iconClass: "fas fa-language nav-icon-feather-english", text: "English", classes: "nav-link text-lg font-medium nav-english" }
   ];
 
-  // Create and append nav links
   navItems.forEach(item => {
     const a = document.createElement("a");
     a.href = item.href;
@@ -59,7 +57,7 @@ function createHeader() {
 
   container.appendChild(nav);
 
-  // Hamburger menu button for mobile
+  // Hamburger menu
   const btn = document.createElement("button");
   btn.id = "hamburger-icon";
   btn.className = "hamburger-icon";
@@ -72,8 +70,7 @@ function createHeader() {
     <svg class="w-8 h-8 text-[#1f3674]" fill="none" stroke="currentColor" viewBox="0 0 24 24"
          xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-    </svg>
-  `;
+    </svg>`;
   container.appendChild(btn);
 
   header.appendChild(container);
@@ -81,25 +78,20 @@ function createHeader() {
   return header;
 }
 
-// Append the generated header to body
-document.body.prepend(createHeader());
-
-// Add hamburger toggle behavior for mobile nav menu
-document.body.prepend(createHeader());
-
+// Wait for DOM content loaded then append header and bind events
 document.addEventListener("DOMContentLoaded", () => {
+  document.body.prepend(createHeader());
+
   const hamburger = document.getElementById("hamburger-icon");
   const navLinks = document.getElementById("nav-links");
 
   hamburger.addEventListener("click", () => {
     const expanded = hamburger.getAttribute("aria-expanded") === "true";
-    console.log("Hamburger clicked, expanded?", expanded);
     hamburger.setAttribute("aria-expanded", !expanded);
     navLinks.classList.toggle("active");
-    console.log("nav-links classList:", navLinks.classList);
   });
 
-  // Optional: close menu on clicking outside
+  // Close menu when clicking outside menu or hamburger and menu is open
   document.addEventListener("click", (e) => {
     if (
       !navLinks.contains(e.target) &&
@@ -110,15 +102,14 @@ document.addEventListener("DOMContentLoaded", () => {
       hamburger.setAttribute("aria-expanded", "false");
     }
   });
-});
 
-
-
-  // Optional: close menu on clicking outside
-  document.addEventListener("click", (e) => {
-    if (!navLinks.contains(e.target) && !hamburger.contains(e.target) && navLinks.classList.contains("active")) {
-      navLinks.classList.remove("active");
-      hamburger.setAttribute("aria-expanded", false);
-    }
+  // Close menu when clicking any nav link on small screens
+  navLinks.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", () => {
+      if (window.innerWidth <= 768) {
+        navLinks.classList.remove("active");
+        hamburger.setAttribute("aria-expanded", "false");
+      }
+    });
   });
-
+});
