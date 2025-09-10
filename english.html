@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Telugu Poetry</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;700&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+
+    <script src="https://unpkg.com/tesseract.js@4.1.0/dist/tesseract.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- JSZip without integrity attribute -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.0/jszip.min.js"></script>
+    <!-- FileSaver.js without integrity attribute -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script defer src="english.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="book.css">
+</head>
+
+
+<body>
+    <header class="header-fixed" role="banner">
+        <div class="container header-content">
+            <div class="logo-container">
+                <img src="అక్షరధార.png" alt="Aksharadhara Logo" class="logo-img" />
+            </div>
+            <div class="logo">
+                <a href="index.html" aria-label="Aksharadhara Home">Aksharadhara</a>
+            </div>
+           <nav id="nav-links" class="nav-links" aria-label="Primary Navigation">
+    <a href="index.html" class="nav-link text-lg font-medium nav-home">
+        <i class="fas fa-home nav-icon-home"></i> Home
+    </a>
+    <a href="aksharadhara.html" class="nav-link text-lg font-medium nav-aksharadhara">
+        <i class="fas fa-file-alt nav-icon-aksharadhara"></i> Aksharadhara
+    </a>
+    <a href="ShuklaYajurveda.html" class="nav-link text-lg font-medium nav-shukla-yajurveda">
+        <i class="fas fa-feather-alt nav-icon-feather-shukla"></i> Shukla Yajurveda
+    </a>
+    <a href="shruti-sankalanam.html" role="menuitem" class="nav-link text-lg font-medium nav-krishna-yajurveda">
+        <i class="fas fa-feather-alt nav-icon-feather-krishna"></i> Krishna Yajurveda
+    </a>
+    <a href="Telugu.html" class="nav-link text-lg font-medium nav-telugu-poetry">
+        <i class="fas fa-feather-alt nav-icon-feather-telugu"></i> Telugu Poetry
+    </a>
+    <a href="english.html" class="nav-link text-lg font-medium nav-english">
+        <i class="fas fa-feather-alt nav-icon-feather-english"></i> English
+    </a>
+</nav>
+
+            <button id="hamburger-icon" class="hamburger-icon" aria-label="Open Menu" aria-controls="nav-links"
+                aria-expanded="false" aria-haspopup="true" type="button">
+                <svg class="w-8 h-8 text-[#1f3674]" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7">
+                    </path>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+
+    <div class="main-container">
+        <main class="content-area p-4 md:p-8" id="main-content" role="main">
+            <div class="container text-center py-8 md:py-16">
+                <h1 class="text-3xl md:text-5xl font-extrabold text-[#1f3674] mb-4">English </h1>
+                <p class="text-lg md:text-xl text-[#4a5568] font-semibold">A powerful tool to easily digitize
+                    and manage your spiritual scriptures.</p>
+
+
+
+                <div class="status info" id="status">Create a new book or upload one to get started.</div>
+                <div class="section" id="helperSection">
+                    <h2 style="cursor:pointer;" id="helperToggleBtn">Shruti Sankalanam: How to Use? 📖 <span
+                            id="helperArrow">▼</span></h2>
+                    <div id="helperContent" class="help-content">
+                        <p>Shruti Sankalanam is a tool to digitize your spiritual scriptures and add pitch (tone
+                            marks) to them. It is very easy to use, just follow these 5 steps:</p>
+                        <ol>
+                            <li><b>Create a Book and Section:</b> Give a name to the scripture you want to digitize
+                                (Example: "Scripture"). Then create a section inside it (Example: "Introduction").</li>
+                            <li><b>Upload Image and Extract Text:</b> Upload an image containing the mantra from your
+                                phone or computer. Click the 'Start OCR' button. It will recognize characters from the
+                                image and provide you text.</li>
+                            <li><b>Save the Text:</b> Give a name and description to your mantra, then click the 'Save
+                                New Mantra' button.</li>
+                            <li><b>View and Download Text:</b> You can view saved texts anytime. Once done, click the
+                                'Download Book' button to save the entire book as an HTML file.</li>
+                        </ol>
+                    </div>
+                </div>
+
+
+
+                <div class="section" id="bookCreationSection">
+                    <h2>1. Create a Book</h2>
+                    <label for="newBookTitle">Book Title:</label>
+                    <input type="text" id="newBookTitle" placeholder="e.g. Text">
+                    <div class="flex-container">
+                        <button class="button" id="createNewBookBtn">Create New Book</button>
+                    </div>
+                    <div style="margin-top: 1.5rem; text-align: center;">Or</div>
+                    <label for="bookSelect" style="margin-top: 1.5rem;">Select Existing Book:</label>
+                    <select id="bookSelect"></select>
+                    <div class="flex-container">
+                        <button class="button secondary-btn" id="deleteBookBtn">Delete Book</button>
+                    </div>
+                </div>
+
+
+                <div class="section" id="sectionCreationSection" style="display: none;">
+                    <h2>2. Add Section</h2>
+                    <label for="newSectionTitle">Section Title:</label>
+                    <input type="text" id="newSectionTitle" placeholder="e.g. Introduction">
+                    <div class="flex-container">
+                        <button class="button" id="addNewSectionBtn">Add New Section</button>
+                    </div>
+                    <div style="margin-top: 1.5rem; text-align: center;">Or</div>
+                    <label for="sectionSelect" style="margin-top: 1.5rem;">Select Section:</label>
+                    <select id="sectionSelect"></select>
+                    <div class="flex-container">
+                        <button class="button secondary-btn" id="deleteSectionBtn">Delete Section</button>
+                    </div>
+                </div>
+
+
+                <div class="section" id="ocrSection" style="display: none;">
+                    <h2>3. Extract Text from Image</h2>
+                    <div class="flex-container">
+                        <div class="file-input-wrapper">
+                            <button class="button" id="uploadBtn">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="lucide lucide-upload">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                    <polyline points="17 8 12 3 7 8" />
+                                    <line x1="12" x2="12" y1="3" y2="15" />
+                                </svg>
+                                Upload Image
+                                <input type="file" id="imageInput" class="file-input" accept="image/*" />
+                            </button>
+                        </div>
+                        <button class="button" id="btnOcr" disabled>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-scan-text">
+                                <path d="M3 7V5a2 2 0 0 1 2-2h2" />
+                                <path d="M17 3h2a2 2 0 0 1 2 2v2" />
+                                <path d="M21 17v2a2 2 0 0 1-2 2h-2" />
+                                <path d="M7 21H5a2 2 0 0 1-2-2v-2" />
+                                <path d="M7 12h10" />
+                                <path d="M7 18h7" />
+                                <path d="M10 6h4" />
+                            </svg>
+                            Start OCR
+                            <span id="ocrSpinner" class="spinner"></span>
+                        </button>
+                    </div>
+                    <img id="preview" alt="Uploaded Image" />
+                    <div style="margin-top: 1.5rem; text-align: left;">
+                        <label for="ocrText">Edit OCR Output</label>
+                        <textarea id="ocrText" placeholder="OCR result appears here"></textarea>
+                        <div class="pitch-buttons">
+
+
+                            <button class="button secondary-btn" id="btnClear">Clear All 🗑️</button>
+                        </div>
+                    </div>
+                    <div style="margin-top: 2rem;">
+                        <label for="mantraTitle">Text Title:</label>
+                        <input type="text" id="mantraTitle" placeholder="e.g. Text">
+                    </div>
+                    <div style="margin-top: 1rem;">
+                        <label for="mantraDescription">Description:</label>
+                        <textarea id="mantraDescription" style="min-height: 80px;"
+                            placeholder="Brief description of the text"></textarea>
+                    </div>
+                    <div class="flex-container">
+                        <button class="button" id="btnSaveMantra">Save New Text ✨</button>
+                    </div>
+                </div>
+
+
+                <div class="section" id="viewMantraSection" style="display: none;">
+                    <h2>4. View & Edit Text</h2>
+                    <p style="color: var(--light-text-color);">Select a section to view or edit its text.</p>
+                    <div class="tab-container" id="mantraTabContainer"></div>
+                    <div class="mantra-card" id="mantraDisplayCard">
+                        <div id="mantraTitleDisplay">
+                            <h3></h3>
+                        </div>
+                        <div id="mantraDescriptionDisplay">
+                            <p></p>
+                        </div>
+                        <div id="mantraContentDisplay" class="pitch-display">
+                            Select a part of the text.
+                        </div>
+                        <div class="flex-container">
+                            <button class="button secondary-btn" id="btnEditMantra" disabled>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="lucide lucide-edit-3">
+                                    <path d="M12 20h9" />
+                                    <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+                                </svg>
+                                Edit Text
+                            </button>
+                            <button class="button secondary-btn" id="btnDownloadMantra">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="lucide lucide-download">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                    <polyline points="7 10 12 15 17 10" />
+                                    <line x1="12" x2="12" y1="15" y2="3" />
+                                </svg>
+                                Download Book
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+
+        </main>
+
+
+    </div>
+
+
+
+    <div class="footer-container">
+
+
+        <footer class="footer-fixed" role="contentinfo">
+            <p class="text-sm md:text-base">© <span id="currentYear"></span> Aksharadhara | All rights reserved.
+                | <span id="currentDateTime"></span></p>
+        </footer>
+    </div>
+
+
+
+</body>
+
+
+</html>
