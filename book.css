@@ -1,0 +1,465 @@
+
+        /* CSS for Responsive Design and Styling */
+        :root {
+            --primary-color: #5a67d8;
+            --primary-dark: #4c51bf;
+            --secondary-color: #e2e8f0;
+            --secondary-dark: #cbd5e1;
+            --background-color: #f0f4f8;
+            --card-background: #ffffff;
+            --text-color: #2d3748;
+            --light-text-color: #718096;
+            --border-color: #e2e8f0;
+            --success-color: #48bb78;
+            --error-color: #c0392b;
+            --info-color: #4299e1;
+            --border-radius: 12px;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --box-shadow-hover: 0 8px 20px rgba(0, 0, 0, 0.12);
+            --pitch-high-color: #1f3674;
+            --pitch-low-color: #a08b5e;
+            --pitch-svarita-color: #c0392b;
+            --pitch-dirgha-color: #27ae60;
+            --button-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 2rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Noto Sans Telugu', serif;
+            color: var(--primary-dark);
+            text-align: center;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        .main-container {
+            max-width: 960px;
+            width: 100%;
+        }
+
+        .section {
+            background: var(--card-background);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 2rem;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            box-shadow: var(--box-shadow-hover);
+        }
+
+        .status {
+            font-weight: 500;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: var(--button-shadow);
+        }
+
+        .status.info {
+            background: #e6f4ff;
+            color: #1c7ed6;
+        }
+
+        .status.success {
+            background: #e9f5e9;
+            color: #2f855a;
+        }
+
+        .status.error {
+            background: #ffebeb;
+            color: #c0392b;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+            padding: 0.75rem 1.5rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            gap: 0.5rem;
+            box-shadow: var(--button-shadow);
+        }
+
+        .button:hover:not(:disabled) {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .button:active:not(:disabled) {
+            transform: translateY(0);
+            box-shadow: var(--button-shadow);
+        }
+
+        .button:disabled {
+            background: #cbd5e1;
+            cursor: not-allowed;
+            color: #94a3b8;
+            box-shadow: none;
+        }
+
+        .secondary-btn {
+            background: var(--secondary-color);
+            color: var(--text-color);
+        }
+
+        .secondary-btn:hover:not(:disabled) {
+            background: var(--secondary-dark);
+        }
+
+        .flex-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .file-input {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        img#preview {
+            max-width: 100%;
+            max-height: 300px;
+            display: none;
+            margin: 1.5rem auto;
+            border-radius: var(--border-radius);
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            object-fit: contain;
+        }
+
+        label {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            display: block;
+            color: var(--text-color);
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            font-size: 1.25rem;
+            font-family: 'Noto Sans Telugu', serif;
+            background: var(--background-color);
+            transition: border-color 0.2s ease;
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        input[type="text"] {
+            min-height: unset;
+            height: 48px;
+            font-size: 1rem;
+        }
+
+        input[type="text"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(90, 103, 216, 0.2);
+        }
+
+        .pitch-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .pitch-marked-char {
+            position: relative;
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 1.5;
+            font-family: 'Noto Sans Telugu', serif;
+            text-align: center;
+            cursor: pointer;
+            padding: 0.4em 0.2em;
+            transition: background-color 0.2s ease;
+        }
+
+        .pitch-marked-char:hover {
+            background-color: var(--secondary-color);
+            border-radius: 4px;
+        }
+
+        .pitch-marked-char.high::before {
+            content: "▲";
+            position: absolute;
+            top: -0.7em;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--pitch-high-color);
+            font-size: 0.8em;
+            margin-top: 0.2em;
+        }
+
+        .pitch-marked-char.low::after {
+            content: "▼";
+            position: absolute;
+            bottom: -0.5em;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--pitch-low-color);
+            font-size: 0.8em;
+        }
+
+        .pitch-marked-char.svarita::before {
+            content: "⌒";
+            position: absolute;
+            top: -0.7em;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--pitch-svarita-color);
+            font-size: 0.8em;
+            margin-top: 0.2em;
+        }
+
+        .pitch-marked-char.dirgha-svarita::before {
+            content: "〰";
+            position: absolute;
+            top: -0.7em;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--pitch-dirgha-color);
+            font-size: 0.8em;
+            margin-top: 0.2em;
+        }
+
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            display: none;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .tab-container {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            padding-bottom: 10px;
+        }
+
+        .tab-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab-button {
+            flex-shrink: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+            background: var(--secondary-color);
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1.25rem;
+            border-radius: var(--border-radius);
+            color: var(--text-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        .tab-button:hover:not(.active) {
+            transform: translateY(-2px);
+            background: var(--secondary-dark);
+        }
+
+        .tab-button.active {
+            background: var(--primary-color);
+            color: white;
+            border: 1px solid var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(90, 103, 216, 0.2);
+        }
+
+        .tab-button-content {
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        .tab-button .control-btn {
+            background: none;
+            border: none;
+            color: var(--light-text-color);
+            cursor: pointer;
+            padding: 0;
+            line-height: 1;
+            font-size: 1.2rem;
+            transition: color 0.2s ease, transform 0.2s ease;
+            margin-left: 0.75rem;
+        }
+
+        .tab-button.active .control-btn {
+            color: white;
+        }
+
+        .tab-button .control-btn:hover {
+            color: var(--primary-dark);
+            transform: scale(1.1);
+        }
+
+        .tab-button.active .control-btn:hover {
+            color: #fff;
+        }
+
+        .tab-button .control-btn.delete-btn:hover {
+            color: var(--error-color);
+        }
+
+        .mantra-card {
+            background: var(--background-color);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-color);
+        }
+
+        .mantra-card h3 {
+            margin-top: 0;
+            color: var(--primary-dark);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .mantra-card p {
+            color: var(--light-text-color);
+        }
+
+        .mantra-card .pitch-display {
+            font-size: 1.25rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            line-height: 2.2;
+            text-align: justify;
+        }
+
+        .help-content {
+            display: none;
+            margin-top: 1.5rem;
+            font-family: 'Noto Sans Telugu', serif;
+            text-align: left;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            background-color: var(--secondary-color);
+        }
+
+        .help-content h3 {
+            text-align: left;
+            color: var(--primary-color);
+            margin-top: 0;
+            font-size: 1.2rem;
+        }
+
+        .help-content ol {
+            padding-left: 1.5rem;
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        .help-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            .section {
+                padding: 1.5rem;
+            }
+
+            h1,
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .button {
+                width: 100%;
+            }
+
+            .flex-container {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .tab-button {
+                width: auto;
+            }
+        }
+
+        #bookSelect,
+        #sectionSelect {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-color);
+            font-size: 1rem;
+            background-color: white;
+            margin-bottom: 1rem;
+        }
+ 
