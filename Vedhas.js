@@ -639,6 +639,7 @@ async function downloadBook() {
     </body></html>
     `;
             const filename = `${book.title}.html`;
+            downloadHtmlFile(filename,htmlContent);
             //await generateEpubFromHtml(filename, htmlContent);
 
     // Generate EPUB file from the htmlContent string

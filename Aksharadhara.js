@@ -636,7 +636,7 @@ async function downloadBook() {
     </body></html>
     `;
     const filename = `${book.title}.html`;
-            await downloadHtmlFile(filename, htmlContent);
+    await downloadHtmlFile(filename, htmlContent);
 
     // Generate EPUB file from the htmlContent string
    // await generateEpubFromHtml(htmlContent, book.title);
