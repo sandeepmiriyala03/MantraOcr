@@ -1,20 +1,20 @@
-const CACHE_NAME = 'aksharadhara-v1';
+const CACHE_NAME = 'aksharadhara-v2'; // ← Change version to force update
 const urlsToCache = [
   '/',
   '/index.html',
   '/aksharadhara.html',
-  '/ShuklaYajurveda.html',
-
+  '/ShuklaYajurveda.html',      // ← Exact match from your navigation
   '/shruti-sankalanam.html',
-  '/Telugu.html',
+  '/Telugu.html',               // ← Exact match from your navigation
   '/english.html',
-  '/styles.css', 
+  '/styles.css',
   '/book.css',
   '/header.js',
   '/footer.js',
   '/Vedhas.js',
-  '/అక్షరధార.png',
- 
+  '/pwa.js',
+  '/manifest.json',
+  '/అక్షరధార.png'
 ];
 
 // Install Service Worker
@@ -24,6 +24,9 @@ self.addEventListener('install', (event) => {
       .then((cache) => {
         console.log('Opened cache');
         return cache.addAll(urlsToCache);
+      })
+      .catch(error => {
+        console.log('Cache addAll failed:', error);
       })
   );
 });
@@ -44,14 +47,39 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Fetch - Cache First Strategy
+// Fetch with proper redirect handling
 self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(event.request)
       .then((response) => {
-        // Return cached version or fetch from network
-        return response || fetch(event.request);
-      }
-    )
+        if (response) {
+          return response;
+        }
+
+        const fetchRequest = event.request.clone();
+
+        return fetch(fetchRequest, {
+          redirect: 'follow'
+        }).then((response) => {
+          if (!response || response.status !== 200 || response.type !== 'basic') {
+            return response;
+          }
+
+          const responseToCache = response.clone();
+
+          caches.open(CACHE_NAME)
+            .then((cache) => {
+              cache.put(event.request, responseToCache);
+            });
+
+          return response;
+        }).catch((error) => {
+          console.log('Fetch failed:', error);
+          return new Response('Offline - Resource not available', {
+            status: 503,
+            statusText: 'Service Unavailable'
+          });
+        });
+      })
   );
 });
