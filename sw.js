@@ -4,15 +4,17 @@ const urlsToCache = [
   '/index.html',
   '/aksharadhara.html',
   '/ShuklaYajurveda.html',
+
   '/shruti-sankalanam.html',
   '/Telugu.html',
   '/english.html',
-  '/styles.css', // your main CSS file
+  '/styles.css', 
+  '/book.css',
   '/header.js',
   '/footer.js',
   '/Vedhas.js',
   '/అక్షరధార.png',
-  // Add other important files
+ 
 ];
 
 // Install Service Worker
