@@ -37,8 +37,8 @@ function createHeader() {
   const navItems = [
     { href: "index.html", iconClass: "fas fa-home", text: "హోమ్", classes: "nav-link text-lg font-medium" },
     { href: "aksharadhara.html", iconClass: "fas fa-book-open", text: "అక్షరధార", classes: "nav-link text-lg font-medium" },
-    { href: "ShuklaYajurveda.html", iconClass: "fas fa-scroll", text: "శుక్ల యజుర్వేదం ", classes: "nav-link text-lg font-medium" },
-    { href: "shruti-sankalanam.html", iconClass: "fas fa-pray", text: "కృష్ణ యజుర్వేదం ", classes: "nav-link text-lg font-medium", role: "menuitem" },
+    { href: "ShuklaYajurveda.html", iconClass: "fas fa-scroll", text: "శుక్ల యజుర్వేదం", classes: "nav-link text-lg font-medium" },
+    { href: "shruti-sankalanam.html", iconClass: "fas fa-pray", text: "కృష్ణ యజుర్వేదం", classes: "nav-link text-lg font-medium", role: "menuitem" },
     { href: "Telugu.html", iconClass: "fas fa-pen-nib", text: "తెలుగు", classes: "nav-link text-lg font-medium" },
     { href: "english.html", iconClass: "fas fa-language", text: "English", classes: "nav-link text-lg font-medium nav-english" }
   ];
@@ -57,6 +57,25 @@ function createHeader() {
     nav.appendChild(a);
   });
 
+  // PWA Install Button
+  const pwaButton = document.createElement("button");
+  pwaButton.id = "header-pwa-install";
+  pwaButton.className = "nav-link pwa-install-btn";
+  pwaButton.style.display = "none"; // Hidden by default
+  pwaButton.setAttribute("aria-label", "యాప్ ఇన్‌స్టాల్ చేయండి");
+  pwaButton.innerHTML = `
+    <i class="fas fa-download"></i>
+    <span class="pwa-text">ఇన్‌స్టాల్</span>
+  `;
+  
+  // PWA install click handler
+  pwaButton.addEventListener("click", () => {
+    if (window.PWA && window.PWA.deferredPrompt) {
+      window.PWA.triggerInstall();
+    }
+  });
+
+  nav.appendChild(pwaButton);
   container.appendChild(nav);
 
   // Hamburger button for mobile
@@ -76,25 +95,38 @@ function createHeader() {
   container.appendChild(hamburger);
 
   header.appendChild(container);
-
   return header;
 }
 
-// Control hamburger visibility based on viewport width
+// Control hamburger visibility and PWA button
 function updateHamburgerVisibility() {
   const hamburger = document.getElementById("hamburger-icon");
-  if (!hamburger) return; // Safety check
+  if (!hamburger) return;
 
   if (window.innerWidth <= 768) {
     hamburger.style.display = "flex";
   } else {
     hamburger.style.display = "none";
-    // Also ensure nav-links menu is visible and reset states on desktop
     const navLinks = document.getElementById("nav-links");
     if (navLinks) {
       navLinks.classList.remove("active");
     }
     hamburger.setAttribute("aria-expanded", "false");
+  }
+}
+
+// PWA Integration Functions
+function showHeaderPWAButton() {
+  const pwaButton = document.getElementById("header-pwa-install");
+  if (pwaButton) {
+    pwaButton.style.display = "flex";
+  }
+}
+
+function hideHeaderPWAButton() {
+  const pwaButton = document.getElementById("header-pwa-install");
+  if (pwaButton) {
+    pwaButton.style.display = "none";
   }
 }
 
@@ -104,8 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const hamburger = document.getElementById("hamburger-icon");
   const navLinks = document.getElementById("nav-links");
 
-  updateHamburgerVisibility(); // Initial check
-
+  updateHamburgerVisibility();
   window.addEventListener("resize", updateHamburgerVisibility);
 
   if (hamburger && navLinks) {
@@ -139,4 +170,19 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+
+  // PWA Button Control
+  window.addEventListener('beforeinstallprompt', () => {
+    showHeaderPWAButton();
+  });
+
+  window.addEventListener('appinstalled', () => {
+    hideHeaderPWAButton();
+  });
 });
+
+// Export functions for PWA integration
+window.HeaderPWA = {
+  showInstallButton: showHeaderPWAButton,
+  hideInstallButton: hideHeaderPWAButton
+};

@@ -402,3 +402,30 @@ a:hover {
   filter: brightness(1.08);
   transition: filter 0.3s ease;
 }
+/* PWA Install Button in Header */
+.pwa-install-btn {
+  background: #48bb78 !important;
+  color: white !important;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+}
+
+.pwa-install-btn:hover {
+  background: #38a169 !important;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .pwa-install-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

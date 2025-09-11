@@ -1,0 +1,25 @@
+{
+  "name": "అక్షరధార - Aksharadhara",
+  "short_name": "అక్షరధార",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#5a67d8",
+  "theme_color": "#5a67d8",
+  "description": "Telugu Scripture and Vedic Text Application",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "అక్షరధార.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "అక్షరధార.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
