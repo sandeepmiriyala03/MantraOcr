@@ -3,10 +3,10 @@ const urlsToCache = [
   '/',
   '/index.html',
   '/aksharadhara.html',
-  '/ShuklaYajurveda.html',
+  '/Shukla.html',
 
   '/shruti-sankalanam.html',
-  '/Telugu.html',
+  '/Tel.html',
   '/english.html',
   '/styles.css', 
   '/book.css',

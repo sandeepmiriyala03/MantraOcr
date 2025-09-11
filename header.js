@@ -37,9 +37,9 @@ function createHeader() {
   const navItems = [
     { href: "index.html", iconClass: "fas fa-home", text: "హోమ్", classes: "nav-link text-lg font-medium" },
     { href: "aksharadhara.html", iconClass: "fas fa-book-open", text: "అక్షరధార", classes: "nav-link text-lg font-medium" },
-    { href: "ShuklaYajurveda.html" , iconClass: "fas fa-scroll", text: "శుక్లయజుర్వేదం", classes: "nav-link text-lg font-medium" },
+    { href: "Shukla.html" , iconClass: "fas fa-scroll", text: "శుక్లయజుర్వేదం", classes: "nav-link text-lg font-medium" },
     { href: "shruti-sankalanam.html", iconClass: "fas fa-pray", text: "కృష్ణ యజుర్వేదం", classes: "nav-link text-lg font-medium", role: "menuitem" },
-    { href: "Telugu.html", iconClass: "fas fa-pen-nib", text: "తెలుగు", classes: "nav-link text-lg font-medium" },
+    { href: "Tel.html", iconClass: "fas fa-pen-nib", text: "తెలుగు", classes: "nav-link text-lg font-medium" },
     { href: "english.html", iconClass: "fas fa-language", text: "English", classes: "nav-link text-lg font-medium nav-english" }
   ];
 
