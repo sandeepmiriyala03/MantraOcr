@@ -37,8 +37,8 @@ function createHeader() {
   const navItems = [
     { href: "index.html", iconClass: "fas fa-home", text: "హోమ్", classes: "nav-link text-lg font-medium" },
     { href: "aksharadhara.html", iconClass: "fas fa-book-open", text: "అక్షరధార", classes: "nav-link text-lg font-medium" },
-    { href: "ShuklaYajurveda.html", iconClass: "fas fa-scroll", text: "శుక్ల ", classes: "nav-link text-lg font-medium" },
-    { href: "shruti-sankalanam", iconClass: "fas fa-pray", text: "కృష్ణ", classes: "nav-link text-lg font-medium", role: "menuitem" },
+    { href: "ShuklaYajurveda.html", iconClass: "fas fa-scroll", text: "శుక్ల యజుర్వేదం ", classes: "nav-link text-lg font-medium" },
+    { href: "shruti-sankalanam.html", iconClass: "fas fa-pray", text: "కృష్ణ యజుర్వేదం ", classes: "nav-link text-lg font-medium", role: "menuitem" },
     { href: "Telugu.html", iconClass: "fas fa-pen-nib", text: "తెలుగు", classes: "nav-link text-lg font-medium" },
     { href: "english.html", iconClass: "fas fa-language", text: "English", classes: "nav-link text-lg font-medium nav-english" }
   ];
@@ -69,7 +69,7 @@ function createHeader() {
   hamburger.setAttribute("aria-haspopup", "true");
   hamburger.type = "button";
   hamburger.innerHTML = `
-    <svg class="w-8 h-8 text-[#1f3674]" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"
      xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
     </svg>`;
@@ -80,40 +80,63 @@ function createHeader() {
   return header;
 }
 
-// Append header and add responsive menu behavior
+// Control hamburger visibility based on viewport width
+function updateHamburgerVisibility() {
+  const hamburger = document.getElementById("hamburger-icon");
+  if (!hamburger) return; // Safety check
+
+  if (window.innerWidth <= 768) {
+    hamburger.style.display = "flex";
+  } else {
+    hamburger.style.display = "none";
+    // Also ensure nav-links menu is visible and reset states on desktop
+    const navLinks = document.getElementById("nav-links");
+    if (navLinks) {
+      navLinks.classList.remove("active");
+    }
+    hamburger.setAttribute("aria-expanded", "false");
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   document.body.prepend(createHeader());
 
   const hamburger = document.getElementById("hamburger-icon");
   const navLinks = document.getElementById("nav-links");
 
-  // Toggle mobile menu open/close
-  hamburger.addEventListener("click", () => {
-    const expanded = hamburger.getAttribute("aria-expanded") === "true";
-    hamburger.setAttribute("aria-expanded", String(!expanded));
-    navLinks.classList.toggle("active");
-  });
+  updateHamburgerVisibility(); // Initial check
 
-  // Close menu when clicking on links (mobile)
-  navLinks.querySelectorAll("a").forEach(link => {
-    link.addEventListener("click", () => {
-      if (window.innerWidth <= 768) {
+  window.addEventListener("resize", updateHamburgerVisibility);
+
+  if (hamburger && navLinks) {
+    // Toggle mobile menu open/close
+    hamburger.addEventListener("click", () => {
+      const expanded = hamburger.getAttribute("aria-expanded") === "true";
+      hamburger.setAttribute("aria-expanded", String(!expanded));
+      navLinks.classList.toggle("active");
+    });
+
+    // Close menu when clicking on links (mobile)
+    navLinks.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        if (window.innerWidth <= 768) {
+          navLinks.classList.remove("active");
+          hamburger.setAttribute("aria-expanded", "false");
+        }
+      });
+    });
+
+    // Close menu on clicking outside
+    document.addEventListener("click", event => {
+      if (
+        window.innerWidth <= 768 &&
+        !navLinks.contains(event.target) &&
+        !hamburger.contains(event.target) &&
+        navLinks.classList.contains("active")
+      ) {
         navLinks.classList.remove("active");
         hamburger.setAttribute("aria-expanded", "false");
       }
     });
-  });
-
-  // Close menu on clicking outside
-  document.addEventListener("click", event => {
-    if (
-      window.innerWidth <= 768 &&
-      !navLinks.contains(event.target) &&
-      !hamburger.contains(event.target) &&
-      navLinks.classList.contains("active")
-    ) {
-      navLinks.classList.remove("active");
-      hamburger.setAttribute("aria-expanded", "false");
-    }
-  });
+  }
 });

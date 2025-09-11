@@ -1,313 +1,176 @@
 /* ===========================
-   CSS Variables - Theme Colors, Spacing, Shadows, Fonts
-   =========================== */
+    Final Fixed CSS for UI / UX
+=========================== */
+
+/* CSS Variables: Colors, Shadows, Fonts, Spacing */
 :root {
-  --primary-color: #5a67d8;
-  --primary-dark: #1f3674;
-  --secondary-color: #e2e2f0;
-  --secondary-dark: #cbbdcd;
-  --background-color: #f0f4f8;
+  --primary-color: #5a63d8;
+  --primary-dark: #244a94;
+  --secondary-color: #e7eafb;
+  --secondary-dark: #c6cbed;
+  --background-color: #f9fafb;
   --card-background: #ffffff;
-  --text-color: #2d3748;
-  --light-text-color: #718096;
-  --border-color: #e2e2f0;
-  --success-color: #48c34a;
-  --error-color: #c0392b;
-  --info-color: #427ae1;
-  --pitch-high-color: #2f367a;
-  --pitch-low-color: #a0815e;
-  --chatbot-color: #4a7c59;
+  --text-color: #33364a;
+  --text-muted: #7b809a;
+  --border-color: #dde1f0;
+  --success-color: #48bb78;
+  --error-color: #e53e3e;
+  --info-color: #4299e1;
+  --pitch-high: #2c3e88;
+  --pitch-low: #a17d42;
+  --chatbot-bg: #2e6a52;
 
-  /* Spacing & sizing */
-  --border-radius: 12px;
-  --button-min-height: 52px;
-  --button-min-width: 130px;
+  --font-body: 'Inter', sans-serif;
+  --font-telugu: 'Noto Serif Telugu', serif;
 
-  /* Shadows */
-  --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  --box-shadow-hover: 0 8px 20px rgba(0, 0, 0, 0.1);
-  --button-shadow: 0 5px 6px rgba(0, 0, 0, 0.06);
+  --border-radius: 10px;
+  --shadow-light: 0 2px 6px rgba(0,0,0,0.1);
+  --shadow-hover: 0 6px 15px rgba(0,0,0,0.15);
 
-  /* Font stacks */
-  --font-sans: 'Inter', 'Roboto', sans-serif;
-  --font-telugu: 'Noto Sans Telugu', serif;
+  --btn-height: 48px;
+  --btn-min-width: 130px;
 }
 
-/* ===========================
-   Base Styles and Layout
-   =========================== */
+/* Reset & Base styles */
 html {
   font-size: 16px;
   scroll-behavior: smooth;
 }
 
 body {
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   background-color: var(--background-color);
   color: var(--text-color);
   margin: 0;
-  padding: 2rem 1rem 2rem;
-  padding-top: 5rem; /* Reserve space for fixed header */
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  padding: 4rem 1rem 1rem; /* accommodates fixed header */
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Containers */
 .container {
-  max-width: 1200px;
+  max-width: 1100px;
   margin: 0 auto;
   padding: 0 1rem;
 }
 
-.main-container {
-  max-width: 960px;
+.main-content {
   width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-/* ===========================
-   Headings
-   =========================== */
+/* Headings */
 h1, h2 {
   font-family: var(--font-telugu);
+  font-weight: 700;
   color: var(--primary-dark);
   text-align: center;
   margin-bottom: 1.5rem;
-  letter-spacing: -0.5px;
-  font-size: clamp(1.4rem, 4vw, 2rem);
+  font-size: clamp(1.5rem, 4vw, 2.25rem);
   user-select: none;
 }
 
-/* ===========================
-   Section Styling
-   =========================== */
+p {
+  font-size: 1rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* Sections */
 .section {
   background: var(--card-background);
-  padding: 2rem;
   border-radius: var(--border-radius);
-  box-shadow: var(--box-shadow);
+  box-shadow: var(--shadow-light);
+  padding: 2rem;
   margin-bottom: 2rem;
   transition: box-shadow 0.3s ease;
 }
+
 .section:hover,
 .section:focus-within {
-  box-shadow: var(--box-shadow-hover);
-  outline-offset: 2px;
-  outline: 2px solid var(--primary-color);
+  box-shadow: var(--shadow-hover);
+  outline: none;
 }
 
-/* ===========================
-   Status Messages
-   =========================== */
-.status {
-  font-weight: 500;
-  padding: 0.75rem 1.5rem;
+/* Buttons */
+button,
+input[type="button"],
+input[type="submit"] {
+  font-family: var(--font-body);
+  cursor: pointer;
   border-radius: var(--border-radius);
-  margin-bottom: 1.5rem;
-  text-align: center;
-  box-shadow: var(--button-shadow);
-  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+  font-weight: 600;
+  min-width: var(--btn-min-width);
+  height: var(--btn-height);
+  padding: 0 1.5rem;
+  border: none;
+  transition: all 0.3s ease;
   user-select: none;
-}
-.status.info {
-  background: #e6f0ff;
-  color: #3f90ff;
-}
-.status.success {
-  background: #e0ffe4;
-  color: #2d9b3d;
-}
-.status.error {
-  background: #ffe1e1;
-  color: #cc2727;
-}
-
-/* ===========================
-   Buttons
-   =========================== */
-.button,
-.secondary-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-sans);
-  font-weight: 500;
-  padding: 1rem 1.75rem;
-  border-radius: var(--border-radius);
-  cursor: pointer;
-  gap: 0.75rem;
-  box-shadow: var(--button-shadow);
-  min-height: var(--button-min-height);
-  min-width: var(--button-min-width);
-  transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s;
-  border: none;
-  user-select: none;
-  text-align: center;
+  gap: 0.5rem;
   white-space: nowrap;
-}
-.button {
+  box-shadow: var(--shadow-light);
   background-color: var(--primary-color);
   color: white;
+  font-size: 1rem;
 }
-.button:hover:not(:disabled) {
+
+button:hover:not(:disabled),
+input[type="button"]:hover:not(:disabled),
+input[type="submit"]:hover:not(:disabled) {
   background-color: var(--primary-dark);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-2px);
 }
-.button:active:not(:disabled) {
-  transform: translateY(0);
-  box-shadow: var(--button-shadow);
-}
-.button:disabled {
-  background: #cbd3db;
+
+button:disabled,
+input[type="button"]:disabled,
+input[type="submit"]:disabled {
+  background-color: #a0a8bb;
   cursor: not-allowed;
-  color: #aab3bb;
   box-shadow: none;
 }
-.secondary-btn {
-  background-color: var(--secondary-color);
-  color: var(--text-color);
-}
-.secondary-btn:hover:not(:disabled) {
-  background-color: var(--secondary-dark);
-}
-.button:focus-visible,
-.secondary-btn:focus-visible {
-  outline: 3px solid var(--primary-color);
+
+button:focus-visible,
+input[type="button"]:focus-visible,
+input[type="submit"]:focus-visible {
+  outline: 3px solid var(--primary-dark);
   outline-offset: 3px;
 }
 
-/* ===========================
-   Flex Containers
-   =========================== */
-.flex-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1.25rem;
-  flex-wrap: wrap;
-  margin-top: 1rem;
-}
-
-/* ===========================
-   File Input Wrapper for custom styling
-   =========================== */
-.file-input-wrapper {
-  position: relative;
-  display: inline-block;
-}
-.file-input {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  cursor: pointer;
-}
-
-/* ===========================
-   Image Preview styling
-   =========================== */
-img#preview {
-  max-width: 100%;
-  max-height: 300px;
-  display: none;
-  margin: 1.75rem auto;
-  border-radius: var(--border-radius);
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.12);
-  object-fit: contain;
-  loading: lazy;
-}
-
-/* ===========================
-   Form fields styling
-   =========================== */
-label {
-  font-weight: 600;
-  margin-bottom: 0.75rem;
-  display: block;
-  color: var(--text-color);
-}
+/* Form Inputs */
 input[type="text"],
 textarea {
-  width: 100%;
-  padding: 1.15rem;
-  border: 1.5px solid var(--border-color);
-  border-radius: var(--border-radius);
-  font-size: 1.1rem;
   font-family: var(--font-telugu);
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
   background-color: var(--background-color);
-  transition: border-color 0.25s ease;
-  resize: vertical;
+  padding: 1rem;
+  font-size: 1rem;
+  min-height: 50px;
+  width: 100%;
   box-sizing: border-box;
-  min-height: 48px;
+  resize: vertical;
+  transition: border-color 0.3s ease;
 }
+
 input[type="text"]:focus,
 textarea:focus {
   outline: none;
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 4px rgba(90, 103, 216, 0.25);
+  border-color: var(--info-color);
+  box-shadow: 0 0 10px var(--info-color);
 }
 
-/* ===========================
-   Pitch Buttons Grid
-   =========================== */
-.pitch-buttons {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 1.25rem;
-}
-
-/* ===========================
-   Pitch Marked Characters with hover and focus styles
-   =========================== */
-.pitch-marked-char {
-  position: relative;
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  line-height: 1.6;
-  font-family: var(--font-telugu);
-  text-align: center;
-  cursor: pointer;
-  padding: 0.5rem 0.3rem;
-  transition: background-color 0.25s ease, box-shadow 0.2s ease;
-  user-select: none;
-}
-.pitch-marked-char:hover,
-.pitch-marked-char:focus-visible {
-  background-color: var(--secondary-color);
-  box-shadow: 0 0 5px rgba(90, 103, 216, 0.4);
-  border-radius: 6px;
-}
-.pitch-marked-char.high::before {
-  content: "|";
-  position: absolute;
-  top: -0.8em;
-  left: 50%;
-  transform: translateX(-50%);
-  color: var(--pitch-high-color);
-  font-size: 1rem;
-  font-weight: 600;
-}
-.pitch-marked-char.low::after {
-  content: "-";
-  position: absolute;
-  bottom: -0.5em;
-  left: 50%;
-  transform: translateX(-50%);
-  color: var(--pitch-low-color);
-  font-size: 1rem;
-  font-weight: 600;
-}
-
-/* ===========================
-   Fixed Header Styling - visible on all screen sizes
-   =========================== */
+/* Navigation Header */
 .header-fixed {
   position: fixed;
   top: 0;
@@ -315,350 +178,227 @@ textarea:focus {
   width: 100%;
   height: 60px;
   background-color: var(--card-background);
-  box-shadow: var(--box-shadow);
+  box-shadow: var(--shadow-light);
   z-index: 1000;
   display: flex;
   align-items: center;
   padding: 0 1rem;
-  transition: background-color 0.3s ease;
 }
 
-/* Header content flex layout */
 .header-content {
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
 }
 
-/* Logo styling */
+.logo, .logo-container {
+  display: flex;
+  align-items: center;
+}
+
 .logo a {
   font-family: var(--font-telugu);
   font-size: 1.5rem;
   font-weight: 700;
   color: var(--primary-dark);
-  text-decoration: none;
-  display: block;
-  margin-bottom: 0.5rem;
-  user-select: none;
-}
-.logo-img {
-  width: 72px;
-  height: auto;
-  margin-bottom: 0.4rem;
   user-select: none;
 }
 
-/* Navigation styling */
+.logo-img {
+  width: 48px;
+  height: auto;
+  margin-right: 0.5rem;
+  user-select: none;
+}
+
+/* Navigation Menu */
 .nav-links {
   display: flex;
-  gap: 1.5rem; /* reduced gap for tighter UX */
+  gap: 1rem;
   align-items: center;
-  transition: max-height 0.3s ease, opacity 0.3s ease;
+  transition: max-height 0.3s ease;
 }
 
-.nav-link {
-  position: relative;
+.nav-links a {
+  font-size: 1rem;
+  padding: 0.6rem 1rem;
+  color: var(--text-color);
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 0.3s, color 0.3s;
   display: flex;
   align-items: center;
-  gap: 0.4rem; /* reduce gap between icon and text */
-  color: var(--text-color);
-  text-decoration: none;
-  transition: color 0.2s ease, transform 0.2s ease;
-  user-select: none;
+  gap: 0.3rem;
 }
 
-.nav-link:hover,
-.nav-link:focus-visible {
+.nav-links a:hover,
+.nav-links a:focus-visible {
   color: var(--primary-color);
-  transform: translateY(-2px);
-  outline-offset: 2px;
-  outline: 2px solid var(--primary-color);
+  background: var(--secondary-color);
+  outline: none;
 }
 
-.nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: -5px;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background-color: var(--primary-color);
-  transform: scaleX(0);
-  transition: transform 0.3s ease;
+.nav-links a:focus-visible {
+  outline: 3px solid var(--primary-color);
+  outline-offset: 3px;
 }
 
-.nav-link:hover::after,
-.nav-link:focus-visible::after {
-  transform: scaleX(1);
+.nav-links a i {
+  font-size: 1.2rem;
 }
 
-/* Dropdown styling */
+/* Dropdown Menu */
 .dropdown {
   position: relative;
-  cursor: pointer;
 }
-.dropdown-content {
+
+.dropdown .dropdown-content {
   display: none;
   position: absolute;
-  background-color: var(--card-background);
-  min-width: 200px;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-  z-index: 1;
-  padding: 0.5rem 0;
-  border-radius: 8px;
+  background: var(--card-background);
+  border-radius: var(--border-radius);
+  padding: 0.3rem 0;
+  box-shadow: var(--shadow-light);
   top: 100%;
   left: 0;
-  transform: translateY(10px);
-  opacity: 0;
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  min-width: 180px;
+  z-index: 1000;
 }
+
 .dropdown:hover .dropdown-content,
 .dropdown:focus-within .dropdown-content {
   display: block;
-  transform: translateY(0);
-  opacity: 1;
 }
 
-/* Dropdown links style and UX */
-.dropdown-content a {
-  color: var(--text-color);
-  padding: 12px 16px;
-  text-decoration: none;
+.dropdown .dropdown-content a {
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
   display: block;
-  text-align: left;
-  transition: background-color 0.2s ease;
-  user-select: none;
+  white-space: nowrap;
+  color: var(--text-color);
+  transition: background 0.3s ease;
 }
-.dropdown-content a:hover,
-.dropdown-content a:focus-visible {
-  background-color: var(--secondary-color);
-  outline-offset: 2px;
+
+.dropdown .dropdown-content a:hover,
+.dropdown .dropdown-content a:focus-visible {
+  background: var(--secondary-color);
   outline: 2px solid var(--primary-color);
 }
 
-/* ===========================
-   Responsive styles for mobile/tablet
-   =========================== */
-@media (max-width: 768px) {
-  body {
-    padding: 1.5rem 1rem;
-    padding-top: 5rem;
-  }
-  .button,
-  .secondary-btn {
-    width: 100%;
-    font-size: 1.1rem;
-    padding: 1.2rem;
-  }
-  .flex-container {
-    flex-direction: column;
-    gap: 1.5rem;
-    align-items: stretch;
-  }
-  .pitch-buttons {
-    grid-template-columns: 1fr;
-  }
-  .chatbot-container {
-    bottom: 80px;
-    right: 1rem;
-  }
-  /* Show hamburger icon on mobile only */
-  .hamburger-icon {
-    display: block;
-    cursor: pointer;
-    background: transparent;
-    border: none;
-    padding: 0.25rem;
-    line-height: 0;
-    user-select: none;
-    transition: transform 0.25s ease;
-  }
-  .hamburger-icon:hover,
-  .hamburger-icon:focus-visible {
-    transform: scale(1.15);
-    outline-offset: 3px;
-    outline: 2px solid var(--primary-color);
-  }
-  /* Hide nav links by default on mobile */
-  .nav-links {
-    position: absolute;
-    top: 60px;
-    left: 0;
-    width: 100%;
-    background-color: var(--card-background);
-    flex-direction: column;
-    padding: 1rem 0;
-    box-shadow: var(--box-shadow);
-    border-top: 1px solid var(--border-color);
-    z-index: 999;
-    max-height: 0;
-    opacity: 0;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    transition: max-height 0.3s ease, opacity 0.3s ease;
-    gap: 0.5rem; /* smaller gap for compact view */
-  }
-  /* Show nav links when toggled active */
-  .nav-links.active {
-    max-height: 500px;
-    opacity: 1;
-    overflow: visible;
-  }
-  /* Full width nav links on mobile */
-  .nav-links a,
-  .nav-links .dropdown {
-    width: 100%;
-    text-align: center;
-    padding: 0.5rem 0;
-  }
-  /* Mobile dropdown content */
-  .dropdown-content {
-    position: static;
-    width: 100%;
-    box-shadow: none;
-    border-radius: 0;
-    transform: none;
-    max-height: 0;
-    overflow: hidden;
-    opacity: 0;
-    transition: max-height 0.3s ease, opacity 0.3s ease;
-  }
-  .dropdown.open .dropdown-content {
-    max-height: 1000px;
-    opacity: 1;
-    overflow: visible;
-  }
-  /* Disable hover dropdown on mobile */
-  .dropdown:hover .dropdown-content {
-    display: none;
-    transform: none;
-    opacity: 0;
-  }
-}
-
-/* ===========================
-   Extra small phones
-   =========================== */
-@media (max-width: 480px) {
-  body {
-    padding: 1rem;
-    padding-top: 5rem;
-  }
-  .section {
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
-  }
-  .status {
-    font-size: 0.9rem;
-    padding: 0.6rem 1rem;
-  }
-  .logo a {
-    font-size: 1.3rem;
-  }
-  .chatbot-toggle-button {
-    width: 50px;
-    height: 50px;
-  }
-  .chatbot-container {
-    bottom: 4.5rem;
-    right: 1rem;
-  }
-  .chatbot-widget {
-    width: 100vw;
-    height: 100vh;
-    border-radius: 0;
-    bottom: 0;
-    right: 0;
-    position: fixed;
-  }
-  .footer-fixed {
-    padding: 0.75rem 0;
-    font-size: 0.9rem;
-  }
-}
-
-/* ===========================
-   Tablet
-   =========================== */
-@media (min-width: 481px) and (max-width: 991px) {
-  .section {
-    padding: 2.5rem;
-  }
-  .flex-container {
-    gap: 1.5rem;
-  }
-  .pitch-buttons {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  }
-}
-
-/* ===========================
-   Desktop
-   =========================== */
-@media (min-width: 992px) {
-  .container {
-    padding: 0 2rem;
-  }
-  .flex-container {
-    justify-content: space-between;
-  }
-}
-
-/* ===========================
-   Footer Container
-   =========================== */
-.footer-container {
-  position: relative;
-  padding: 1rem;
-  background-color: #f8f8f8;
-  font-family: var(--font-sans);
-}
-.footer-container footer p {
-  margin: 0;
-  padding-right: 140px;
-  text-align: center;
-  font-size: 1rem;
-  color: var(--text-color);
-  user-select: none;
-}
-
-/* ===========================
-   Go To Top Button styling
-   =========================== */
-.go-top-btn {
-  position: absolute;
-  right: 1rem;
-  top: 1rem;
-  padding: 0.5rem 1rem;
-  background-color: var(--primary-color);
-  color: white;
-  font-size: 0.875rem;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  text-decoration: none;
-  white-space: nowrap;
-  text-align: center;
-  user-select: none;
-}
-.go-top-btn:hover,
-.go-top-btn:focus-visible {
-  background-color: var(--primary-dark);
-  outline-offset: 3px;
-  outline: 2px solid var(--primary-dark);
-}
-
-/* ===========================
-   Utility Classes
-   =========================== */
-.hidden {
+/* Hamburger - Hidden by default on desktop */
+.hamburger-icon {
   display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  user-select: none;
+  transition: transform 0.3s ease;
 }
-@media (min-width: 768px) {
-  .hidden {
+
+.hamburger-icon svg {
+  width: 24px;
+  height: 24px;
+  stroke: var(--primary-dark);
+}
+
+.hamburger-icon:hover,
+.hamburger-icon:focus-visible {
+  transform: scale(1.15);
+  outline: 3px solid var(--primary-color);
+  outline-offset: 3px;
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+  .header-fixed {
+    height: 55px;
+    padding: 0 0.75rem;
+  }
+
+  /* Show hamburger icon on mobile */
+  .hamburger-icon {
     display: flex !important;
   }
+
+  .nav-links {
+    position: fixed;
+    top: 55px;
+    left: 0;
+    right: 0;
+    background-color: var(--card-background);
+    flex-direction: column;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    border-top: 1px solid var(--border-color);
+    padding: 0.5rem 0;
+    z-index: 9999;
+  }
+
+  .nav-links.active {
+    max-height: 400px;
+    overflow-y: auto;
+  }
+
+  .nav-links a {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    font-size: 1.15rem;
+    color: var(--primary-dark);
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .nav-links a:last-child {
+    border-bottom: none;
+  }
+
+  /* Dropdown Menu adjustments on mobile */
+  .dropdown .dropdown-content {
+    position: static;
+    box-shadow: none;
+    background: transparent;
+    min-width: auto;
+  }
+
+  .dropdown .dropdown-content a {
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+  }
+}
+
+/* Responsive - Tablet */
+@media (max-width: 991px) and (min-width: 769px) {
+  .nav-links a {
+    font-size: 1.1rem;
+  }
+}
+
+/* Utility Classes */
+.hidden {
+  display: none !important;
+}
+
+/* Accessibility improvements */
+button:focus,
+a:focus {
+  outline: 3px solid var(--primary-color);
+  outline-offset: 3px;
+  outline-style: solid;
+}
+
+/* Smooth Hover Effects */
+button:hover:not(:disabled),
+a:hover {
+  filter: brightness(1.08);
+  transition: filter 0.3s ease;
 }
