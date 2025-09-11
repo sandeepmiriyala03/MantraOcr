@@ -3,9 +3,9 @@ const urlsToCache = [
   '/',
   '/index.html',
   '/aksharadhara.html',
-  '/ShuklaYajurveda.html',      // ← Exact match from your navigation
+  '/shuklayajurveda.html',      // ← Exact match from your navigation
   '/shruti-sankalanam.html',
-  '/Telugu.html',               // ← Exact match from your navigation
+  '/telugu.html',               // ← Exact match from your navigation
   '/english.html',
   '/styles.css',
   '/book.css',
