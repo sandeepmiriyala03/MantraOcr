@@ -12,28 +12,10 @@ function createFooter() {
   const p = document.createElement("p");
   p.className = "text-sm md:text-base";
 
-  // Create copyright span with current year
-  const copyright = document.createElement("span");
-  copyright.id = "currentYear";
-  copyright.textContent = new Date().getFullYear();
 
-  // Create current date-time span
-  const currentDateTime = document.createElement("span");
-  currentDateTime.id = "currentDateTime";
-  currentDateTime.textContent = new Date().toLocaleString("te-IN", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: true,
-  });
 
   // Compose the paragraph content with text and spans
-  p.append("© ");
-  p.appendChild(copyright);
-  p.append(" అక్షరధార | సర్వ హక్కులు రిజర్వ్ చేయబడ్డాయి. | ");
+  p.append(" © అక్షరధార | సందీప్ మిరియాల ");
   footer.appendChild(p);
   footerContainer.appendChild(footer);
 
