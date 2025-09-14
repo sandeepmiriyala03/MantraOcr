@@ -3,15 +3,17 @@ const urlsToCache = [
   '/',
   '/index.html',
   '/aksharadhara.html',
-  '/shuklayajurveda.html',      // ← Exact match from your navigation
+  '/shuklayajurveda.html',     
   '/shruti-sankalanam.html',
-  '/telugu.html',               // ← Exact match from your navigation
+  '/telugu.html',               
   '/english.html',
+   '/sanskrit.html',
   '/styles.css',
   '/book.css',
   '/header.js',
   '/footer.js',
   '/Vedhas.js',
+   '/sanskrit.js',
   '/pwa.js',
   '/manifest.json',
   '/అక్షరధార.png'
