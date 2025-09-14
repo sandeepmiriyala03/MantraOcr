@@ -435,3 +435,24 @@ a:hover {
   font-size: 1.2em;
   margin-right: 0.3em;
 }
+
+.nav-sansrkit::before {
+  content: "सं";
+  font-weight: bold;
+  font-size: 1.2em;
+  margin-right: 0.3em;
+}
+
+.nav-shuk::before {
+  content: "శు";
+  font-weight: bold;
+  font-size: 1.2em;
+  margin-right: 0.3em;
+}
+.nav-krish::before {
+  content: "కృ";
+  font-weight: bold;
+  font-size: 1.2em;
+  margin-right: 0.3em;
+}
+

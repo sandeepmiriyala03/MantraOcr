@@ -35,16 +35,17 @@ function createHeader() {
 
   // Menu items data
   const navItems = [
-    { href: "index.html", iconClass: "fas fa-home", text: "హోమ్", classes: "nav-link text-lg font-medium" },
-    { href: "aksharadhara.html", iconClass: "fas fa-book-open", text: "అక్షరధార", classes: "nav-link text-lg font-medium" },
-    { href: "shuklayajurveda.html" , iconClass: "fas fa-scroll", text: "శుక్లయజుర్వేదం", classes: "nav-link text-lg font-medium" },
-    { href: "shruti-sankalanam.html", iconClass: "fas fa-pray", text: "కృష్ణయజుర్వేదం", classes: "nav-link text-lg font-medium", role: "menuitem" },
-  
+   // { href: "index.html", iconClass: "fas fa-home", text: "హోమ్", classes: "nav-link text-lg font-medium" },
+   // { href: "aksharadhara.html", iconClass: "fas fa-book-open", text: "అక్షరధార", classes: "nav-link text-lg font-medium" },
+   { href: "sanskrit.html", iconClass: "nav-sansrkit", text: "संस्कृतम्", classes: "nav-link text-lg font-medium" },
+ 
+   { href: "shuklayajurveda.html" , iconClass: "nav-shuk", text: "శుక్లయజుర్వేదం", classes: "nav-link text-lg font-medium" },
+  { href: "shruti-sankalanam.html", iconClass: "nav-krish", text: "కృష్ణయజుర్వేదం", classes: "nav-link text-lg font-medium"},
+
     { href: "telugu.html", iconClass: "nav-telugu", text: "తెలుగు", classes: "nav-link text-lg font-medium" },
 
-    { href: "english.html", iconClass: "fas fa-language", text: "English", classes: "nav-link text-lg font-medium nav-english" },
-    { href: "sanskrit.html", iconClass: "custom-icon-om", text: "संस्कृतम्", classes: "nav-link text-lg font-medium nav-sanskrit" }
-
+    { href: "english.html", iconClass: "fas fa-language", text: "English", classes: "nav-link text-lg font-medium nav-english" }
+    
   ];
 
   // Build menu links
