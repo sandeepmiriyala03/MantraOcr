@@ -429,3 +429,9 @@ a:hover {
     justify-content: center;
   }
 }
+.nav-telugu::before {
+  content: "అ";
+  font-weight: bold;
+  font-size: 1.2em;
+  margin-right: 0.3em;
+}

@@ -39,8 +39,12 @@ function createHeader() {
     { href: "aksharadhara.html", iconClass: "fas fa-book-open", text: "అక్షరధార", classes: "nav-link text-lg font-medium" },
     { href: "shuklayajurveda.html" , iconClass: "fas fa-scroll", text: "శుక్లయజుర్వేదం", classes: "nav-link text-lg font-medium" },
     { href: "shruti-sankalanam.html", iconClass: "fas fa-pray", text: "కృష్ణయజుర్వేదం", classes: "nav-link text-lg font-medium", role: "menuitem" },
-    { href: "telugu.html", iconClass: "fas fa-pen-nib", text: "తెలుగు", classes: "nav-link text-lg font-medium" },
-    { href: "english.html", iconClass: "fas fa-language", text: "English", classes: "nav-link text-lg font-medium nav-english" }
+  
+    { href: "telugu.html", iconClass: "nav-telugu", text: "తెలుగు", classes: "nav-link text-lg font-medium" },
+
+    { href: "english.html", iconClass: "fas fa-language", text: "English", classes: "nav-link text-lg font-medium nav-english" },
+    { href: "sanskrit.html", iconClass: "custom-icon-om", text: "संस्कृतम्", classes: "nav-link text-lg font-medium nav-sanskrit" }
+
   ];
 
   // Build menu links

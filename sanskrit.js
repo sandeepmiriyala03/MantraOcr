@@ -321,7 +321,8 @@ btnOcr.addEventListener('click', async () => {
     try {
         const { data } = await worker.recognize(imageInput.files[0], 'san');
 
-        const sanitizedText = data.text.replace(/[^ऀ-ःअ-हऽ-़ॠ-ॣ०-९\s\n]/g, '').trim();
+        // Fixed regex without invalid range for Sanskrit Unicode characters
+        const sanitizedText = data.text.replace(/[^ऀ-ःअ-हऽ़ॠ-ॣ०-९\s\n]/g, '').trim();
 
         ocrTextarea.value = sanitizedText;
 
@@ -338,6 +339,7 @@ btnOcr.addEventListener('click', async () => {
         ocrSpinner.style.display = 'none';
     }
 });
+
 
 btnClear.addEventListener('click', () => {
     ocrTextarea.value = '';

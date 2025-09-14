@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="sa" xml:lang="sa">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title> संस्कृत</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;700&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+
+    <script src="https://unpkg.com/tesseract.js@4.1.0/dist/tesseract.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- JSZip without integrity attribute -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.0/jszip.min.js"></script>
+
+    <!-- FileSaver.js without integrity attribute -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
+  
+    <link rel="stylesheet" href="styles.css">
+     <link rel="stylesheet" href="book.css">
+     <!-- PWA Manifest -->
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#5a67d8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="संस्कृत">
+<link rel="apple-touch-icon" href="అక్షరధార.png">
+
+<script defer src="header.js"></script>
+  <script defer src="sanskrit.js"></script>
+  <script defer src="footer.js"></script>
+  <script src="pwa.js"></script>
+
+</head>
+<div class="main-container">
+    <main class="content-area p-4 md:p-8" id="main-content" role="main">
+        <div class="container text-center py-8 md:py-16">
+            <h1 class="text-3xl md:text-5xl font-extrabold text-[#1f3674] mb-4">संस्कृतकाव्यम्</h1>
+            <p class="text-lg md:text-xl text-[#4a5568] font-semibold">भवतः आध्यात्मिकग्रन्थान् सुगमेण डिजिटलाईज़् कर्तुं च
+                व्यवस्थापयितुं शक्तिमन्तं साधनं।</p>
+            <div class="status info" id="status">आरम्भार्थं नूतनं पुस्तकं सृजतु अथवा अपलोड् कुर्वन्तु।</div>
+            <div class="section" id="helperSection">
+                <h2 style="cursor:pointer;" id="helperToggleBtn">श्रुति-सङ्कलनम्: कथम् उपयोगः? 📖 <span id="helperArrow">▼</span></h2>
+                <div id="helperContent" class="help-content">
+                    <p>श्रुति-सङ्कलनम् आध्यात्मिकग्रन्थान् डिजिटलाईज़् कर्तुं तथा तेषु स्वरान् (पिच् चिह्नानि) योजयितुं उपकारी अस्ति। 
+                       अयं उपयोगः अतिशय-सुलभः, केवलं अत्र पञ्च पादान् अनुसरन्तु:</p>
+                    <ol>
+                        <li><b>पुस्तकं च अङ्गं सृजत:</b> डिजिटलाईज़् कर्तुं इच्छितं ग्रन्थस्य नाम्ना निर्दिशतु (उदाहृतिः "ग्रन्थः") । ततः तस्मिन् अङ्गं सृजतु (उदाहृतिः "पूर्वपीठिका")।</li>
+                        <li><b>चित्रं अपलोड् कृत्वा पाठ्यम् प्राप्तम्:</b> मन्त्रयुक्तं चित्रं स्वस्य दूरवाण्याद् वा सङ्गणकाद् अपलोड् कुर्वन्तु। 'OCR आरम्भयतु' बटनं जज्वलयतु। एषः चित्रात् अक्षराणि चिन्ह्य पाठ्यरूपेण प्रदास्यति।</li>
+                        <li><b>पाठ्यं सहेजतु:</b> मन्त्रस्य नाम तथा विवरणं प्रददातु, 'नूतनं मन्त्रं सहेजतु' बटनं उद्घाटयतु।</li>
+                        <li><b>पाठ्यं अपश्यतु च डाउनलोड् कुर्वतु:</b> सहेजितं पाठ्यं यदा कदा पश्यतु। सम्पूर्णं कार्यं जातं चित्रम्, 'पुस्तकं डाउनलोड् कुर्वतु' बटनं जज्वलयित्वा html फाइल् रूपेण सहेजतु।</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="section" id="bookCreationSection">
+                <h2>१. पुस्तकस्य सृष्टिः</h2>
+                <label for="newBookTitle">पुस्तकस्य नाम (Book Title):</label>
+                <input type="text" id="newBookTitle" placeholder="उदा: पाठ्यम्">
+                <div class="flex-container">
+                    <button class="button" id="createNewBookBtn">नूतनं पुस्तकं सृजतु</button>
+                </div>
+                <div style="margin-top: 1.5rem; text-align: center;">वा</div>
+                <label for="bookSelect" style="margin-top: 1.5rem;">पूर्वमेव सृजितं पुस्तकं चयनयतु:</label>
+                <select id="bookSelect"></select>
+                <div class="flex-container">
+                    <button class="button secondary-btn" id="deleteBookBtn">पुस्तकं अपाकुरु</button>
+                </div>
+            </div>
+
+            <div class="section" id="sectionCreationSection" style="display: none;">
+                <h2>२. अङ्गं योजयतु</h2>
+                <label for="newSectionTitle">अङ्गस्य नाम (Section Title):</label>
+                <input type="text" id="newSectionTitle" placeholder="उदा: पूर्वपीठिका">
+                <div class="flex-container">
+                    <button class="button" id="addNewSectionBtn">नूतनं अङ्गं योजयतु</button>
+                </div>
+                <div style="margin-top: 1.5rem; text-align: center;">वा</div>
+                <label for="sectionSelect" style="margin-top: 1.5rem;">अङ्गं चयनयतु:</label>
+                <select id="sectionSelect"></select>
+                <div class="flex-container">
+                    <button class="button secondary-btn" id="deleteSectionBtn">अङ्गं अपाकुरु</button>
+                </div>
+            </div>
+
+            <div class="section" id="ocrSection" style="display: none;">
+                <h2>३. छायाचित्रात् पाठ्यं प्राप्तुम्</h2>
+                <div class="flex-container">
+                    <div class="file-input-wrapper">
+                        <button class="button" id="uploadBtn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-upload">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                <polyline points="17 8 12 3 7 8" />
+                                <line x1="12" x2="12" y1="3" y2="15" />
+                            </svg>
+                            छायाचित्रं अपलोड् कुरु
+                            <input type="file" id="imageInput" class="file-input" accept="image/*" />
+                        </button>
+                    </div>
+                    <button class="button" id="btnOcr" disabled>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" class="lucide lucide-scan-text">
+                            <path d="M3 7V5a2 2 0 0 1 2-2h2" />
+                            <path d="M17 3h2a2 2 0 0 1 2 2v2" />
+                            <path d="M21 17v2a2 2 0 0 1-2 2h-2" />
+                            <path d="M7 21H5a2 2 0 0 1-2-2v-2" />
+                            <path d="M7 12h10" />
+                            <path d="M7 18h7" />
+                            <path d="M10 6h4" />
+                        </svg>
+                        OCR आरम्भयतु
+                        <span id="ocrSpinner" class="spinner"></span>
+                    </button>
+                </div>
+                <img id="preview" alt="Uploaded Image" />
+                <div style="margin-top: 1.5rem; text-align: left;">
+                    <label for="ocrText">OCR परिणाम सम्पादयतु </label>
+                    <textarea id="ocrText" placeholder="OCR फलम् अत्र दृश्यते"></textarea>
+                    <div class="pitch-buttons">
+                        <button class="button secondary-btn" id="btnClear">सर्वाणि Remove कुर्वतु 🗑️</button>
+                    </div>
+                </div>
+                <div style="margin-top: 2rem;">
+                    <label for="mantraTitle">पाठ्यस्य नाम:</label>
+                    <input type="text" id="mantraTitle" placeholder="उदा: पाठ्यम्">
+                </div>
+                <div style="margin-top: 1rem;">
+                    <label for="mantraDescription">वर्णनम्:</label>
+                    <textarea id="mantraDescription" style="min-height: 80px;" placeholder="पाठ्यस्य संक्षिप्तं वर्णनं"></textarea>
+                </div>
+                <div class="flex-container">
+                    <button class="button" id="btnSaveMantra">नूतनं पाठ्यम् संरक्षतु ✨</button>
+                </div>
+            </div>
+
+            <div class="section" id="viewMantraSection" style="display: none;">
+                <h2>४. पाठ्यं पश्यतु च सम्पादयतु</h2>
+                <p style="color: var(--light-text-color);">अङ्गं चयन्य तस्मिन स्वपाठ्यं पश्यतु वा सम्पादयतु।</p>
+                <div class="tab-container" id="mantraTabContainer"></div>
+                <div class="mantra-card" id="mantraDisplayCard">
+                    <div id="mantraTitleDisplay">
+                        <h3></h3>
+                    </div>
+                    <div id="mantraDescriptionDisplay">
+                        <p></p>
+                    </div>
+                    <div id="mantraContentDisplay" class="pitch-display">
+                        पाठ्यस्य अङ्गं चयनयतु।
+                    </div>
+                    <div class="flex-container">
+                        <button class="button secondary-btn" id="btnEditMantra" disabled>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-edit-3">
+                                <path d="M12 20h9" />
+                                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+                            </svg>
+                            पाठ्यस्य सम्पादनम्
+                        </button>
+                        <button class="button secondary-btn" id="btnDownloadMantra">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-download">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                <polyline points="7 10 12 15 17 10" />
+                                <line x1="12" x2="12" y1="15" y2="3" />
+                            </svg>
+                            पुस्तकं डाउनलोड् कुर्वतु
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+
+</body>
+
+</html>
