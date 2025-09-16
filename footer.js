@@ -13,7 +13,7 @@ function createFooter() {
   p.className = "text-sm md:text-base";
 
   // Compose the paragraph content with symbols and spans
-  p.append("© అక్షరధార - సందీప్ మిరియాల - 🕒 చివరి: ");
+  p.append("© అక్షరధార - సందీప్ మిరియాల ");
 
   // Create span for dynamic last deploy time
   const deployTimeSpan = document.createElement("span");
@@ -30,15 +30,4 @@ function createFooter() {
 // Append the footer to the body or a specific container
 document.body.appendChild(createFooter());
 
-// Example: set deployment time dynamically (can come from your code or static value)
-const options = {
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-  hour: "2-digit",
-  minute: "2-digit",
-  second: "2-digit",
-  hour12: false,
-  timeZoneName: "short",
-};
-document.getElementById("deploy-time").textContent = new Date().toLocaleString("te-IN", options);
+

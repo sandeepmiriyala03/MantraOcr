@@ -1,4 +1,3 @@
-
 let allBooks = {};
 let currentBookKey = null;
 let currentSectionKey = null;
@@ -121,71 +120,39 @@ function renderSectionSelect() {
 function renderMantraTabs() {
     mantraTabContainer.innerHTML = '';
     btnEditMantra.disabled = true;
-    if (currentBookKey && currentSectionKey && allBooks[currentBookKey].sections[currentSectionKey].mantras) {
+    if (currentBookKey && currentSectionKey) {
         const mantras = allBooks[currentBookKey].sections[currentSectionKey].mantras;
-        const mantraKeys = Object.keys(mantras);
-        if (mantraKeys.length > 0) {
-            mantraKeys.forEach((key) => {
-                const mantra = mantras[key];
-                const tabButton = document.createElement('button');
-                tabButton.className = 'tab-button';
-                tabButton.setAttribute('data-key', key);
-                tabButton.textContent = mantra.title;
-                tabButton.addEventListener('click', () => {
-                    loadMantra(key);
+        if (mantras) {
+            const mantraKeys = Object.keys(mantras);
+            if (mantraKeys.length > 0) {
+                mantraKeys.forEach((key) => {
+                    const mantra = mantras[key];
+                    const tabButton = document.createElement('button');
+                    tabButton.className = 'tab-button';
+                    tabButton.setAttribute('data-key', key);
+                    tabButton.textContent = mantra.title;
+                    tabButton.addEventListener('click', () => {
+                        loadMantra(key);
+                    });
+                    mantraTabContainer.appendChild(tabButton);
                 });
-                mantraTabContainer.appendChild(tabButton);
-            });
 
-            if (currentMantraKey && mantras[currentMantraKey]) {
-                loadMantra(currentMantraKey);
+                if (currentMantraKey && mantras[currentMantraKey]) {
+                    loadMantra(currentMantraKey);
+                } else {
+                    loadMantra(mantraKeys[0]);
+                }
             } else {
-                // Load the first mantra by default
-                loadMantra(mantraKeys[0]);
+                mantraTitleDisplay.innerHTML = '<h3>No Text</h3>';
+                mantraDescriptionDisplay.innerHTML = '<p>No text in this section. Please add new text.</p>';
+                mantraContentDisplay.innerHTML = '';
             }
-        } else {
-            mantraTitleDisplay.innerHTML = '<h3>No Text</h3>';
-            mantraDescriptionDisplay.innerHTML = '<p>No text in this section. Please add new text.</p>';
-            mantraContentDisplay.innerHTML = '';
         }
     } else {
         mantraTitleDisplay.innerHTML = '<h3>No Text</h3>';
         mantraDescriptionDisplay.innerHTML = '<p>No text in this section. Please add new text.</p>';
         mantraContentDisplay.innerHTML = '';
     }
-}
-
-function getGraphemeIndices(text, startIndex, endIndex) {
-    const segmenter = new Intl.Segmenter('te', { granularity: 'grapheme' });
-    const segments = Array.from(segmenter.segment(text));
-    let indices = [];
-    let charIndex = 0;
-    for (let i = 0; i < segments.length; i++) {
-        const seg = segments[i].segment;
-        const segmentEndIndex = charIndex + seg.length;
-        if (segmentEndIndex > startIndex && charIndex < endIndex) {
-            indices.push(i);
-        }
-        charIndex = segmentEndIndex;
-    }
-    return indices;
-}
-
-function preparePitches(pitchType) {
-    const fullText = ocrTextarea.value;
-    const startIndex = ocrTextarea.selectionStart;
-    const endIndex = ocrTextarea.selectionEnd;
-
-    if (startIndex === endIndex) {
-        alert("Please select some text in OCR output box.");
-        return;
-    }
-
-    const selectedGraphemeIndices = getGraphemeIndices(fullText, startIndex, endIndex);
-    selectedGraphemeIndices.forEach(index => {
-        pitchMarks[index] = pitchType;
-    });
-    updateStatus(`Pitches assigned. You can now save the text.`, 'info');
 }
 
 function loadMantra(key) {
@@ -196,13 +163,11 @@ function loadMantra(key) {
     currentMantraKey = key;
     mantraTitleDisplay.innerHTML = `<h3>${mantra.title}</h3>`;
     mantraDescriptionDisplay.innerHTML = `<p>${mantra.description}</p>`;
-
     let htmlContent = '';
     mantra.instructions.forEach(instruction => {
         instruction.mantra.forEach(line => {
             line.forEach(syllable => {
-                const pitchClass = syllable.pitch ? `pitch-marked-char ${syllable.pitch}` : '';
-                htmlContent += `<span class="${pitchClass}">${syllable.char}</span>`;
+                htmlContent += syllable.char;
             });
             htmlContent += '<br>';
         });
@@ -217,7 +182,7 @@ function loadMantra(key) {
     }
 }
 
-// Event Listeners for New Functionality
+// Event Listeners
 createNewBookBtn.addEventListener('click', () => {
     const title = newBookTitleInput.value.trim();
     if (!title) {
@@ -306,7 +271,6 @@ deleteSectionBtn.addEventListener('click', () => {
     }
 });
 
-// Existing Event Listeners
 imageInput.addEventListener('change', () => {
     if (imageInput.files.length === 0) return;
     const file = imageInput.files[0];
@@ -462,7 +426,6 @@ helperToggleBtn.addEventListener('click', () => {
     helperArrow.textContent = isVisible ? '▼' : '▲';
 });
 
-// Initial render on page load
 renderBookSelect();
 renderSectionSelect();
 renderMantraTabs();
@@ -477,21 +440,19 @@ async function downloadBook() {
     const creationDate = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'long', timeStyle: 'short' });
 
     const sectionsCount = Object.keys(book.sections).length;
-    const totalPages = sectionsCount + 1; // +1 for cover page
+    const totalPages = sectionsCount + 1;
 
-    // Build cover page content with total pages info
     let htmlContent = `
     <!DOCTYPE html>
-    <html lang="en">
+    <html lang="te">
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- Add keywords metadata for EPUB search support -->
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="keywords" content="${book.title}, Telugu Poetry, Mantras, Indian Culture, Spirituality" />
         <title>${book.title} - Telugu Poetry</title>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
         <style>
             body {
                 font-family: 'Noto Sans Telugu', serif;
@@ -518,71 +479,23 @@ async function downloadBook() {
                 margin-bottom: 1.5rem;
                 border-radius: 12px;
                 box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-                position: relative;
                 min-height: 8rem;
             }
-            .pitch-display {
-                font-size: 1.25rem;
-                line-height: 2.2;
-                white-space: pre-wrap;
-                word-wrap: break-word;
-                text-align: justify;
-            }
-            .pitch-marked-char {
-                position: relative;
-                display: inline-flex;
-                flex-direction: column;
-                align-items: center;
-                line-height: 1.5;
-                text-align: center;
-                padding: 0.4em 0.2em;
-            }
-            .pitch-marked-char.high::before {
-                content: "▲";
-                position: absolute;
-                top: -0.7em;
-                left: 50%;
-                transform: translateX(-50%);
-                color: #1f3674;
-                font-size: 0.8em;
-                margin-top: 0.2em;
-            }
-            .pitch-marked-char.low::after {
-                content: "▼";
-                position: absolute;
-                bottom: -0.5em;
-                left: 50%;
-                transform: translateX(-50%);
-                color: #a08b5e;
-                font-size: 0.8em;
-            }
-            .pitch-marked-char.svarita::before {
-                content: "⌒";
-                position: absolute;
-                top: -0.7em;
-                left: 50%;
-                transform: translateX(-50%);
-                color: #c0392b;
-                font-size: 0.8em;
-                margin-top: 0.2em;
-            }
-            .pitch-marked-char.dirgha-svarita::before {
-                content: "〰";
-                position: absolute;
-                top: -0.7em;
-                left: 50%;
-                transform: translateX(-50%);
-                color: #27ae60;
-                font-size: 0.8em;
-                margin-top: 0.2em;
-            }
             footer.page-footer {
-                position: absolute;
-                bottom: 0.75rem;
-                right: 1rem;
                 font-size: 0.875rem;
                 color: #777;
                 font-family: sans-serif;
+                text-align: right;
+                margin-top: 1rem;
+            }
+            footer.overall-footer {
+                text-align: center;
+                padding: 20px;
+                font-family: sans-serif;
+                border-top: 1px solid #e0e0e0;
+                margin-top: 20px;
+                color: #777;
+                font-size: 14px;
             }
         </style>
     </head>
@@ -591,46 +504,39 @@ async function downloadBook() {
         <p class="pages-info">Total pages (sections + cover): ${totalPages}</p>
     `;
 
-    // Build each section with footer showing page number x of y
-    let pageIndex = 2; // because 1 is cover
+    let pageIndex = 2;
     for (const sectionKey in book.sections) {
         const section = book.sections[sectionKey];
         htmlContent += `<div class="section" aria-label="Section ${pageIndex} - ${section.title}">`;
         htmlContent += `<h2>${section.title}</h2>`;
         for (const mantraKey in section.mantras) {
             const mantra = section.mantras[mantraKey];
-            htmlContent += `<h3>${mantra.title}</h3><p>${mantra.description}</p><div class="pitch-display">`;
+            htmlContent += `<h3>${mantra.title}</h3><p>${mantra.description}</p><div>`;
             mantra.instructions.forEach(instruction => {
                 instruction.mantra.forEach(line => {
-                    line.forEach(syllable => {
-                        const pitchClass = syllable.pitch ? `pitch-marked-char ${syllable.pitch}` : '';
-                        htmlContent += `<span class="${pitchClass}">${syllable.char}</span>`;
-                    });
-                    htmlContent += '<br>';
+                    let lineText = line.map(syl => syl.char).join('');
+                    htmlContent += `<p>${lineText}</p>`;
                 });
             });
             htmlContent += `</div>`;
         }
-        // Footer with page number
-        htmlContent += `<footer class="page-footer">Page ${pageIndex} - Total ${totalPages} pages</footer>`;
+        htmlContent += `<footer class="page-footer">Page ${pageIndex} of ${totalPages}</footer>`;
         htmlContent += `</div>`;
         pageIndex++;
     }
 
-    // Add overall footer with creation info
     htmlContent += `
-    <footer style="text-align: center; padding: 20px; font-family: sans-serif; border-top: 1px solid #e0e0e0; margin-top: 20px; color: #777; font-size: 14px;">
-        <p>
-            Created on: ${creationDate}<br>
-            Created by: Aksharadhara Software<br>
-            Created with:<br>
-            1. Image OCR, 2. Downloaded as digital book.
-        </p>
+    <footer class="overall-footer">
+        <p>Created on: ${creationDate}</p>
+        <p>Created by: Aksharadhara Software</p>
+        <p>Created with: Image OCR, Downloaded as digital book</p>
     </footer>
-    </body></html>
+    </body>
+    </html>
     `;
-    const filename = `${book.title}.html`;
-    await downloadHtmlFile(filename, htmlContent);
+
+    const filename = `${book.title.replace(/\s+/g, '_')}.html`;
+    downloadHtmlFile(filename, htmlContent);
 }
 
 function downloadHtmlFile(filename, content) {
@@ -640,7 +546,7 @@ function downloadHtmlFile(filename, content) {
     const a = document.createElement('a');
     a.href = url;
     a.download = filename;
-    document.body.appendChild(a);  // For Firefox compatibility
+    document.body.appendChild(a);
     a.click();
 
     setTimeout(() => {
