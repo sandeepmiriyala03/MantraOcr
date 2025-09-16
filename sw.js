@@ -1,4 +1,4 @@
-const CACHE_NAME = 'aksharadhara-v2'; // ← Change version to force update
+const CACHE_NAME = 'aksharadhara-v2'; 
 const urlsToCache = [
   '/',
   '/index.html',
