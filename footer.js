@@ -11,7 +11,7 @@ function createFooter() {
 
   const p = document.createElement("p");
   p.className = "text-sm md:text-base";
-  p.append("© అక్షరధార - సందీప్ మిరియాల ");
+  p.append("©  సందీప్ మిరియాల ");
 
   // Chat toggle button with icon (optional reuse from before)
   const chatToggleBtn = document.createElement("button");
