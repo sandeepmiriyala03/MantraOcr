@@ -15,12 +15,7 @@ function createFooter() {
   // Compose the paragraph content with symbols and spans
   p.append("© అక్షరధార - సందీప్ మిరియాల ");
 
-  // Create span for dynamic last deploy time
-  const deployTimeSpan = document.createElement("span");
-  deployTimeSpan.id = "deploy-time";
-  deployTimeSpan.textContent = "loading..."; // Placeholder text
 
-  p.appendChild(deployTimeSpan);
   footer.appendChild(p);
   footerContainer.appendChild(footer);
 
