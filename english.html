@@ -12,182 +12,183 @@
 
     <script src="https://unpkg.com/tesseract.js@4.1.0/dist/tesseract.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <!-- JSZip without integrity attribute -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.0/jszip.min.js"></script>
-    <!-- FileSaver.js without integrity attribute -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ePub/0.3.3/epub.min.js"></script>
 
-    <!-- PWA Manifest -->
-<link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#5a67d8">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="అక్షరధార">
-<link rel="apple-touch-icon" href="అక్షరధార.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#5a67d8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="అక్షరధార">
+    <link rel="apple-touch-icon" href="అక్షరధార.png">
 
     <script defer src="english.js"></script>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="book.css">
     <script defer src="header.js"></script>
-  <script defer src="footer.js"></script>
+    <script defer src="footer.js"></script>
     <script src="pwa.js"></script>
 </head>
 <body>
     <div class="main-container">
         <main class="content-area p-4 md:p-8" id="main-content" role="main">
             <div class="container text-center py-8 md:py-16">
-                <h1 class="text-3xl md:text-5xl font-extrabold text-[#1f3674] mb-4">English </h1>
-                <p class="text-lg md:text-xl text-[#4a5568] font-semibold">A powerful tool to easily digitize
-                    and manage your spiritual scriptures.</p>
+                <h1 class="text-3xl md:text-5xl font-extrabold text-[#1f3674] mb-4">English</h1>
+                <p class="text-lg md:text-xl text-[#4a5568] font-semibold">
+                    A powerful tool to easily digitize and manage your spiritual scriptures.
+                </p>
                 <div class="status info" id="status">Create a new book or upload one to get started.</div>
-                <div class="section" id="helperSection">
-                    <h2 style="cursor:pointer;" id="helperToggleBtn">Shruti Sankalanam: How to Use? 📖 <span
-                            id="helperArrow">▼</span></h2>
-                    <div id="helperContent" class="help-content">
-                        <p>Shruti Sankalanam is a tool to digitize your spiritual scriptures and add pitch (tone
-                            marks) to them. It is very easy to use, just follow these 5 steps:</p>
-                        <ol>
-                            <li><b>Create a Book and Section:</b> Give a name to the scripture you want to digitize
-                                (Example: "Scripture"). Then create a section inside it (Example: "Introduction").</li>
-                            <li><b>Upload Image and Extract Text:</b> Upload an image containing the mantra from your
-                                phone or computer. Click the 'Start OCR' button. It will recognize characters from the
-                                image and provide you text.</li>
-                            <li><b>Save the Text:</b> Give a name and description to your mantra, then click the 'Save
-                                New Mantra' button.</li>
-                            <li><b>View and Download Text:</b> You can view saved texts anytime. Once done, click the
-                                'Download Book' button to save the entire book as an HTML file.</li>
-                        </ol>
-                    </div>
+            </div>
+
+            <div class="section" id="helperSection">
+                <h2 style="cursor:pointer;" id="helperToggleBtn">Shruti Sankalanam: How to Use? 📖 <span
+                        id="helperArrow">▼</span></h2>
+                <div id="helperContent" class="help-content">
+                    <p>Shruti Sankalanam is a tool to digitize your spiritual scriptures and add pitch (tone
+                        marks) to them. It is very easy to use, just follow these 5 steps:</p>
+                    <ol>
+                        <li><b>Create a Book and Section:</b> Give a name to the scripture you want to digitize
+                            (Example: "Scripture"). Then create a section inside it (Example: "Introduction").</li>
+                        <li><b>Upload Image and Extract Text:</b> Upload an image containing the mantra from your
+                            phone or computer. Click the 'Start OCR' button. It will recognize characters from the
+                            image and provide you text.</li>
+                        <li><b>Save the Text:</b> Give a name and description to your mantra, then click the 'Save
+                            New Mantra' button.</li>
+                        <li><b>View and Download Text:</b> You can view saved texts anytime. Once done, click the
+                            'Download Book' button to save the entire book as an HTML file.</li>
+                    </ol>
                 </div>
+            </div>
 
-
-
-                <div class="section" id="bookCreationSection">
-                    <h2>1. Create a Book</h2>
-                    <label for="newBookTitle">Book Title:</label>
-                    <input type="text" id="newBookTitle" placeholder="e.g. Text">
-                    <div class="flex-container">
-                        <button class="button" id="createNewBookBtn">Create New Book</button>
-                    </div>
-                    <div style="margin-top: 1.5rem; text-align: center;">Or</div>
-                    <label for="bookSelect" style="margin-top: 1.5rem;">Select Existing Book:</label>
-                    <select id="bookSelect"></select>
-                    <div class="flex-container">
-                        <button class="button secondary-btn" id="deleteBookBtn">Delete Book</button>
-                    </div>
+            <div class="section" id="bookCreationSection" data-step="1">
+                <h2>1. Create a Book</h2>
+                <label for="newBookTitle">Book Title:</label>
+                <input type="text" id="newBookTitle" placeholder="e.g. Text">
+                <div class="flex-container">
+                    <button class="button" id="createNewBookBtn">Create New Book</button>
                 </div>
-
-
-                <div class="section" id="sectionCreationSection" style="display: none;">
-                    <h2>2. Add Section</h2>
-                    <label for="newSectionTitle">Section Title:</label>
-                    <input type="text" id="newSectionTitle" placeholder="e.g. Introduction">
-                    <div class="flex-container">
-                        <button class="button" id="addNewSectionBtn">Add New Section</button>
-                    </div>
-                    <div style="margin-top: 1.5rem; text-align: center;">Or</div>
-                    <label for="sectionSelect" style="margin-top: 1.5rem;">Select Section:</label>
-                    <select id="sectionSelect"></select>
-                    <div class="flex-container">
-                        <button class="button secondary-btn" id="deleteSectionBtn">Delete Section</button>
-                    </div>
+                <div style="margin-top: 1.5rem; text-align: center;">Or</div>
+                <label for="bookSelect" style="margin-top: 1.5rem;">Select Existing Book:</label>
+                <select id="bookSelect"></select>
+                <div class="flex-container">
+                    <button class="button secondary-btn" id="deleteBookBtn">Delete Book</button>
                 </div>
+            </div>
 
+            <div class="section" id="sectionCreationSection" data-step="2" style="display: none;">
+                <h2>2. Add Section</h2>
+                <label for="newSectionTitle">Section Title:</label>
+                <input type="text" id="newSectionTitle" placeholder="e.g. Introduction">
+                <div class="flex-container">
+                    <button class="button" id="addNewSectionBtn">Add New Section</button>
+                </div>
+                <div style="margin-top: 1.5rem; text-align: center;">Or</div>
+                <label for="sectionSelect" style="margin-top: 1.5rem;">Select Section:</label>
+                <select id="sectionSelect"></select>
+                <div class="flex-container">
+                    <button class="button secondary-btn" id="deleteSectionBtn">Delete Section</button>
+                </div>
+            </div>
 
-                <div class="section" id="ocrSection" style="display: none;">
-                    <h2>3. Extract Text from Image</h2>
-                    <div class="flex-container">
-                        <div class="file-input-wrapper">
-                            <button class="button" id="uploadBtn">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round" class="lucide lucide-upload">
-                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                                    <polyline points="17 8 12 3 7 8" />
-                                    <line x1="12" x2="12" y1="3" y2="15" />
-                                </svg>
-                                Upload Image
-                                <input type="file" id="imageInput" class="file-input" accept="image/*" />
-                            </button>
-                        </div>
-                        <button class="button" id="btnOcr" disabled>
+            <div class="section" id="ocrSection" data-step="3" style="display: none;">
+                <h2>3. Extract Text from Image</h2>
+                <div class="flex-container">
+                    <div class="file-input-wrapper">
+                        <button class="button" id="uploadBtn">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="lucide lucide-scan-text">
-                                <path d="M3 7V5a2 2 0 0 1 2-2h2" />
-                                <path d="M17 3h2a2 2 0 0 1 2 2v2" />
-                                <path d="M21 17v2a2 2 0 0 1-2 2h-2" />
-                                <path d="M7 21H5a2 2 0 0 1-2-2v-2" />
-                                <path d="M7 12h10" />
-                                <path d="M7 18h7" />
-                                <path d="M10 6h4" />
+                                stroke-linejoin="round" class="lucide lucide-upload">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                <polyline points="17 8 12 3 7 8" />
+                                <line x1="12" x2="12" y1="3" y2="15" />
                             </svg>
-                            Start OCR
-                            <span id="ocrSpinner" class="spinner"></span>
+                            Upload Image
+                            <input type="file" id="imageInput" class="file-input" accept="image/*" />
                         </button>
                     </div>
-                    <img id="preview" alt="Uploaded Image" />
-                    <div style="margin-top: 1.5rem; text-align: left;">
-                        <label for="ocrText">Edit OCR Output</label>
-                        <textarea id="ocrText" placeholder="OCR result appears here"></textarea>
-                        <div class="pitch-buttons">
-
-
-                            <button class="button secondary-btn" id="btnClear">Clear All 🗑️</button>
-                        </div>
+                    <button class="button" id="btnOcr" disabled>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" class="lucide lucide-scan-text">
+                            <path d="M3 7V5a2 2 0 0 1 2-2h2" />
+                            <path d="M17 3h2a2 2 0 0 1 2 2v2" />
+                            <path d="M21 17v2a2 2 0 0 1-2 2h-2" />
+                            <path d="M7 21H5a2 2 0 0 1-2-2v-2" />
+                            <path d="M7 12h10" />
+                            <path d="M7 18h7" />
+                            <path d="M10 6h4" />
+                        </svg>
+                        Start OCR
+                        <span id="ocrSpinner" class="spinner"></span>
+                    </button>
+                </div>
+                <img id="preview" alt="Uploaded Image" />
+                <div style="margin-top: 1.5rem; text-align: left;">
+                    <label for="ocrText">Edit OCR Output</label>
+                    <textarea id="ocrText" placeholder="OCR result appears here"></textarea>
+                    <div class="pitch-buttons">
+                        <button class="button secondary-btn" id="btnClear">Clear All 🗑️</button>
                     </div>
-                    <div style="margin-top: 2rem;">
-                        <label for="mantraTitle">Text Title:</label>
-                        <input type="text" id="mantraTitle" placeholder="e.g. Text">
+                </div>
+                <div style="margin-top: 2rem;">
+                    <label for="mantraTitle">Text Title:</label>
+                    <input type="text" id="mantraTitle" placeholder="e.g. Text">
+                </div>
+                <div style="margin-top: 1rem;">
+                    <label for="mantraDescription">Description:</label>
+                    <textarea id="mantraDescription" style="min-height: 80px;"
+                        placeholder="Brief description of the text"></textarea>
+                </div>
+                <div class="flex-container">
+                    <button class="button" id="btnSaveMantra">Save New Text ✨</button>
+                </div>
+            </div>
+
+            <div class="section" id="viewMantraSection" data-step="4" style="display: none;">
+                <h2>4. View & Edit Text</h2>
+                <p style="color: var(--light-text-color);">Select a section to view or edit its text.</p>
+                <div class="tab-container" id="mantraTabContainer"></div>
+                <div class="mantra-card" id="mantraDisplayCard">
+                    <div id="mantraTitleDisplay">
+                        <h3></h3>
                     </div>
-                    <div style="margin-top: 1rem;">
-                        <label for="mantraDescription">Description:</label>
-                        <textarea id="mantraDescription" style="min-height: 80px;"
-                            placeholder="Brief description of the text"></textarea>
+                    <div id="mantraDescriptionDisplay">
+                        <p></p>
+                    </div>
+                    <div id="mantraContentDisplay" class="pitch-display">
+                        Select a part of the text.
                     </div>
                     <div class="flex-container">
-                        <button class="button" id="btnSaveMantra">Save New Text ✨</button>
+                        <button class="button secondary-btn" id="btnEditMantra" disabled>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-edit-3">
+                                <path d="M12 20h9" />
+                                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+                            </svg>
+                            Edit Text
+                        </button>
+                        <button class="button secondary-btn" id="btnDownloadMantra">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-download">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                <polyline points="7 10 12 15 17 10" />
+                                <line x1="12" x2="12" y1="15" y2="3" />
+                            </svg>
+                            Download as HTML
+                        </button>
+                        <button class="button secondary-btn epub-btn" id="btnDownloadEpub">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-book-check">
+                                <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/>
+                                <path d="m9 10 2 2 4-4"/>
+                            </svg>
+                            Download as EPUB
+                        </button>
                     </div>
                 </div>
-
-
-                <div class="section" id="viewMantraSection" style="display: none;">
-                    <h2>4. View & Edit Text</h2>
-                    <p style="color: var(--light-text-color);">Select a section to view or edit its text.</p>
-                    <div class="tab-container" id="mantraTabContainer"></div>
-                    <div class="mantra-card" id="mantraDisplayCard">
-                        <div id="mantraTitleDisplay">
-                            <h3></h3>
-                        </div>
-                        <div id="mantraDescriptionDisplay">
-                            <p></p>
-                        </div>
-                        <div id="mantraContentDisplay" class="pitch-display">
-                            Select a part of the text.
-                        </div>
-                        <div class="flex-container">
-                            <button class="button secondary-btn" id="btnEditMantra" disabled>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round" class="lucide lucide-edit-3">
-                                    <path d="M12 20h9" />
-                                    <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
-                                </svg>
-                                Edit Text
-                            </button>
-                            <button class="button secondary-btn" id="btnDownloadMantra">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round" class="lucide lucide-download">
-                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                                    <polyline points="7 10 12 15 17 10" />
-                                    <line x1="12" x2="12" y1="15" y2="3" />
-                                </svg>
-                                Download Book
-                            </button>
-                        </div>
-                    </div>
-                </div>
+            </div>
         </main>
     </div>
 </body>
