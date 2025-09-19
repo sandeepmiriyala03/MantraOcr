@@ -455,6 +455,14 @@ a:hover {
   font-size: 1.2em;
   margin-right: 0.3em;
 }
+
+.nav-hindi::before {
+  content: "हि";
+  font-weight: bold;
+  font-size: 1.2em;
+  margin-right: 0.3em;
+}
+
 /* Footer fixed with subtle blur and translucent effect for modern look */
 .footer-fixed {
   position: fixed;

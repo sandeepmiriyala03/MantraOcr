@@ -16,6 +16,9 @@ const urlsToCache = [
   '/footer.js',
   '/Vedhas.js',
   '/sanskrit.js',
+  '/hindi.js',
+  '/telugu.js',
+  '/english.js',
   '/pwa.js',
   '/manifest.json',
   '/అక్షరధార.png'

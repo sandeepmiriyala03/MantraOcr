@@ -1,13 +1,185 @@
 <!DOCTYPE html>
 <html lang="te">
 <head>
-  <title>అక్షరధార</title>
-  <script src="commonResources.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>hindi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;700&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+
+    <script src="https://unpkg.com/tesseract.js@4.1.0/dist/tesseract.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- JSZip without integrity attribute -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.0/jszip.min.js"></script>
+
+    <!-- FileSaver.js without integrity attribute -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
+  
+    <link rel="stylesheet" href="styles.css">
+     <link rel="stylesheet" href="book.css">
+     <!-- PWA Manifest -->
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#5a67d8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="అక్షరధార">
+<link rel="apple-touch-icon" href="అక్షరధార.png">
+
+<script defer src="header.js"></script>
+  <script defer src="hindi.js"></script>
+  <script defer src="footer.js"></script>
+  <script src="pwa.js"></script>
+
 </head>
-<body>
-  <main>
-    <h1>అక్షరధార</h1>
-    <p>మీ ఆధ్యాత్మిక గ్రంథాలను డిజిటలైజ్ చేయడానికి ఒక శక్తివంతమైన సాధనం.</p>
-  </main>
+    <div class="main-container">
+    <main class="content-area p-4 md:p-8" id="main-content" role="main">
+        <div class="container text-center py-8 md:py-16">
+            <h1 class="text-3xl md:text-5xl font-extrabold text-[#1f3674] mb-4">हिन्दी</h1>
+            <p class="text-lg md:text-xl text-[#4a5568] font-semibold">अपने आध्यात्मिक ग्रंथों को आसानी से डिजिटाइज और प्रबंधित करने के लिए एक शक्तिशाली उपकरण।</p>
+            <div class="status info" id="status">शुरू करने के लिए एक नई पुस्तक बनाएं या अपलोड करें।</div>
+            <div class="section" id="helperSection">
+                <h2 style="cursor:pointer;" id="helperToggleBtn">श्रुति संकलन: कैसे उपयोग करें? 📖 <span
+                        id="helperArrow">▼</span></h2>
+                <div id="helperContent" class="help-content">
+                    <p>श्रुति संकलन आपके आध्यात्मिक ग्रंथों को डिजिटाइज करने और उनमें स्वर (पिच चिह्न) जोड़ने का एक उपकरण है। इसका उपयोग करना बहुत आसान है, बस इन 5 चरणों का पालन करें:</p>
+                    <ol>
+                        <li><b>पुस्तक और अनुभाग बनाएं:</b> आप जिस ग्रंथ को डिजिटाइज करना चाहते हैं, उसे एक नाम दें (उदाहरण: "ग्रंथ")। फिर, उसमें एक अनुभाग बनाएं (उदाहरण: "पूर्व पीठिका")।</li>
+                        <li><b>छवि अपलोड करें और टेक्स्ट प्राप्त करें:</b> अपने फोन या कंप्यूटर से मंत्र वाली एक छवि अपलोड करें। 'OCR शुरू करें' बटन पर क्लिक करें। यह छवि से अक्षरों को पहचान लेगा और आपको टेक्स्ट के रूप में देगा।</li>
+                        <li><b>पाठ्य सेव करें:</b> अपने मंत्र को एक नाम और विवरण दें, और 'नया पाठ्य सेव करें' बटन पर क्लिक करें।</li>
+                        <li><b>पाठ्य देखें और डाउनलोड करें:</b> आप अपने सेव किए गए पाठ्य को कभी भी देख सकते हैं। जब सब कुछ पूरा हो जाए, तो 'पुस्तक डाउनलोड करें' बटन पर क्लिक करें और पूरी पुस्तक को HTML फाइल के रूप में सेव करें।</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="section" id="bookCreationSection">
+                <h2>1. पुस्तक बनाएं</h2>
+                <label for="newBookTitle">पुस्तक का नाम (Book Title):</label>
+                <input type="text" id="newBookTitle" placeholder="उदा: पाठ्यमु">
+                <div class="flex-container">
+                    <button class="button" id="createNewBookBtn">नई पुस्तक बनाएं</button>
+                </div>
+                <div style="margin-top: 1.5rem; text-align: center;">या</div>
+                <label for="bookSelect" style="margin-top: 1.5rem;">पहले से मौजूद पुस्तक चुनें:</label>
+                <select id="bookSelect"></select>
+                <div class="flex-container">
+                    <button class="button secondary-btn" id="deleteBookBtn">पुस्तक हटा दें</button>
+                </div>
+            </div>
+
+            <div class="section" id="sectionCreationSection" style="display: none;">
+                <h2>2. अनुभाग जोड़ें</h2>
+                <label for="newSectionTitle">अनुभाग का नाम (Section Title):</label>
+                <input type="text" id="newSectionTitle" placeholder="उदा: पूर्व पीठिका">
+                <div class="flex-container">
+                    <button class="button" id="addNewSectionBtn">नया अनुभाग जोड़ें</button>
+                </div>
+                <div style="margin-top: 1.5rem; text-align: center;">या</div>
+                <label for="sectionSelect" style="margin-top: 1.5rem;">अनुभाग चुनें:</label>
+                <select id="sectionSelect"></select>
+                <div class="flex-container">
+                    <button class="button secondary-btn" id="deleteSectionBtn">अनुभाग हटा दें</button>
+                </div>
+            </div>
+
+            <div class="section" id="ocrSection" style="display: none;">
+                <h2>3. छवि से पाठ्य निकालें</h2>
+                <div class="flex-container">
+                    <div class="file-input-wrapper">
+                        <button class="button" id="uploadBtn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-upload">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                <polyline points="17 8 12 3 7 8" />
+                                <line x1="12" x2="12" y1="3" y2="15" />
+                            </svg>
+                            छवि अपलोड करें
+                            <input type="file" id="imageInput" class="file-input" accept="image/*" />
+                        </button>
+                    </div>
+                    <button class="button" id="btnOcr" disabled>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" class="lucide lucide-scan-text">
+                            <path d="M3 7V5a2 2 0 0 1 2-2h2" />
+                            <path d="M17 3h2a2 2 0 0 1 2 2v2" />
+                            <path d="M21 17v2a2 2 0 0 1-2 2h-2" />
+                            <path d="M7 21H5a2 2 0 0 1-2-2v-2" />
+                            <path d="M7 12h10" />
+                            <path d="M7 18h7" />
+                            <path d="M10 6h4" />
+                        </svg>
+                        OCR शुरू करें
+                        <span id="ocrSpinner" class="spinner"></span>
+                    </button>
+                </div>
+                <img id="preview" alt="अपलोड की गई छवि" />
+                <div style="margin-top: 1.5rem; text-align: left;">
+                    <label for="ocrText">OCR आउटपुट संपादित करें</label>
+                    <textarea id="ocrText" placeholder="OCR परिणाम यहां दिखाई देगा"></textarea>
+                    <div class="pitch-buttons">
+                        <button class="button secondary-btn" id="btnClear">सब कुछ हटा दें 🗑️</button>
+                    </div>
+                </div>
+                <div style="margin-top: 2rem;">
+                    <label for="mantraTitle">पाठ्य का नाम:</label>
+                    <input type="text" id="mantraTitle" placeholder="उदा: पाठ्यमु">
+                </div>
+                <div style="margin-top: 1rem;">
+                    <label for="mantraDescription">विवरण:</label>
+                    <textarea id="mantraDescription" style="min-height: 80px;"
+                        placeholder="पाठ्य का संक्षिप्त विवरण"></textarea>
+                </div>
+                <div class="flex-container">
+                    <button class="button" id="btnSaveMantra">नया पाठ्य सेव करें ✨</button>
+                </div>
+            </div>
+
+            <div class="section" id="viewMantraSection" style="display: none;">
+                <h2>4. पाठ्य देखें और संपादित करें</h2>
+                <p style="color: var(--light-text-color);">एक अनुभाग चुनें और उसमें पाठ्य देखें या संपादित करें।</p>
+                <div class="tab-container" id="mantraTabContainer"></div>
+                <div class="mantra-card" id="mantraDisplayCard">
+                    <div id="mantraTitleDisplay">
+                        <h3></h3>
+                    </div>
+                    <div id="mantraDescriptionDisplay">
+                        <p></p>
+                    </div>
+                    <div id="mantraContentDisplay" class="pitch-display">
+                        पाठ्य का अनुभाग चुनें।
+                    </div>
+                    <div class="flex-container">
+                        <button class="button secondary-btn" id="btnEditMantra" disabled>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-edit-3">
+                                <path d="M12 20h9" />
+                                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+                            </svg>
+                            पाठ्य संपादित करें
+                        </button>
+                        <button class="button secondary-btn" id="btnDownloadMantra">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-download">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                <polyline points="7 10 12 15 17 10" />
+                                <line x1="12" x2="12" y1="15" y2="3" />
+                            </svg>
+                            पुस्तक डाउनलोड करें
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
 </body>
+
 </html>

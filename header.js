@@ -58,6 +58,7 @@
       { href: "shuklayajurveda.html", iconClass: "nav-shuk", text: "శుక్లయజుర్వేదం" },
       { href: "shruti-sankalanam.html", iconClass: "nav-krish", text: "కృష్ణయజుర్వేదం" },
       { href: "telugu.html", iconClass: "nav-telugu", text: "తెలుగు" },
+      { href: "hindi.html", iconClass: "nav-hindi", text: "हिन्दी" },
       { href: "english.html", iconClass: "fas fa-language", text: "English", additionalClasses: "nav-english" }
     ];
 
@@ -99,7 +100,7 @@
     const pwaUpdateBtn = createPWAButton(
       SELECTORS.headerPWAUpdate,
       "fas fa-sync-alt",
-      "నవీకరణ",
+      "update",
       "యాప్ నవీకరణ అందుబాటులో ఉంది, రీలోడ్ చేయండి"
     );
     pwaUpdateBtn.addEventListener("click", () => {
