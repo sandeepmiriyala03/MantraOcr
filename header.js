@@ -1,253 +1,252 @@
 (() => {
+  // Caching DOM elements for efficiency
+  const SELECTORS = {
+    headerPWAInstall: '#header-pwa-install',
+    headerPWAUpdate: '#header-pwa-update',
+    hamburgerIcon: '#hamburger-icon',
+    navLinks: '#nav-links',
+    container: '.header-content',
+    body: 'body',
+    logoContainer: '.logo-container',
+    logo: '.logo',
+    logoImg: 'అక్షరధార.png',
+    navLink: '.nav-link',
+    headerFixed: '.header-fixed'
+  };
 
-  function createHeader() {
-    const header = document.createElement("header");
-    header.className = "header-fixed";
-    header.setAttribute("role", "banner");
+  /**
+   * Creates and returns the header element with all its child elements.
+   * This function is a pure builder, not a manipulator.
+   * @returns {HTMLElement} The created header element.
+   */
+  function createHeader() {
+    const header = document.createElement("header");
+    header.className = "header-fixed";
+    header.setAttribute("role", "banner");
 
-    const container = document.createElement("div");
-    container.className = "container header-content";
+    const container = document.createElement("div");
+    container.className = "container header-content";
 
-    // Logo container
-    const logoContainer = document.createElement("div");
-    logoContainer.className = "logo-container";
-    const logoImg = document.createElement("img");
-    logoImg.src = "అక్షరధార.png";
-    logoImg.alt = "Aksharadhara Logo";
-    logoImg.className = "logo-img";
-    logoContainer.appendChild(logoImg);
-    container.appendChild(logoContainer);
+    // Build the logo section
+    const logoContainer = document.createElement("div");
+    logoContainer.className = "logo-container";
+    const logoImg = document.createElement("img");
+    logoImg.src = SELECTORS.logoImg;
+    logoImg.alt = "Aksharadhara Logo";
+    logoImg.className = "logo-img";
+    logoContainer.appendChild(logoImg);
 
-    // Logo link
-    const logoDiv = document.createElement("div");
-    logoDiv.className = "logo";
-    const logoLink = document.createElement("a");
-    logoLink.href = "index.html";
-    logoLink.setAttribute("aria-label", "అక్షరధార హోమ్");
-    logoLink.textContent = "అక్షరధార";
-    logoDiv.appendChild(logoLink);
-    container.appendChild(logoDiv);
+    const logoDiv = document.createElement("div");
+    logoDiv.className = "logo";
+    const logoLink = document.createElement("a");
+    logoLink.href = "index.html";
+    logoLink.setAttribute("aria-label", "అక్షరధార హోమ్");
+    logoLink.textContent = "అక్షరధార";
+    logoDiv.appendChild(logoLink);
+    container.appendChild(logoContainer);
+    container.appendChild(logoDiv);
 
-    // Navigation container
-    const nav = document.createElement("nav");
-    nav.id = "nav-links";
-    nav.className = "nav-links";
-    nav.setAttribute("aria-label", "ప్రధాన నావిగేషన్");
+    // Build the navigation links
+    const nav = document.createElement("nav");
+    nav.id = SELECTORS.navLinks.slice(1);
+    nav.className = "nav-links";
+    nav.setAttribute("aria-label", "ప్రధాన నావిగేషన్");
 
-    // Menu items data
-    const navItems = [
-      { href: "sanskrit.html", iconClass: "nav-sansrkit", text: "संस्कृतम्", classes: "nav-link text-lg font-medium" },
-      { href: "shuklayajurveda.html", iconClass: "nav-shuk", text: "శుక్లయజుర్వేదం", classes: "nav-link text-lg font-medium" },
-      { href: "shruti-sankalanam.html", iconClass: "nav-krish", text: "కృష్ణయజుర్వేదం", classes: "nav-link text-lg font-medium" },
-      { href: "telugu.html", iconClass: "nav-telugu", text: "తెలుగు", classes: "nav-link text-lg font-medium" },
-      { href: "english.html", iconClass: "fas fa-language", text: "English", classes: "nav-link text-lg font-medium nav-english" }
-    ];
+    const navItems = [
+      { href: "sanskrit.html", iconClass: "nav-sansrkit", text: "संस्कृतम्" },
+      { href: "shuklayajurveda.html", iconClass: "nav-shuk", text: "శుక్లయజుర్వేదం" },
+      { href: "shruti-sankalanam.html", iconClass: "nav-krish", text: "కృష్ణయజుర్వేదం" },
+      { href: "telugu.html", iconClass: "nav-telugu", text: "తెలుగు" },
+      { href: "english.html", iconClass: "fas fa-language", text: "English", additionalClasses: "nav-english" }
+    ];
 
-    // Create navigation links
-    navItems.forEach(({ href, iconClass, text, classes }) => {
-      const a = document.createElement("a");
-      a.href = href;
-      a.className = classes || "";
-      a.setAttribute("tabindex", "0");
+    navItems.forEach(({ href, iconClass, text, additionalClasses = '' }) => {
+      const a = document.createElement("a");
+      a.href = href;
+      a.className = `nav-link text-lg font-medium ${additionalClasses}`.trim();
+      a.setAttribute("tabindex", "0");
 
-      // Create icon if iconClass is non-empty
-      if (iconClass) {
-        const icon = document.createElement("i");
-        icon.className = iconClass;
-        a.appendChild(icon);
-      }
+      if (iconClass) {
+        const icon = document.createElement("i");
+        icon.className = iconClass;
+        a.appendChild(icon);
+      }
 
-      a.appendChild(document.createTextNode(" " + text));
-      nav.appendChild(a);
-    });
+      a.appendChild(document.createTextNode(" " + text));
+      nav.appendChild(a);
+    });
 
-    // PWA Install Button (hidden by default)
-    const pwaButton = document.createElement("button");
-    pwaButton.id = "header-pwa-install";
-    pwaButton.className = "nav-link pwa-install-btn";
-    pwaButton.style.display = "none";
-    pwaButton.setAttribute("aria-label", "యాప్ ఇన్‌స్టాల్ చేయండి");
-    pwaButton.innerHTML = `
-      <i class="fas fa-download"></i>
-      <span class="pwa-text">ఇన్‌స్టాల్</span>
-    `;
+    // PWA Buttons (Install & Update)
+    const createPWAButton = (id, iconClass, text, ariaLabel) => {
+      const button = document.createElement("button");
+      button.id = id.slice(1);
+      button.className = `nav-link pwa-btn ${id.slice(1)}`;
+      button.style.display = "none";
+      button.setAttribute("aria-label", ariaLabel);
+      button.innerHTML = `<i class="${iconClass}"></i><span class="pwa-text">${text}</span>`;
+      return button;
+    };
 
-    pwaButton.addEventListener("click", () => {
-      if (window.PWA?.deferredPrompt) {
-        window.PWA.triggerInstall();
-      }
-    });
+    const pwaInstallBtn = createPWAButton(
+      SELECTORS.headerPWAInstall,
+      "fas fa-download",
+      "ఇన్‌స్టాల్",
+      "యాప్ ఇన్‌స్టాల్ చేయండి"
+    );
+    pwaInstallBtn.addEventListener("click", () => window.PWA?.triggerInstall());
 
-    nav.appendChild(pwaButton);
+    const pwaUpdateBtn = createPWAButton(
+      SELECTORS.headerPWAUpdate,
+      "fas fa-sync-alt",
+      "నవీకరణ",
+      "యాప్ నవీకరణ అందుబాటులో ఉంది, రీలోడ్ చేయండి"
+    );
+    pwaUpdateBtn.addEventListener("click", () => {
+      if (window.deferredSWWaiting) {
+        window.deferredSWWaiting.postMessage({ type: 'SKIP_WAITING' });
+        pwaUpdateBtn.style.display = "none";
+      }
+    });
 
-    // PWA Update Notification Button (hidden by default)
-    const updateButton = document.createElement("button");
-    updateButton.id = "header-pwa-update";
-    updateButton.className = "nav-link pwa-update-btn";
-    updateButton.style.display = "none";
-    updateButton.setAttribute("aria-label", "యాప్ నవీకరణ అందుబాటులో ఉంది, రీలోడ్ చేయండి");
-    updateButton.innerHTML = `
-      <i class="fas fa-sync-alt"></i>
-      <span class="pwa-text">నవీకరణ</span>
-    `;
+    nav.appendChild(pwaInstallBtn);
+    nav.appendChild(pwaUpdateBtn);
+    container.appendChild(nav);
 
-    updateButton.addEventListener("click", () => {
-      if (window.deferredSWWaiting) {
-        window.deferredSWWaiting.postMessage({ type: 'SKIP_WAITING' });
-        updateButton.style.display = "none"; // hide update button after click
-      }
-    });
+    // Hamburger button
+    const hamburger = document.createElement("button");
+    hamburger.id = SELECTORS.hamburgerIcon.slice(1);
+    hamburger.className = "hamburger-icon";
+    hamburger.setAttribute("aria-label", "మెను తెరవండి");
+    hamburger.setAttribute("aria-controls", SELECTORS.navLinks.slice(1));
+    hamburger.setAttribute("aria-expanded", "false");
+    hamburger.setAttribute("aria-haspopup", "true");
+    hamburger.type = "button";
+    hamburger.innerHTML = `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>`;
+    container.appendChild(hamburger);
 
-    nav.appendChild(updateButton);
-    container.appendChild(nav);
+    header.appendChild(container);
+    return header;
+  }
 
-    // Hamburger button for mobile navigation toggle
-    const hamburger = document.createElement("button");
-    hamburger.id = "hamburger-icon";
-    hamburger.className = "hamburger-icon";
-    hamburger.setAttribute("aria-label", "మెను తెరవండి");
-    hamburger.setAttribute("aria-controls", "nav-links");
-    hamburger.setAttribute("aria-expanded", "false");
-    hamburger.setAttribute("aria-haspopup", "true");
-    hamburger.type = "button";
-    hamburger.innerHTML = `
-      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-      </svg>`;
-    container.appendChild(hamburger);
+  /**
+   * Handles the state of the hamburger menu and its event listeners.
+   */
+  function setupHamburgerMenu() {
+    const hamburger = document.querySelector(SELECTORS.hamburgerIcon);
+    const navLinks = document.querySelector(SELECTORS.navLinks);
 
-    header.appendChild(container);
-    return header;
-  }
+    if (!hamburger || !navLinks) {
+      console.error("Hamburger or navigation links not found.");
+      return;
+    }
 
-  // Show or hide hamburger based on viewport width
-  function updateHamburgerVisibility() {
-    const hamburger = document.getElementById("hamburger-icon");
-    const navLinks = document.getElementById("nav-links");
-    if (!hamburger || !navLinks) return;
+    const toggleMenu = () => {
+      const expanded = hamburger.getAttribute("aria-expanded") === "true";
+      hamburger.setAttribute("aria-expanded", String(!expanded));
+      navLinks.classList.toggle("active");
+    };
 
-    if (window.innerWidth <= 768) {
-      hamburger.style.display = "flex";
-    } else {
-      // Hide hamburger for desktop and ensure nav state reset
-      hamburger.style.display = "none";
-      navLinks.classList.remove("active");
-      hamburger.setAttribute("aria-expanded", "false");
-    }
-  }
+    // Toggle menu visibility
+    hamburger.addEventListener("click", toggleMenu);
+    hamburger.addEventListener("keydown", (e) => {
+      if (["Enter", " "].includes(e.key)) {
+        e.preventDefault();
+        toggleMenu();
+      }
+    });
 
-  // Show PWA install button
-  function showHeaderPWAButton() {
-    const pwaButton = document.getElementById("header-pwa-install");
-    if (pwaButton) {
-      pwaButton.style.display = "flex";
-    }
-  }
+    // Close menu when a link is clicked
+    navLinks.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        if (window.innerWidth <= 768) {
+          navLinks.classList.remove("active");
+          hamburger.setAttribute("aria-expanded", "false");
+        }
+      });
+    });
 
-  // Hide PWA install button
-  function hideHeaderPWAButton() {
-    const pwaButton = document.getElementById("header-pwa-install");
-    if (pwaButton) {
-      pwaButton.style.display = "none";
-    }
-  }
+    // Close menu when clicking outside
+    document.addEventListener("click", (event) => {
+      if (
+        window.innerWidth <= 768 &&
+        !navLinks.contains(event.target) &&
+        !hamburger.contains(event.target) &&
+        navLinks.classList.contains("active")
+      ) {
+        toggleMenu();
+      }
+    });
 
-  // Show PWA update button
-  function showUpdateButton() {
-    const updateBtn = document.getElementById("header-pwa-update");
-    if (updateBtn) updateBtn.style.display = "flex";
-  }
+    // Handle initial and resize state
+    const updateVisibility = () => {
+      if (window.innerWidth <= 768) {
+        hamburger.style.display = "flex";
+      } else {
+        hamburger.style.display = "none";
+        navLinks.classList.remove("active");
+        hamburger.setAttribute("aria-expanded", "false");
+      }
+    };
 
-  document.addEventListener("DOMContentLoaded", () => {
-    document.body.prepend(createHeader());
+    updateVisibility();
+    window.addEventListener("resize", updateVisibility);
+  }
 
-    const hamburger = document.getElementById("hamburger-icon");
-    const navLinks = document.getElementById("nav-links");
-    if (!hamburger || !navLinks) return;
+  /**
+   * Manages PWA-related button visibility and event listeners.
+   */
+  function setupPwaButtons() {
+    const installBtn = document.querySelector(SELECTORS.headerPWAInstall);
+    const updateBtn = document.querySelector(SELECTORS.headerPWAUpdate);
 
-    updateHamburgerVisibility();
-    window.addEventListener("resize", updateHamburgerVisibility);
+    if (!installBtn || !updateBtn) {
+      console.error("PWA buttons not found.");
+      return;
+    }
 
-    // Toggle mobile menu open/close with keyboard support
-    function toggleMenu() {
-      const expanded = hamburger.getAttribute("aria-expanded") === "true";
-      hamburger.setAttribute("aria-expanded", String(!expanded));
-      navLinks.classList.toggle("active");
-    }
+    const showInstallButton = () => { installBtn.style.display = "flex"; };
+    const hideInstallButton = () => { installBtn.style.display = "none"; };
+    const showUpdateButton = () => { updateBtn.style.display = "flex"; };
 
-    hamburger.addEventListener("click", toggleMenu);
-    hamburger.addEventListener("keydown", e => {
-      if (e.key === "Enter" || e.key === " " || e.key === "Spacebar") {
-        e.preventDefault();
-        toggleMenu();
-      }
-    });
+    window.addEventListener('beforeinstallprompt', showInstallButton);
+    window.addEventListener('appinstalled', hideInstallButton);
 
-    // Close menu when clicking on a nav link (on mobile)
-    navLinks.querySelectorAll("a").forEach(link => {
-      link.addEventListener("click", () => {
-        if (window.innerWidth <= 768) {
-          navLinks.classList.remove("active");
-          hamburger.setAttribute("aria-expanded", "false");
-        }
-      });
-    });
+    // Service worker update logic
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js')
+        .then(registration => {
+          if (registration.waiting) {
+            window.deferredSWWaiting = registration.waiting;
+            showUpdateButton();
+          }
 
-    // Close menu clicking outside when open on mobile
-    document.addEventListener("click", event => {
-      if (
-        window.innerWidth <= 768 &&
-        !navLinks.contains(event.target) &&
-        !hamburger.contains(event.target) &&
-        navLinks.classList.contains("active")
-      ) {
-        navLinks.classList.remove("active");
-        hamburger.setAttribute("aria-expanded", "false");
-      }
-    });
+          registration.addEventListener('updatefound', () => {
+            const newWorker = registration.installing;
+            if (newWorker) {
+              newWorker.addEventListener('statechange', () => {
+                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                  window.deferredSWWaiting = newWorker;
+                  showUpdateButton();
+                }
+              });
+            }
+          });
+        });
 
-    // PWA button visibility control
-    window.addEventListener('beforeinstallprompt', showHeaderPWAButton);
-    window.addEventListener('appinstalled', hideHeaderPWAButton);
-  });
+      // Reload page after service worker update
+      let refreshing = false;
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (refreshing) return;
+        refreshing = true;
+        window.location.reload();
+      });
+    }
+  }
 
-  // Service worker update handling
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/service-worker.js').then(registration => {
-      // Check if there's an updated SW waiting
-      if (registration.waiting) {
-        window.deferredSWWaiting = registration.waiting;
-        showUpdateButton();
-      }
-
-      registration.addEventListener('updatefound', () => {
-        const newWorker = registration.installing;
-        if (newWorker) {
-          newWorker.addEventListener('statechange', () => {
-            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-              // New update available
-              window.deferredSWWaiting = newWorker;
-              showUpdateButton();
-            }
-          });
-        }
-      });
-    });
-
-    // Listen for controllerchange to reload the page
-    let refreshing;
-    navigator.serviceWorker.addEventListener('controllerchange', () => {
-      if (refreshing) return;
-      refreshing = true;
-      window.location.reload();
-    });
-  }
-
-  // Export PWA button control functions
-  window.HeaderPWA = {
-    showInstallButton: showHeaderPWAButton,
-    hideInstallButton: hideHeaderPWAButton
-  };
-
+  // Entry point: Wait for the DOM to be fully loaded
+  document.addEventListener("DOMContentLoaded", () => {
+    document.body.prepend(createHeader());
+    setupHamburgerMenu();
+    setupPwaButtons();
+  });
 })();
