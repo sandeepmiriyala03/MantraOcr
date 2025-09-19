@@ -4,177 +4,253 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> అక్షరధార</title>
+    <title>అక్షరధార</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;700&amp;family=Inter:wght@400;500;700&amp;display=swap"
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;700&family=Inter:wght@400;500;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
-    <!-- PWA Manifest -->
+    <link rel="stylesheet" href="styles.css">
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#5a67d8">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="అక్షరధార">
-    <link rel="apple-touch-icon" href="అక్షరధార.png">
-    <link rel="stylesheet" href="styles.css">
     <script defer src="header.js"></script>
     <script defer src="footer.js"></script>
     <script src="pwa.js"></script>
+    <style>
+        :root {
+            --primary-color: #4a5568;
+            --secondary-color: #1a202c;
+            --accent-color: #4568dc;
+            --background-light: #f7fafc;
+            --surface-color: #ffffff;
+            --border-color: #e2e8f0;
+            --text-color: #2d3748;
+            --header-text: #1f3674;
+            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        body {
+            font-family: 'Noto Sans Telugu', 'Inter', sans-serif;
+            background-color: var(--background-light);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .main-container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .content-area {
+            padding: 2rem;
+            background-color: var(--surface-color);
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .hero-section {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .hero-section h3 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            color: var(--header-text);
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-section p {
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            color: var(--primary-color);
+        }
+
+        .collapsible-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .collapsible {
+            background-color: var(--surface-color);
+            color: var(--header-text);
+            cursor: pointer;
+            padding: 1rem 1.5rem;
+            width: 100%;
+            border: 1px solid var(--border-color);
+            text-align: left;
+            font-size: 1.25rem;
+            font-weight: 700;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .collapsible:hover {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(69, 104, 220, 0.2);
+        }
+
+        .collapsible:focus {
+            outline: 3px solid var(--accent-color);
+            outline-offset: 2px;
+        }
+
+        .collapsible-icon {
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+            color: var(--accent-color);
+        }
+
+        .collapsible[aria-expanded="true"] .collapsible-icon {
+            transform: rotate(45deg);
+        }
+
+        .content-collapsible {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+            background: var(--background-light);
+            border-left: 4px solid var(--accent-color);
+            border-radius: 0 0 8px 8px;
+            font-size: 1rem;
+            color: var(--text-color);
+            padding: 0 1.5rem;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .content-collapsible.open {
+            max-height: 1000px;
+            /* Large enough value */
+            padding: 1rem 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .content-collapsible p,
+        .content-collapsible ul,
+        .content-collapsible ol {
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+
+        .content-collapsible ul,
+        .content-collapsible ol {
+            padding-left: 1.5rem;
+        }
+
+        ul.list-icon li,
+        ol.list-icon li {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        ul.list-icon li::before {
+            content: attr(data-icon);
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--accent-color);
+            font-size: 1.2em;
+        }
+
+        .nested-list {
+            margin-top: 0.5rem;
+            margin-left: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-section h3 {
+                font-size: 2.5rem;
+            }
+
+            .hero-section p {
+                font-size: 1rem;
+            }
+
+            .collapsible {
+                font-size: 1rem;
+                padding: 0.8rem 1rem;
+            }
+
+            .collapsible-icon {
+                font-size: 1.2rem;
+            }
+
+            .content-collapsible.open {
+                padding: 0.8rem 1rem;
+            }
+        }
+    </style>
 </head>
 
 <body>
-<style>
-  .collapsible {
-    background-color: #e4e9f0;
-    color: #1f3674;
-    cursor: pointer;
-    padding: 18px 24px;
-    width: 100%;
-    border: none;
-    text-align: left;
-    font-size: 1.75rem;
-    font-weight: 700;
-    border-radius: 8px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    user-select: none;
-    margin-bottom: 12px;
-    min-height: 64px;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  }
+    <div class="main-container">
+        <main class="content-area" id="main-content" role="main">
+            <header class="hero-section">
+                <h3>అక్షరధార</h3>
+                <p>మీ ఆధ్యాత్మిక గ్రంథాలను సులభంగా డిజిటలైజ్ చేయడానికి మరియు నిర్వహించడానికి ఒక శక్తివంతమైన సాధనం. ✨</p>
+            </header>
 
-  .collapsible:hover,
-  .collapsible:focus {
-    background-color: #d0daf2;
-    box-shadow: 0 0 10px rgba(31, 54, 116, 0.15);
-    outline: none;
-  }
+            <div class="collapsible-container">
+                <button class="collapsible" aria-expanded="false" aria-controls="instructions-content"
+                    id="instructions-btn">
+                    డిజిటలైజేషన్ సూచనలు
+                    <span class="collapsible-icon"><i class="fa-solid fa-plus"></i></span>
+                </button>
+                <div id="instructions-content" class="content-collapsible" role="region" aria-labelledby="instructions-btn">
+                    <ol class="list-icon" start="1">
+                        <li data-icon="1️⃣"><b>పుస్తకం మరియు భాగాన్ని సృష్టించండి:</b> మీరు డిజిటలైజ్ చేయాలనుకుంటున్న గ్రంథానికి పేరు పెట్టండి (ఉదా: "గ్రంథం"), ఆ తర్వాత ఒక భాగాన్ని సృష్టించండి (ఉదా: "పూర్వ పీఠిక").</li>
+                        <li data-icon="2️⃣"><b>చిత్రాన్ని అప్‌లోడ్ చేసి, టెక్స్ట్ పొందండి:</b> మంత్రం ఉన్న చిత్రాన్ని అప్‌లోడ్ చేసి, OCR ప్రారంభించండి. అక్షరాలను టెక్స్ట్‌గా పొందవచ్చు.</li>
+                        <li data-icon="3️⃣"><b>పిచ్ మార్కులను జత చేయండి:</b> OCR టెక్స్ట్‌లో పిచ్ మార్కులు అవసరమైన అక్షరాలను ఎంచుకోండి మరియు సరైన పిచ్‌ను సెట్ చేయండి.</li>
+                        <li data-icon="4️⃣"><b>మంత్రాన్ని సేవ్ చేయండి మరియు డౌన్‌లోడ్ చేసుకోండి:</b> మంత్రానికి పేరు, వివరణ ఇచ్చి సేవ్ చేయండి. సేవ్ చేసిన మంత్రాలను ఎప్పుడైనా చూసి, 'పుస్తకాన్ని డౌన్‌లోడ్ చేయండి' HTML ఫైల్‌గా సేవ్ చేసుకోండి.</li>
+                    </ol>
+                </div>
 
-  .collapsible:focus {
-    outline: 4px solid #4568dc;
-  }
-
-  .collapsible-icon {
-    font-size: 2rem;
-    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .collapsible[aria-expanded="true"] .collapsible-icon {
-    transform: rotate(45deg);
-  }
-
-  .content-collapsible {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease;
-    background: #f8f9fc;
-    padding: 0 16px;
-    border-left: 3px solid #1f3674;
-    border-radius: 0 0 8px 8px;
-    font-size: 1rem;
-    color: #4a5568;
-    margin-bottom: 15px;
-    word-break: break-word;
-  }
-
-  .content-collapsible.open {
-    padding: 12px 16px;
-  }
-
-  ul.nested-list {
-    margin-left: 1.5rem;
-    margin-top: 6px;
-  }
-
-  /* Responsive */
-  @media (max-width: 768px) {
-    .collapsible {
-      font-size: 1.4rem;
-      padding: 14px 18px;
-      min-height: 56px;
-      margin-bottom: 10px;
-    }
-
-    .collapsible-icon {
-      font-size: 1.6rem;
-    }
-
-    .content-collapsible {
-      font-size: 0.9rem;
-      line-height: 1.5;
-    }
-
-    .content-collapsible.open {
-      padding: 10px 12px;
-    }
-  }
-</style>
-
-<div class="main-container">
-  <main class="content-area p-4 md:p-8" id="main-content" role="main">
-    <div class="container text-center py-8 md:py-16 max-w-4xl mx-auto">
-      <h1 class="text-3xl md:text-5xl font-extrabold text-[#1f3674] mb-4">అక్షరధార</h1>
-      <p class="text-lg md:text-xl text-[#4a5568] font-semibold mb-8">
-        మీ ఆధ్యాత్మిక గ్రంథాలను సులభంగా డిజిటలైజ్ చేయడానికి మరియు నిర్వహించడానికి ఒక శక్తివంతమైన సాధనం.
-      </p>
-
-      <!-- Section 1: Instructions -->
-      <button class="collapsible" aria-expanded="false" aria-controls="instructions-content" id="instructions-btn">
-     డిజిటలైజేషన్ సూచనలు
-        <span class="collapsible-icon">+</span>
-      </button>
-      <div id="instructions-content" class="content-collapsible" role="region" aria-labelledby="instructions-btn">
-        <ol class="text-left space-y-4" style="padding-left: 1rem;">
-          <li><b>పుస్తకం మరియు భాగాన్ని సృష్టించండి:</b> మీరు డిజిటలైజ్ చేయాలనుకుంటున్న గ్రంథానికి పేరు పెట్టండి (ఉదా: "గ్రంథం"), ఆ తర్వాత ఒక భాగాన్ని సృష్టించండి (ఉదా: "పూర్వ పీఠిక").</li>
-          <li><b>చిత్రాన్ని అప్‌లోడ్ చేసి, టెక్స్ట్ పొందండి:</b> మంత్రం ఉన్న చిత్రాన్ని అప్‌లోడ్ చేసి, OCR ప్రారంభించండి. అక్షరాలను టెక్స్ట్‌గా పొందవచ్చు.</li>
-          <li><b>పిచ్ మార్కులను జత చేయండి:</b> OCR టెక్స్ట్‌లో పిచ్ మార్కులు అవసరమైన అక్షరాలను ఎంచుకోండి మరియు సరైన పిచ్‌ను సెట్ చేయండి.</li>
-          <li><b>మంత్రాన్ని సేవ్ చేయండి మరియు డౌన్‌లోడ్ చేసుకోండి:</b> మంత్రానికి పేరు, వివరణ ఇచ్చి సేవ్ చేయండి. సేవ్ చేసిన మంత్రాలను ఎప్పుడైనా చూసి, 'పుస్తకాన్ని డౌన్‌లోడ్ చేయండి' HTML ఫైల్‌గా సేవ్ చేసుకోండి.</li>
-        </ol>
-      </div>
-
-      <!-- Section 2: Features -->
-      <button class="collapsible" aria-expanded="false" aria-controls="features-content" id="features-btn" style="margin-top: 2rem;">
-        ముఖ్య ఫీచర్లు
-        <span class="collapsible-icon">+</span>
-      </button>
-      <div id="features-content" class="content-collapsible" role="region" aria-labelledby="features-btn">
-        <ul class="list-disc text-left space-y-2">
-          <li>🔹 మంత్రాలను డిజిటలైజ్ చేయడం (OCR)</li>
-          <li>🔹 చిత్రాల ద్వారా సులభ సవరింపు</li>
-          <li>🔹 ఆఫ్‌లైన్‌లో HTML డౌన్లోడ్ చేయడం</li>
-          <li>🔹 వేదాల మద్దతు (తెలుగు):
-            <ul class="nested-list list-disc">
-              <li>📖 శుక్ల యజుర్వేదం – 1 పేజీ</li>
-              <li>📖 కృష్ణ యజుర్వేదం – 1 పేజీ</li>
-            </ul>
-          </li>
-          <li>🔹 తెలుగు కవితలు – 1 పేజీ</li>
-          <li>🔹 ఆంగ్లం – 1 పేజీ 🌍</li>
-          <li>🔹 సంస్కృతం – 1 పేజీ 🌍</li>
-          <li>➡ మొత్తం: <b>5</b> పేజీలు</li>
-          <li>🔹 EPUB పుస్తక సృష్టి (పూర్తవుతోంది)</li>
-          <li>🎶 వేదీయ స్వర మద్దతు:
-            <ul class="nested-list list-disc">
-              <li>శుక్ల యజుర్వేదం: స్వరితం, అనుదాత్తం</li>
-              <li>కృష్ణ యజుర్వేదం: ఉదాత్తం, అనుదాత్తం, స్వరితం, దీర్ఘ స్వరితం</li>
-            </ul>
-          </li>
-          <li>📱 PWA మద్దతు అందుబాటులో: ఆన్డ్రాయిడ్‌లో యాప్‌లా ఇన్‌స్టాల్ చేసుకోండి</li>
-          <li>✅ ఒకసారి డౌన్లోడ్ చేసిన తర్వాత ఇంటర్నెట్ లేకుండా పనిచేస్తుంది</li>
-          <li>👉 HTML, CSS, Tesseract.js మరియు PWA తో రూపొందించబడింది</li>
-          <li>💻 మెరుగైన అనుభవం కోసం డెస్క్‌టాప్ వేదికను ఉపయోగించండి</li>
-          <li>🌿 సంప్రదాయం + సాంకేతిక విజ్ఞానం = అక్షరధార</li>
-          
-        </ul>
-      </div>
+                <button class="collapsible" aria-expanded="false" aria-controls="features-content" id="features-btn">
+                    ముఖ్య ఫీచర్లు
+                    <span class="collapsible-icon"><i class="fa-solid fa-plus"></i></span>
+                </button>
+                <div id="features-content" class="content-collapsible" role="region" aria-labelledby="features-btn">
+                    <ul class="list-icon">
+                        <li data-icon="🔹">మంత్రాలను డిజిటలైజ్ చేయడం (OCR)</li>
+                        <li data-icon="🖼️">చిత్రాల ద్వారా సులభ సవరింపు</li>
+                        <li data-icon="⬇️">ఆఫ్‌లైన్‌లో HTML డౌన్లోడ్ చేయడం</li>
+                        <li data-icon="📜">వేదాల మద్దతు (తెలుగు):
+                            <ul class="nested-list list-disc">
+                                <li>📖 శుక్ల యజుర్వేదం – 1 పేజీ</li>
+                                <li>📖 కృష్ణ యజుర్వేదం – 1 పేజీ</li>
+                            </ul>
+                        </li>
+                        <li data-icon="📝">తెలుగు కవితలు – 1 పేజీ</li>
+                        <li data-icon="🇬🇧">ఆంగ్లం – 1 పేజీ</li>
+                        <li data-icon="🕉️">సంస్కృతం – 1 పేజీ</li>
+                        <li data-icon="🇮🇳">హిందీ – 1 పేజీ </li>
+                        <li data-icon="📊">మొత్తం: <b>6</b> పేజీలు</li>
+                        <li data-icon="🎵">వేదీయ స్వర మద్దతు:
+                            <ul class="nested-list list-disc">
+                                <li>శుక్ల యజుర్వేదం: స్వరితం, అనుదాత్తం</li>
+                                <li>కృష్ణ యజుర్వేదం: ఉదాత్తం, అనుదాత్తం, స్వరితం, దీర్ఘ స్వరితం</li>
+                            </ul>
+                        </li>
+                        <li data-icon="📱">PWA మద్దతు అందుబాటులో: ఆన్డ్రాయిడ్‌లో యాప్‌లా ఇన్‌స్టాల్ చేసుకోండి</li>
+                        <li data-icon="✅">ఒకసారి డౌన్లోడ్ చేసిన తర్వాత ఇంటర్నెట్ లేకుండా పనిచేస్తుంది</li>
+                        <li data-icon="⚙️">HTML, CSS, Tesseract.js మరియు PWA తో రూపొందించబడింది</li>
+                        <li data-icon="💻">మెరుగైన అనుభవం కోసం డెస్క్‌టాప్ వేదికను ఉపయోగించండి</li>
+                        <li data-icon="🌱">సంప్రదాయం + సాంకేతిక విజ్ఞానం = అక్షరధార</li>
+                    </ul>
+                </div>
+            </div>
+        </main>
     </div>
-  </main>
-</div>
-
+</body>
 <script>
   function updateMaxHeight(content, expanded) {
     if (expanded) {
@@ -208,8 +284,5 @@
     });
   });
 </script>
-
-
-</body>
 
 </html>
