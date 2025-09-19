@@ -14,6 +14,7 @@
     headerFixed: '.header-fixed'
   };
 
+
   /**
    * Creates and returns the header element with all its child elements.
    * This function is a pure builder, not a manipulator.
