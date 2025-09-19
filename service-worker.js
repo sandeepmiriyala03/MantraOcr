@@ -38,7 +38,7 @@ self.addEventListener('install', event => {
 // Activate event - clean old caches
 self.addEventListener('activate', event => {
   event.waitUntil(
-    caches.keys().then(cacheNames => 
+    caches.keys().then(cacheNames =>
       Promise.all(
         cacheNames.map(cacheName => {
           if (cacheName !== CACHE_NAME) {
@@ -47,11 +47,11 @@ self.addEventListener('activate', event => {
           }
         })
       )
-    )
+    ).then(() => self.clients.claim())
   );
 });
 
-// Fetch event - serve cached or fetch and cache dynamically
+// Fetch event - respond with cached resources or network
 self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request)
@@ -62,7 +62,6 @@ self.addEventListener('fetch', event => {
         const fetchRequest = event.request.clone();
         return fetch(fetchRequest, {redirect: 'follow'})
           .then(networkResponse => {
-            // Cache only valid responses for same-origin requests
             if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
               return networkResponse;
             }
@@ -70,8 +69,8 @@ self.addEventListener('fetch', event => {
             caches.open(CACHE_NAME)
               .then(cache => cache.put(event.request, responseToCache));
             return networkResponse;
-          }).catch(() => {
-            // Offline fallback response
+          })
+          .catch(() => {
             return new Response('Offline - Resource not available', {
               status: 503,
               statusText: 'Service Unavailable'
@@ -95,7 +94,7 @@ self.addEventListener('push', event => {
   event.waitUntil(self.registration.showNotification(title, options));
 });
 
-// Notification click handler - focus or open app
+// Notification click handler - focus or open the app window
 self.addEventListener('notificationclick', event => {
   event.notification.close();
   event.waitUntil(
