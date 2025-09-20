@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Physics OCR to LaTeX - Modular</title>
+
+<!-- Cropper.js CSS -->
+<link href="https://cdn.jsdelivr.net/npm/cropperjs@1.5.13/dist/cropper.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+<!-- KaTeX CSS -->
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+<!-- Custom CSS -->
+<link href="physics.css" rel="stylesheet" />
+
+</head>
+<body>
+  <h1>Physics OCR to LaTeX Converter</h1>
+
+  <label for="imageUpload">Upload an image with physics formulas or text:</label>
+  <input type="file" id="imageUpload" accept="image/*" aria-label="Upload Physics Formula Image" />
+
+  <div id="image-container">
+    <img id="image" alt="Uploaded Content to Crop" />
+  </div>
+
+  <div class="controls">
+    <button id="cropBtn" disabled>Crop Image</button>
+    <button id="ocrBtn" disabled>Run OCR</button>
+    <button id="copyBtn" disabled>Copy LaTeX</button>
+  </div>
+
+  <div id="ocr-result">
+    <label for="textOutput">OCR Text Output:</label>
+    <textarea id="textOutput" readonly placeholder="OCR result will appear here..."></textarea>
+  </div>
+
+  <label for="latexRender">LaTeX Rendered Output:</label>
+  <div id="latexRender">No LaTeX output yet.</div>
+
+  <label for="greekSymbolTable">Recognized Greek Symbols:</label>
+  <div id="greekSymbolTable">No Greek symbols recognized yet.</div>
+
+  <!-- Script dependencies -->
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4.0.2/dist/tesseract.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/cropperjs@1.5.13/dist/cropper.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js" crossorigin="anonymous"></script>
+
+  <!-- Custom JS -->
+  <script defer src="physics.js"></script>
+
+</body>
+</html>
