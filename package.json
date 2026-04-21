@@ -1,14 +1,16 @@
 {
-  "dependencies": {
-    "node-fetch": "^3.3.2"
-  },
   "name": "mantraocr",
   "version": "1.0.0",
   "description": "This is a web-based application designed to help users digitize, manage, and practice sacred mantras with proper pitch notation. The tool uses a simple, single-page interface to extract Sanskrit and Telugu text from images, allowing for detailed editing and the addition of traditional pitch marks before saving the data directly in the browser.",
   "main": "Aksharadhara.js",
-  "devDependencies": {},
   "scripts": {
+    "start": "npx serve .",
+    "install-deps": "npm install",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@yuktishaalaa/yuktai": "^2.0.2",
+    "node-fetch": "^3.3.2"
   },
   "repository": {
     "type": "git",

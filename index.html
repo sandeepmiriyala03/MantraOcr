@@ -7,9 +7,7 @@
     <title>అక్షరధార</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;700&family=Inter:wght@400;500;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="manifest" href="/manifest.json">
@@ -30,163 +28,31 @@
             --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
             --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
-
-        body {
-            font-family: 'Noto Sans Telugu', 'Inter', sans-serif;
-            background-color: var(--background-light);
-            color: var(--text-color);
-            line-height: 1.6;
-        }
-
-        .main-container {
-            max-width: 960px;
-            margin: 0 auto;
-            padding: 2rem 1rem;
-        }
-
-        .content-area {
-            padding: 2rem;
-            background-color: var(--surface-color);
-            border-radius: 12px;
-            box-shadow: var(--shadow-md);
-        }
-
-        .hero-section {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .hero-section h3 {
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            font-weight: 800;
-            color: var(--header-text);
-            margin-bottom: 0.5rem;
-        }
-
-        .hero-section p {
-            font-size: clamp(1rem, 2.5vw, 1.25rem);
-            color: var(--primary-color);
-        }
-
-        .collapsible-container {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .collapsible {
-            background-color: var(--surface-color);
-            color: var(--header-text);
-            cursor: pointer;
-            padding: 1rem 1.5rem;
-            width: 100%;
-            border: 1px solid var(--border-color);
-            text-align: left;
-            font-size: 1.25rem;
-            font-weight: 700;
-            border-radius: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.3s ease;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .collapsible:hover {
-            border-color: var(--accent-color);
-            box-shadow: 0 0 0 3px rgba(69, 104, 220, 0.2);
-        }
-
-        .collapsible:focus {
-            outline: 3px solid var(--accent-color);
-            outline-offset: 2px;
-        }
-
-        .collapsible-icon {
-            font-size: 1.5rem;
-            transition: transform 0.3s ease;
-            color: var(--accent-color);
-        }
-
-        .collapsible[aria-expanded="true"] .collapsible-icon {
-            transform: rotate(45deg);
-        }
-
-        .content-collapsible {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease-out, padding 0.4s ease-out;
-            background: var(--background-light);
-            border-left: 4px solid var(--accent-color);
-            border-radius: 0 0 8px 8px;
-            font-size: 1rem;
-            color: var(--text-color);
-            padding: 0 1.5rem;
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
-        }
-
-        .content-collapsible.open {
-            max-height: 1000px;
-            /* Large enough value */
-            padding: 1rem 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .content-collapsible p,
-        .content-collapsible ul,
-        .content-collapsible ol {
-            margin-top: 0;
-            margin-bottom: 1rem;
-        }
-
-        .content-collapsible ul,
-        .content-collapsible ol {
-            padding-left: 1.5rem;
-        }
-
-        ul.list-icon li,
-        ol.list-icon li {
-            position: relative;
-            padding-left: 2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        ul.list-icon li::before {
-            content: attr(data-icon);
-            position: absolute;
-            left: 0;
-            top: 0;
-            color: var(--accent-color);
-            font-size: 1.2em;
-        }
-
-        .nested-list {
-            margin-top: 0.5rem;
-            margin-left: 1rem;
-        }
-
-        /* Responsive */
+        body { font-family: 'Noto Sans Telugu', 'Inter', sans-serif; background-color: var(--background-light); color: var(--text-color); line-height: 1.6; }
+        .main-container { max-width: 960px; margin: 0 auto; padding: 2rem 1rem; }
+        .content-area { padding: 2rem; background-color: var(--surface-color); border-radius: 12px; box-shadow: var(--shadow-md); }
+        .hero-section { text-align: center; margin-bottom: 2rem; }
+        .hero-section h3 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; color: var(--header-text); margin-bottom: 0.5rem; }
+        .hero-section p { font-size: clamp(1rem, 2.5vw, 1.25rem); color: var(--primary-color); }
+        .collapsible-container { display: flex; flex-direction: column; gap: 1rem; }
+        .collapsible { background-color: var(--surface-color); color: var(--header-text); cursor: pointer; padding: 1rem 1.5rem; width: 100%; border: 1px solid var(--border-color); text-align: left; font-size: 1.25rem; font-weight: 700; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; transition: all 0.3s ease; box-shadow: var(--shadow-sm); }
+        .collapsible:hover { border-color: var(--accent-color); box-shadow: 0 0 0 3px rgba(69, 104, 220, 0.2); }
+        .collapsible:focus { outline: 3px solid var(--accent-color); outline-offset: 2px; }
+        .collapsible-icon { font-size: 1.5rem; transition: transform 0.3s ease; color: var(--accent-color); }
+        .collapsible[aria-expanded="true"] .collapsible-icon { transform: rotate(45deg); }
+        .content-collapsible { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out, padding 0.4s ease-out; background: var(--background-light); border-left: 4px solid var(--accent-color); border-radius: 0 0 8px 8px; font-size: 1rem; color: var(--text-color); padding: 0 1.5rem; box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05); }
+        .content-collapsible.open { max-height: 1000px; padding: 1rem 1.5rem; margin-bottom: 1rem; }
+        .content-collapsible p, .content-collapsible ul, .content-collapsible ol { margin-top: 0; margin-bottom: 1rem; }
+        .content-collapsible ul, .content-collapsible ol { padding-left: 1.5rem; }
+        ul.list-icon li, ol.list-icon li { position: relative; padding-left: 2rem; margin-bottom: 0.5rem; }
+        ul.list-icon li::before { content: attr(data-icon); position: absolute; left: 0; top: 0; color: var(--accent-color); font-size: 1.2em; }
+        .nested-list { margin-top: 0.5rem; margin-left: 1rem; }
         @media (max-width: 768px) {
-            .hero-section h3 {
-                font-size: 2.5rem;
-            }
-
-            .hero-section p {
-                font-size: 1rem;
-            }
-
-            .collapsible {
-                font-size: 1rem;
-                padding: 0.8rem 1rem;
-            }
-
-            .collapsible-icon {
-                font-size: 1.2rem;
-            }
-
-            .content-collapsible.open {
-                padding: 0.8rem 1rem;
-            }
+            .hero-section h3 { font-size: 2.5rem; }
+            .hero-section p { font-size: 1rem; }
+            .collapsible { font-size: 1rem; padding: 0.8rem 1rem; }
+            .collapsible-icon { font-size: 1.2rem; }
+            .content-collapsible.open { padding: 0.8rem 1rem; }
         }
     </style>
 </head>
@@ -200,8 +66,7 @@
             </header>
 
             <div class="collapsible-container">
-                <button class="collapsible" aria-expanded="false" aria-controls="instructions-content"
-                    id="instructions-btn">
+                <button class="collapsible" aria-expanded="false" aria-controls="instructions-content" id="instructions-btn">
                     డిజిటలైజేషన్ సూచనలు
                     <span class="collapsible-icon"><i class="fa-solid fa-plus"></i></span>
                 </button>
@@ -232,7 +97,7 @@
                         <li data-icon="📝">తెలుగు కవితలు – 1 పేజీ</li>
                         <li data-icon="🇬🇧">ఆంగ్లం – 1 పేజీ</li>
                         <li data-icon="🕉️">సంస్కృతం – 1 పేజీ</li>
-                        <li data-icon="🇮🇳">హిందీ – 1 పేజీ </li>
+                        <li data-icon="🇮🇳">హిందీ – 1 పేజీ</li>
                         <li data-icon="📊">మొత్తం: <b>6</b> పేజీలు</li>
                         <li data-icon="🎵">వేదీయ స్వర మద్దతు:
                             <ul class="nested-list list-disc">
@@ -250,39 +115,32 @@
             </div>
         </main>
     </div>
+
+    <!-- collapsible script -->
+    <script>
+        function updateMaxHeight(content, expanded) {
+            if (expanded) { content.style.maxHeight = content.scrollHeight + "px"; }
+            else { content.style.maxHeight = null; }
+        }
+        document.querySelectorAll(".collapsible").forEach(button => {
+            button.addEventListener("click", () => {
+                const isExpanded = button.getAttribute("aria-expanded") === "true";
+                button.setAttribute("aria-expanded", String(!isExpanded));
+                const content = document.getElementById(button.getAttribute("aria-controls"));
+                if (!content) return;
+                if (isExpanded) { content.classList.remove("open"); }
+                else { content.classList.add("open"); }
+                updateMaxHeight(content, !isExpanded);
+                button.querySelector(".collapsible-icon").textContent = isExpanded ? "+" : "×";
+            });
+        });
+        window.addEventListener("resize", () => {
+            document.querySelectorAll(".content-collapsible.open").forEach(content => {
+                content.style.maxHeight = content.scrollHeight + "px";
+            });
+        });
+    </script>
+
+   <script src="node_modules/@yuktishaalaa/yuktai/dist/index.global.js"></script>
 </body>
-<script>
-  function updateMaxHeight(content, expanded) {
-    if (expanded) {
-      content.style.maxHeight = content.scrollHeight + "px";
-    } else {
-      content.style.maxHeight = null;
-    }
-  }
-
-  document.querySelectorAll(".collapsible").forEach(button => {
-    button.addEventListener("click", () => {
-      const isExpanded = button.getAttribute("aria-expanded") === "true";
-      button.setAttribute("aria-expanded", String(!isExpanded));
-
-      const content = document.getElementById(button.getAttribute("aria-controls"));
-      if (!content) return;
-
-      if (isExpanded) {
-        content.classList.remove("open");
-      } else {
-        content.classList.add("open");
-      }
-      updateMaxHeight(content, !isExpanded);
-      button.querySelector(".collapsible-icon").textContent = isExpanded ? "+" : "×";
-    });
-  });
-
-  window.addEventListener("resize", () => {
-    document.querySelectorAll(".content-collapsible.open").forEach(content => {
-      content.style.maxHeight = content.scrollHeight + "px";
-    });
-  });
-</script>
-
 </html>
